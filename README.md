@@ -1,34 +1,38 @@
 # Page Mosaic Web Platform
 
-This project was developed as part of the creation of the Page Mosaic Web Platform. 
-It can be used as a foundation for developing a website on Remix with content administration capabilities through an Admin Panel.
+Currently, the project is undergoing active development.
 
-The technical stack used in the project includes:
+Please note that the source code, in its present state, is not ready to be deployed as a fully-fledged product. Nevertheless, it provides a robust foundation for building a website equipped with an admin panel, adaptable for use on your AWS account.
 
-* AWS CDK
-* AWS SDK
-* Express
-* Remix
-* AWS Remix adapter
-* React Router V6
-* Shadcn UI
-* Tailwind CSS
-* Vite
-* Rollup
+This framework offers a solid groundwork for creating a website using Remix, complete with content management functionality via an Admin Panel.
 
-The following diagram illustrates the general concept of this project. 
-An administrator inputs data into the database, and users see the updated data on the website.
+The following diagram illustrates the general concept of how the project works at this stage of development.
    <p>
       <img src="https://github.com/pagemosaic/.github/blob/36e15782758f81fd8f2ee6589931ac1041e2af6f/images/v0/fig-1.png" alt="Fig-1.png" width="50%" />
    </p>
 
-This project is specifically designed for the AWS platform, so you will need to create or use an existing AWS account. 
-> There's no need to worry about cluttering your account with unwanted resources. 
-> The project uses AWS CDK, which leverages CloudFormation, ensuring all resources are created within a single CloudFormation Stack. 
->
-> This design allows for the easy deletion of all resources created within this stack.
+The project is tailored for deployment on the AWS platform. To get started, you'll need to set up a new AWS account or utilize an existing one.
 
-The project is structured to facilitate the easy deployment of all necessary resources with just one command.
+> Concerns about unnecessary resource accumulation in your account are mitigated.
+> Utilizing the AWS CDK, which employs CloudFormation, the project ensures that all resources are encapsulated within a single CloudFormation Stack.
+> 
+>This approach simplifies resource management, allowing for the straightforward removal of all resources associated with this stack when no longer needed.
+
+Designed for convenience, the project's architecture enables the deployment of all required resources through a single command.
+
+### The technical stack used in the project includes:
+
+* [NodeJS](https://nodejs.org/en/about)
+* [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/)
+* [AWS SDK for JavaScript](https://aws.amazon.com/sdk-for-javascript/)
+* [Express](https://expressjs.com/)
+* [Remix](https://remix.run/)
+* [React Router V6](https://reactrouter.com/en/main)
+* [Shadcn UI](https://ui.shadcn.com/)
+* [Tailwind CSS](https://tailwindcss.com/)
+* [Vite](https://vitejs.dev/)
+* [Rollup](https://rollupjs.org/)
+
 
 ## Setting up AWS tools and environment on a local computer.
 
