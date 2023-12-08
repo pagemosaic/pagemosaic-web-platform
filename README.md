@@ -1,4 +1,4 @@
-# Page Mosaic Web Platform v0
+# Page Mosaic Web Platform
 
 This project was developed as part of the creation of the Page Mosaic Web Platform. 
 It can be used as a foundation for developing a website on Remix with content administration capabilities through an Admin Panel.
@@ -23,23 +23,37 @@ An administrator inputs data into the database, and users see the updated data o
    </p>
 
 This project is specifically designed for the AWS platform, so you will need to create or use an existing AWS account. 
-There's no need to worry about cluttering your account with unwanted resources. 
-The project uses AWS CDK, which leverages CloudFormation, ensuring all resources are created within a single CloudFormation Stack. 
-This design allows for the easy deletion of all resources created within this stack.
+> There's no need to worry about cluttering your account with unwanted resources. 
+> The project uses AWS CDK, which leverages CloudFormation, ensuring all resources are created within a single CloudFormation Stack. 
+>
+> This design allows for the easy deletion of all resources created within this stack.
 
 The project is structured to facilitate the easy deployment of all necessary resources with just one command.
 
-## Deployment
+## Setting up AWS tools and environment on a local computer.
 
-* Before deploying the project, you must create an administrative user on your AWS account and configure the AWS CLI on your computer, as shown in the video below.
+### Create an administrative user on AWS and configure AWS CLI locally
+
+Before deploying the project, you must create an administrative user on your AWS account and configure the AWS CLI on your computer, as shown in the video below.
    <p>
       <a href="https://youtu.be/5_UlOTywdOA" target="_blank">
-   <img src="https://github.com/pagemosaic/.github/blob/main/images/website_starter_videos_covers/create_admin_on_aws.png" alt="SSL certificate issuing" width="45%"/>
+   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="Video 1" width="45%"/>
       </a>
    </p>
 
+### Install CDK
+
+* Use the following command to install the AWS Cloud Development Kit (CDK) Toolkit globally on your system:
+```shell
+npm install -g aws-cdk
+```
+
+## Deployment & usage
+
 Once you have successfully created an administrative user and set up AWS CLI access, you can proceed to build and deploy the project on your account. 
 You will need to specify the necessary credentials for AWS CDK to initialize the resources correctly.
+
+### Deployment
 
 * Change the `.env.example` file name to `.env` and edit its contents. Specifically, include the following variables:
    * `STACK_NAME` - any name you like. You can check existing stacks in the AWS console under CloudFormation.
@@ -47,10 +61,6 @@ You will need to specify the necessary credentials for AWS CDK to initialize the
    * `AWS_PROFILE_NAME` - the profile name for AWS CLI authorization (see the video above)
    * `DEFAULT_ADMIN_EMAIL` - the administrative user's email (see the video above)
 
-* Use the following command to install the AWS Cloud Development Kit (CDK) Toolkit globally on your system:
-```shell
-npm install -g aws-cdk
-```
 
 * Install dependencies:
 ```shell
@@ -67,13 +77,37 @@ pnpm bootstrap-platform
 pnpn deploy-platform
 ```
 
-You can see how this is done in the following video.
-(видео сборки и развертывания веб-сайта)
+### Usage
+
+After a successful deployment, you will see a prompt in the command line to open the website with the specified address. When you open the site in a browser, you will encounter an error. This error indicates the absence of content for the website's homepage. To add content, you need to go to the Admin Panel.
+
+Only the administrator, whose email you provided in the `.env` file before deployment, has access to the Admin Panel. However, to successfully log in, you must complete the registration of the site administrator's account.
+
+Therefore, open the administrator's email and find the email titled **"Page Mosaic Email Verification"**. Follow the link in the email.
+
+This will open a form to validate the administrator's email. Enter the default password that was assigned:
+```
+DefaultPassword1!
+```
+
+After that, you can add content in the homepage editor. Then, you can reopen the site to check how the page has changed.
+
+### A step-by-step deployment and usage video tutorial
+
+Check out how this is done in a step-by-step video tutorial.
+
+   <p>
+      <a href="https://youtu.be/Xax4WC9Br5w" target="_blank">
+   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="45%"/>
+      </a>
+   </p>
 
 ## AWS Resource Scheme
 
+In the picture below, you can see which resources are used on AWS and what they are used for.
+
    <p>
-      <img src="https://github.com/pagemosaic/.github/blob/31a5c8e2e6f6036af667edc177570c4f4759e925/images/v0/fig-2.png" alt="Fig-2.png" width="50%" />
+      <img src="https://github.com/pagemosaic/.github/blob/31a5c8e2e6f6036af667edc177570c4f4759e925/images/v0/fig-2.png" alt="Fig-2.png" width="80%" />
    </p>
 
 ## Project Code Structure
