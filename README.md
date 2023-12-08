@@ -159,7 +159,9 @@ Implementation of the Admin Panel.
    </p>
 
 Screenshots.
-(скриншоты)
+
+<p><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-1.png" alt="screen-shot-1.png" width="50%" /></p>
+<p><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-2.png" alt="screen-shot-2.png" width="50%" /></p>
 
 Used stack:
 * React Router V6 (data router)
