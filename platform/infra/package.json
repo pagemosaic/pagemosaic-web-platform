@@ -1,0 +1,25 @@
+{
+  "name": "infra",
+  "version": "1.0.0",
+  "main": "./dist/infra.js",
+  "scripts": {
+    "build": "tsc",
+    "bootstrap": "node ./scripts/bootstrap.js",
+    "deploy": "node ./scripts/deploy.js",
+    "destroy": "node ./scripts/destroy.js",
+    "create-admin-user": "local-run node ./scripts/create-admin-user.js"
+  },
+  "devDependencies": {
+    "@types/node": "20.8.10",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "common-utils": "workspace:*",
+    "aws-cdk-lib": "2.105",
+    "@aws-sdk/client-ssm": "3.460.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.460.0",
+    "@aws-cdk/aws-apigatewayv2-alpha": "2.105.0-alpha.0",
+    "@aws-cdk/aws-apigatewayv2-integrations-alpha": "2.105.0-alpha.0",
+    "constructs": "10.3.0"
+  }
+}

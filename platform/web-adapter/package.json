@@ -1,0 +1,25 @@
+{
+  "name": "web-adapter",
+  "main": "dist/index.js",
+  "types": "dist/types",
+  "scripts": {
+    "build": "NODE_ENV='production' rollup -c rollup.config.mjs"
+  },
+  "devDependencies": {
+    "@remix-run/node": "2.2.0",
+    "@rollup/plugin-commonjs": "24.0.0",
+    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-replace": "5.0.5",
+    "@rollup/plugin-node-resolve": "15.0.1",
+    "@rollup/plugin-typescript": "11.0.0",
+    "@types/aws-lambda": "8.10.119",
+    "@types/node": "18.11.18",
+    "aws-lambda": "1.0.7",
+    "rollup": "3.9.0",
+    "tslib": "2.4.1",
+    "typescript": "5.2.2"
+  },
+  "peerDependencies": {
+    "@remix-run/node": ">=2"
+  }
+}
