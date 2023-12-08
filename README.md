@@ -268,3 +268,7 @@ Go to the AWS console and manually delete them after successfully executing the 
 ## License
 
 GPL-3.0
+
+---
+
+Follow [Alex Pust](https://twitter.com/alex_pustovalov) on Twitter for updates on the Page Mosaic Web Platform development.
