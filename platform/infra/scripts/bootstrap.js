@@ -5,6 +5,7 @@ const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME; // Get AWS profile name f
 
 console.log('Please wait. Bootstraping resources...');
 // Proceed with the CDK deployment
-const log = openSync('cdk-bootstrap-log.txt', 'a');
-execSync(`cdk bootstrap --profile ${AWS_PROFILE_NAME}`, {stdio: ['ignore', log, log]});
-closeSync(log);
+// const log = openSync('cdk-bootstrap-log.txt', 'a');
+// execSync(`cdk bootstrap --profile ${AWS_PROFILE_NAME}`, {stdio: ['ignore', log, log]});
+// closeSync(log);
+execSync(`cdk bootstrap --profile ${AWS_PROFILE_NAME}`, {stdio: 'inherit'});

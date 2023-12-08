@@ -5,6 +5,7 @@ const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME; // Get AWS profile name f
 
 console.log('Please wait. Destroying resources...');
 // Proceed with the CDK deployment
-const log = openSync('cdk-destroy-log.txt', 'a');
-execSync(`cdk destroy --force --profile ${AWS_PROFILE_NAME}`, {stdio: ['ignore', log, log]});
-closeSync(log);
+// const log = openSync('cdk-destroy-log.txt', 'a');
+// execSync(`cdk destroy --force --profile ${AWS_PROFILE_NAME}`, {stdio: ['ignore', log, log]});
+// closeSync(log);
+execSync(`cdk destroy --force --profile ${AWS_PROFILE_NAME}`, {stdio: 'inherit'});

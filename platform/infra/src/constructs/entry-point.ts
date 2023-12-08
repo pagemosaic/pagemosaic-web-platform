@@ -26,7 +26,6 @@ export class EntryPointConstruct extends Construct {
             minTtl: cdk.Duration.seconds(600),
             defaultTtl: cdk.Duration.seconds(600),
             maxTtl: cdk.Duration.seconds(600),
-            cachePolicyName: 'WebAppApiApiCachePolicy',
             comment: 'Cache policy for WebApp HttpApi with 10 minutes TTL',
         });
 
