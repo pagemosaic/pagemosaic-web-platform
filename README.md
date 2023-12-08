@@ -2,12 +2,12 @@
 
 Currently, the project is undergoing active development.
 
-Please note that the source code, in its present state, is not ready to be deployed as a fully-fledged product. Nevertheless, it provides a robust foundation for building a website equipped with an admin panel, adaptable for use on your AWS account.
+**Please note** that the source code, in its present state, is not ready to be deployed as a fully-fledged product. Nevertheless, it provides a robust foundation for building a website equipped with an admin panel, adaptable for use on your AWS account.
 
 This framework offers a solid groundwork for creating a website using Remix, complete with content management functionality via an Admin Panel.
 
 The following diagram illustrates the general concept of how the project works at this stage of development.
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/36e15782758f81fd8f2ee6589931ac1041e2af6f/images/v0/fig-1.png" alt="Fig-1.png" width="50%" />
    </p>
 
@@ -41,7 +41,7 @@ Designed for convenience, the project's architecture enables the deployment of a
 ### Create an administrative user on AWS and configure AWS CLI locally
 
 Before deploying the project, you must create an administrative user on your AWS account and configure the AWS CLI on your computer, as shown in the video below.
-   <p>
+   <p align="center">
       <a href="https://youtu.be/5_UlOTywdOA" target="_blank">
    <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="Video 1" width="45%"/>
       </a>
@@ -83,7 +83,7 @@ pnpm bootstrap-platform
 
 * Now you can deploy the project on AWS. Run the following command in the project's root directory:
 ```shell
-pnpn deploy-platform
+pnpm deploy-platform
 ```
 
 ### Usage
@@ -105,7 +105,7 @@ After that, you can add content in the homepage editor. Then, you can reopen the
 
 Check out how this is done in a step-by-step video tutorial.
 
-   <p>
+   <p align="center">
       <a href="https://youtu.be/Xax4WC9Br5w" target="_blank">
    <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="45%"/>
       </a>
@@ -118,7 +118,7 @@ Check out how this is done in a step-by-step video tutorial.
 
 In the picture below, you can see which resources are used on AWS and what they are used for.
 
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/31a5c8e2e6f6036af667edc177570c4f4759e925/images/v0/fig-2.png" alt="Fig-2.png" width="80%" />
    </p>
 
@@ -139,7 +139,7 @@ This module functions similarly to the cross-env library.
 ```
 
 It reads AWS credentials and runs commands with these credentials.
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-3.png" alt="Fig-3.png" width="50%" />
    </p>
  
@@ -147,21 +147,21 @@ It reads AWS credentials and runs commands with these credentials.
 ### common-utils
 
 This module contains common types and utilities used by other modules.
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-4.png" alt="Fig-4.png" width="50%" />
    </p>
 
 ### admin-pwa
 
 Implementation of the Admin Panel.
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-5.png" alt="Fig-5.png" width="50%" />
    </p>
 
 Screenshots.
 
-<p><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-1.png" alt="screen-shot-1.png" width="50%" /></p>
-<p><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-2.png" alt="screen-shot-2.png" width="50%" /></p>
+<p align="center"><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-1.png" alt="screen-shot-1.png" width="50%" /></p>
+<p align="center"><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-2.png" alt="screen-shot-2.png" width="50%" /></p>
 
 Used stack:
 * React Router V6 (data router)
@@ -172,7 +172,7 @@ Used stack:
 ### api
 
 REST interface for the Admin Panel
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-6.png" alt="Fig-6.png" width="50%" />
    </p>
 
@@ -185,7 +185,7 @@ Used stack:
 
 An adapter for Remix to be used in AWS lambda. 
 Parts of the code are taken from the `architect` module in the `remix.run` repository.
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-7.png" alt="Fig-7.png" width="50%" />
    </p>
 
@@ -196,7 +196,7 @@ Used stack:
 ### web-app
 
 A Remix application for the website.
-   <p>
+   <p align="center">
       <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-8.png" alt="Fig-8.png" width="50%" />
    </p>
 
@@ -210,8 +210,8 @@ Used stack:
 ### infra
 
 This module is responsible for initializing AWS resources and deploying files to AWS.
-   <p>
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-9.png" alt="Fig-9.png" width="70%" />
+   <p align="center">
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-9.png" alt="Fig-9.png" width="80%" />
    </p>
 
 Used stack:
@@ -256,7 +256,10 @@ pnpm destroy-platform
 ```
 
 Afterward, resources created for DynamoDB tables with data may remain on AWS. 
-You can easily identify them as their names begin with the stack name you specified in the `.env` file under `STACK_NAME`: `<stack name>System`, `<stack name>Pages`.
+You can easily identify them as their names begin with the stack name you specified in the `.env` file under `STACK_NAME`: 
+* `<stack name>System`
+* `<stack name>Pages`
+
 Go to the AWS console and manually delete them after successfully executing the destroy-platform command.
 
 <br/>
