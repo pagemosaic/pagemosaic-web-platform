@@ -11,6 +11,7 @@ import {PLATFORM_STACK_NAME} from 'common-utils';
 
 export interface AdminApiConstructProps {
     tables: Array<dynamodb.Table>;
+    sysUserPoolId: string;
 }
 
 export class ApiConstruct extends Construct {
@@ -19,7 +20,7 @@ export class ApiConstruct extends Construct {
 
     constructor(scope: Construct, id: string, props: AdminApiConstructProps) {
         super(scope, id);
-        const {tables} = props;
+        const {tables, sysUserPoolId} = props;
 
         const apiDirectoryPath = resolve('../api/dist');
         const lambdaHandler = new lambda.Function(this, 'ApiLambda', {
@@ -35,6 +36,11 @@ export class ApiConstruct extends Construct {
         lambdaHandler.addToRolePolicy(new iam.PolicyStatement({
             actions: ['ssm:GetParameter', 'ssm:GetParameters', 'ssm:GetParametersByPath'],
             resources: [`arn:aws:ssm:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:parameter/*`],
+        }));
+
+        lambdaHandler.addToRolePolicy(new iam.PolicyStatement({
+            actions: ['cognito-idp:*'], // Grant all actions for Cognito User Pool
+            resources: [`arn:aws:cognito-idp:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:userpool/${sysUserPoolId}`],
         }));
 
         if (tables.length > 0) {

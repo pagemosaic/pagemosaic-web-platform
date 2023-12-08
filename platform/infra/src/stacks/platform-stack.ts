@@ -19,9 +19,11 @@ import {SysUserPoolConstruct} from '../constructs/sys-user-pool';
 export class PlatformStack extends Stack {
     constructor(scope: Construct, id: string) {
         super(scope, id);
+        const sysUserPoolConstruct = new SysUserPoolConstruct(this, 'SysUserPoolConstruct');
         const dbTablesConstruct = new DbTablesConstruct(this, 'DbTablesConstruct');
         const apiConstruct = new ApiConstruct(this, 'ApiConstruct', {
-            tables: dbTablesConstruct.tables
+            tables: dbTablesConstruct.tables,
+            sysUserPoolId: sysUserPoolConstruct.userPool.userPoolId
         });
         const webAppApiConstruct = new WebAppApiConstruct(this, 'WebAppApiConstruct', {
             tables: dbTablesConstruct.tables
@@ -47,8 +49,6 @@ export class PlatformStack extends Stack {
             previewPointDistribution: previewPointConstruct.distribution,
             systemBucket: systemBucketConstruct.bucket
         });
-
-        const sysUserPoolConstruct = new SysUserPoolConstruct(this, 'SysUserPoolConstruct');
 
         // Output the distribution domain name so it can be easily accessed
         new cdk.CfnOutput(this, PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM, {
