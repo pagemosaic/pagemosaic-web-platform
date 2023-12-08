@@ -33,6 +33,8 @@ Designed for convenience, the project's architecture enables the deployment of a
 * [Vite](https://vitejs.dev/)
 * [Rollup](https://rollupjs.org/)
 
+<br/>
+<br/>
 
 ## Setting up AWS tools and environment on a local computer.
 
@@ -52,7 +54,10 @@ Before deploying the project, you must create an administrative user on your AWS
 npm install -g aws-cdk
 ```
 
-## Deployment & usage
+<br/>
+<br/>
+
+## Deployment & Usage
 
 Once you have successfully created an administrative user and set up AWS CLI access, you can proceed to build and deploy the project on your account. 
 You will need to specify the necessary credentials for AWS CDK to initialize the resources correctly.
@@ -106,6 +111,9 @@ Check out how this is done in a step-by-step video tutorial.
       </a>
    </p>
 
+<br/>
+<br/>
+
 ## AWS Resource Scheme
 
 In the picture below, you can see which resources are used on AWS and what they are used for.
@@ -113,6 +121,9 @@ In the picture below, you can see which resources are used on AWS and what they 
    <p>
       <img src="https://github.com/pagemosaic/.github/blob/31a5c8e2e6f6036af667edc177570c4f4759e925/images/v0/fig-2.png" alt="Fig-2.png" width="80%" />
    </p>
+
+<br/>
+<br/>
 
 ## Project Code Structure
 
@@ -128,19 +139,26 @@ This module functions similarly to the cross-env library.
 ```
 
 It reads AWS credentials and runs commands with these credentials.
-(рисунок как это работает)
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-3.png" alt="Fig-3.png" width="50%" />
+   </p>
  
 
 ### common-utils
 
 This module contains common types and utilities used by other modules.
-(рисунок с общим модулем)
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-4.png" alt="Fig-4.png" width="50%" />
+   </p>
 
 ### admin-pwa
 
 Implementation of the Admin Panel.
-(схема работы)
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-5.png" alt="Fig-5.png" width="50%" />
+   </p>
 
+Screenshots.
 (скриншоты)
 
 Used stack:
@@ -152,7 +170,9 @@ Used stack:
 ### api
 
 REST interface for the Admin Panel
-(схема работы)
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-6.png" alt="Fig-6.png" width="50%" />
+   </p>
 
 Used stack:
 * Exress
@@ -162,8 +182,10 @@ Used stack:
 ### web-adapter
 
 An adapter for Remix to be used in AWS lambda. 
-Parts of the code are taken from the `architect` library in the `remix.run` repository.
-(схема работы)
+Parts of the code are taken from the `architect` module in the `remix.run` repository.
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-7.png" alt="Fig-7.png" width="50%" />
+   </p>
 
 Used stack:
 * AWS SDK
@@ -172,7 +194,9 @@ Used stack:
 ### web-app
 
 A Remix application for the website.
-(схема работы)
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-8.png" alt="Fig-8.png" width="50%" />
+   </p>
 
 Used stack:
 * AWS SDK
@@ -184,13 +208,18 @@ Used stack:
 ### infra
 
 This module is responsible for initializing AWS resources and deploying files to AWS.
-(рисунок как работает)
+   <p>
+      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-9.png" alt="Fig-9.png" width="70%" />
+   </p>
 
 Used stack:
 * AWS CLI
 * AWS CDK
 * AWS SDK
 * Rollup
+
+<br/>
+<br/>
 
 ## Developing and Running Modules Locally
 
@@ -214,6 +243,8 @@ This module is run locally using Vite in development mode with the command:
 ```shell
 pnpm web-app
 ```
+<br/>
+<br/>
 
 ## Removing AWS Resources
 
@@ -226,3 +257,9 @@ Afterward, resources created for DynamoDB tables with data may remain on AWS.
 You can easily identify them as their names begin with the stack name you specified in the `.env` file under `STACK_NAME`: `<stack name>System`, `<stack name>Pages`.
 Go to the AWS console and manually delete them after successfully executing the destroy-platform command.
 
+<br/>
+<br/>
+
+## License
+
+GPL-3.0
