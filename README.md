@@ -184,7 +184,7 @@ To remove resources created on AWS during deployment, run the command:
 pnpm destroy-platform
 ```
 
-Afterward, resources created for DynamoDB (tables with data) and S3 buckets may remain on AWS. 
-You can easily identify them as their names begin with the stack name you specified in the `.env` file under `STACK_NAME`. 
+Afterward, resources created for DynamoDB tables with data may remain on AWS. 
+You can easily identify them as their names begin with the stack name you specified in the `.env` file under `STACK_NAME`: `<stack name>System`, `<stack name>Pages`.
 Go to the AWS console and manually delete them after successfully executing the destroy-platform command.
 
