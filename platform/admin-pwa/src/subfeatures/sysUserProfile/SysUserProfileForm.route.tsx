@@ -3,9 +3,9 @@ import {useLoaderData, Await} from 'react-router-dom';
 import {AwaitError} from '@/components/utils/AwaitError';
 import React from 'react';
 import {SysUserProfileForm} from '@/subfeatures/sysUserProfile/SysUserProfileForm';
-import {SysUserProfileRouteResponse} from '@/subfeatures/sysUserProfile/sysUserProfile.loader';
+import {SysUserProfileRouteResponse} from '@/subfeatures/sysUserProfile/sysUserProfileForm.loader';
 
-export function SysUserProfileRoute() {
+export function SysUserProfileFormRoute() {
     const {sysUserProfileDataRequest} = useLoaderData() as SysUserProfileRouteResponse;
     return (
         <React.Suspense fallback={<SysUserProfileForm isLoadingData={true}/>}>

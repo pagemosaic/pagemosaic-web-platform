@@ -5,7 +5,8 @@ import {
     PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
     PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
     PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM
+    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM,
+    PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM
 } from 'common-utils';
 import {ApiConstruct} from '../constructs/api';
 import {EntryPointConstruct} from '../constructs/entry-point';
@@ -64,6 +65,9 @@ export class PlatformStack extends Stack {
         });
         new cdk.CfnOutput(this, PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM, {
             value: sysUserPoolConstruct.userPoolClient.userPoolClientId,
+        });
+        new cdk.CfnOutput(this, PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM, {
+            value: entryPointConstruct.distribution.distributionId,
         });
     }
 }

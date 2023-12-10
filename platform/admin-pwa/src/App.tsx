@@ -1,19 +1,24 @@
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import {SignUpRoute, signUpAction} from '@/roots/auth/SignUpRoute';
-import {LoginRoute, loginAction} from '@/roots/auth/LoginRoute';
-import {MainRoute, mainLoader, mainAction} from '@/roots/main/MainRoute';
-import {PasswordRecoveryRoute, passwordRecoveryAction} from '@/roots/auth/PasswordRecoveryRoute';
-import {PasswordResetConfirmRoute} from '@/roots/auth/PasswordResetConfirmRoute';
-import {PasswordResetRoute, passwordResetAction} from '@/roots/auth/PasswordResetRoute';
-import {SettingsRoute} from '@/features/settings/SettingsRoute';
-import {SysUserProfileRoute} from '@/subfeatures/sysUserProfile/SysUserProfileRoute';
-import {PagesRoute} from '@/features/pages/PagesRoute';
-import {mainPageAction} from '@/subfeatures/mainPage/mainPage.action';
-import {mainPageLoader, mainPageLoaderGuard} from '@/subfeatures/mainPage/mainPage.loader';
-import {MainPageRoute} from '@/subfeatures/mainPage/MainPageRoute';
-import {sysUserProfileLoaderGuard, sysUserProfileLoader} from '@/subfeatures/sysUserProfile/sysUserProfile.loader';
-import {sysUserProfileAction} from '@/subfeatures/sysUserProfile/sysUserProfile.action';
-import {WelcomeRoute} from '@/features/welcome/WelcomeRoute';
+import {SignUpRoute, signUpAction} from '@/roots/auth/SignUp.route';
+import {LoginRoute, loginAction} from '@/roots/auth/Login.route';
+import {MainRoute, mainLoader, mainAction} from '@/roots/main/Main.route';
+import {PasswordRecoveryRoute, passwordRecoveryAction} from '@/roots/auth/PasswordRecovery.route';
+import {PasswordResetConfirmRoute} from '@/roots/auth/PasswordResetConfirm.route';
+import {PasswordResetRoute, passwordResetAction} from '@/roots/auth/PasswordReset.route';
+import {SettingsRoute} from '@/features/settings/Settings.route';
+import {SysUserProfileFormRoute} from '@/subfeatures/sysUserProfile/SysUserProfileForm.route';
+import {PagesRoute} from '@/features/pages/Pages.route';
+import {mainPageFormAction} from '@/subfeatures/mainPage/mainPageForm.action';
+import {mainPageFormLoader, mainPageFormLoaderGuard} from '@/subfeatures/mainPage/mainPageForm.loader';
+import {MainPageFormRoute} from '@/subfeatures/mainPage/MainPageForm.route';
+import {sysUserProfileFormLoaderGuard, sysUserProfileFormLoader} from '@/subfeatures/sysUserProfile/sysUserProfileForm.loader';
+import {sysUserProfileFormAction} from '@/subfeatures/sysUserProfile/sysUserProfileForm.action';
+import {WelcomeRoute} from '@/features/welcome/Welcome.route';
+import {websiteUrlLoader, websiteUrlLoaderGuard} from '@/subfeatures/websiteUrl/websiteUrl.loader';
+import {WebsiteUrlRoute} from '@/subfeatures/websiteUrl/WebsiteUrl.route';
+import {WebsiteUrlViewRoute} from '@/subfeatures/websiteUrl/WebsiteUrlView.route';
+import {customDomainFormAction} from '@/subfeatures/websiteUrl/CustomDomainForm.action';
+import {CustomDomainFormRoute} from '@/subfeatures/websiteUrl/CustomDomainForm.route';
 
 const router = createBrowserRouter([
     {
@@ -34,10 +39,10 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: 'main-page',
-                        action: mainPageAction,
-                        loader: mainPageLoader,
-                        shouldRevalidate: mainPageLoaderGuard,
-                        element: <MainPageRoute />
+                        action: mainPageFormAction,
+                        loader: mainPageFormLoader,
+                        shouldRevalidate: mainPageFormLoaderGuard,
+                        element: <MainPageFormRoute />
                     }
                 ]
             },
@@ -47,11 +52,30 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: 'sys-user-profile',
-                        action: sysUserProfileAction,
-                        loader: sysUserProfileLoader,
-                        shouldRevalidate: sysUserProfileLoaderGuard,
-                        element: <SysUserProfileRoute />
-                    }
+                        action: sysUserProfileFormAction,
+                        loader: sysUserProfileFormLoader,
+                        shouldRevalidate: sysUserProfileFormLoaderGuard,
+                        element: <SysUserProfileFormRoute />
+                    },
+                    {
+                        id: 'website-url',
+                        path: 'website-url',
+                        loader: websiteUrlLoader,
+                        shouldRevalidate: websiteUrlLoaderGuard,
+                        element: <WebsiteUrlRoute />,
+                        children: [
+                            {
+                                index: true,
+                                path: '',
+                                element: <WebsiteUrlViewRoute />
+                            },
+                            {
+                                path: 'custom-domain',
+                                action: customDomainFormAction,
+                                element: <CustomDomainFormRoute />
+                            }
+                        ]
+                    },
                 ]
             }
         ]

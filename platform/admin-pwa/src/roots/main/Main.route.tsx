@@ -1,11 +1,12 @@
-import {defer, Outlet, useLoaderData, Await, LoaderFunctionArgs, json, redirect} from 'react-router-dom';
+import {defer, Outlet, useLoaderData, Await, LoaderFunctionArgs, redirect} from 'react-router-dom';
 import {MainNavigation} from '@/roots/main/MainNavigation';
-import {MainAccountNavigation} from '@/roots/main/MainAccountNavigation';
 import React from 'react';
 import {AwaitError} from '@/components/utils/AwaitError';
 import {DelayedFallback} from '@/components/utils/DelayedFallback';
 import {sysUserDataSingleton, SysUserDataRequest} from '@/data/SysUserData';
 import {AccessTokenRequest, accessTokenSingleton} from '@/utils/AccessToken';
+import {ToolbarSection} from '@/components/layouts/ToolbarSection';
+import {CentralSection} from '@/components/layouts/CentralSection';
 
 export interface MainRouteLoaderResponse {
     accessTokenRequest: AccessTokenRequest;
@@ -42,22 +43,20 @@ export async function mainAction({request}: LoaderFunctionArgs) {
 export function MainRoute() {
     const {accessTokenRequest} = useLoaderData() as MainRouteLoaderResponse;
     return (
-        <div className="absolute top-0 left-0 right-0 bottom-0">
-            <React.Suspense fallback={<DelayedFallback />}>
+        <div className="absolute top-0 left-0 right-0 bottom-0 overflow-hidden">
+            <React.Suspense fallback={<DelayedFallback/>}>
                 <Await
                     resolve={accessTokenRequest}
                     errorElement={<AwaitError/>}
                 >
-                    <div
-                        className="absolute top-0 left-0 w-[240px] bottom-0 overflow-hidden border-r-[1px] border-slate-200">
-                        <div className="flex flex-col h-full gap-2 justify-between">
+                    <>
+                        <ToolbarSection>
                             <MainNavigation/>
-                            <MainAccountNavigation/>
-                        </div>
-                    </div>
-                    <div className="absolute top-0 left-[240px] bottom-0 right-0">
-                        <Outlet/>
-                    </div>
+                        </ToolbarSection>
+                        <CentralSection>
+                            <Outlet/>
+                        </CentralSection>
+                    </>
                 </Await>
             </React.Suspense>
         </div>

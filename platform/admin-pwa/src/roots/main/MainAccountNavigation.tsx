@@ -11,14 +11,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import {Button} from '@/components/ui/button';
 import {AwaitError} from '@/components/utils/AwaitError';
-import {MainRouteLoaderResponse} from '@/roots/main/MainRoute';
+import {MainRouteLoaderResponse} from '@/roots/main/Main.route';
 import {SysUserData} from '@/data/SysUserData';
 
 export function MainAccountNavigation() {
     const {sysUserDataRequest} = useRouteLoaderData('main') as MainRouteLoaderResponse;
     const fetcher = useFetcher();
     return (
-        <div className="p-4">
+        <div>
             <React.Suspense
                 fallback={
                     <Button size="sm" variant="ghost" className="w-full justify-start" disabled>
@@ -35,12 +35,11 @@ export function MainAccountNavigation() {
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                                 <Button size="sm" variant="ghost" className="w-full justify-start">
-                                    <LucideUserCircle className="mr-2 h-4 w-4" strokeWidth={1.5} />
-                                    {sysUserData.userAttributes?.email || 'undefined'}
+                                    <LucideUserCircle className="h-4 w-4" strokeWidth={1.5} />
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent collisionPadding={{top: 10, left: 10}} className="w-56">
-                                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuContent collisionPadding={{top: 10, right: 10}} className="w-56">
+                                <DropdownMenuLabel>{sysUserData.userAttributes?.email || 'undefined'}</DropdownMenuLabel>
                                 <DropdownMenuSeparator/>
                                 <DropdownMenuItem
                                     onSelect={() => {

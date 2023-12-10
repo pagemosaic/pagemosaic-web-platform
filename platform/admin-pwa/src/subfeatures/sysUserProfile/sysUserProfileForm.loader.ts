@@ -6,17 +6,17 @@ export type SysUserProfileRouteResponse = {
     sysUserProfileDataRequest: SysUserProfileDataRequest;
 };
 
-export async function sysUserProfileLoader() {
+export async function sysUserProfileFormLoader() {
     return defer({
         sysUserProfileDataRequest: sysUserProfileDataSingleton.getData()
     });
 }
 
-export function sysUserProfileLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean {
-    const {formData, actionResult} = args;
+export function sysUserProfileFormLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean {
+    const {formData, actionResult, defaultShouldRevalidate} = args;
     if (formData && actionResult) {
         const action = formData.get('action');
         return action === FORM_ACTION_SUBMIT && !!actionResult.ok;
     }
-    return true;
+    return defaultShouldRevalidate;
 }

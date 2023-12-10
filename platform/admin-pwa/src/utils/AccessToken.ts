@@ -20,20 +20,22 @@ export class AccessToken {
         const savedUserToken: UserToken | undefined = await getStorageRecord('userToken', 'auth');
         if (savedUserToken) {
             if (this.isExpired(savedUserToken.expiredAt)) {
-                const refreshResponse: AuthRefreshResponse | undefined =
-                    await post<AuthRefreshResponse>('/api/post-sys-user-auth-refresh', {
+                let refreshResponse: AuthRefreshResponse | undefined = undefined;
+                try {
+                    refreshResponse = await post<AuthRefreshResponse>('/api/post-sys-user-auth-refresh', {
                         username: savedUserToken.username,
                         refreshToken: savedUserToken.refreshToken
                     });
-                if (refreshResponse && refreshResponse.userToken) {
-                    await setStorageRecord(
-                        'userToken',
-                        {...refreshResponse.userToken, refreshToken: savedUserToken.refreshToken},
-                        'auth'
-                    );
-                    this.userToken = refreshResponse.userToken;
-                } else {
-                    throw Error('User token refreshing is failed: missing response');
+                    if (refreshResponse && refreshResponse.userToken) {
+                        await setStorageRecord(
+                            'userToken',
+                            {...refreshResponse.userToken, refreshToken: savedUserToken.refreshToken},
+                            'auth'
+                        );
+                        this.userToken = refreshResponse.userToken;
+                    }
+                } catch (e) {
+                    // do nothing: it seems that refresh token is invalid for now
                 }
             } else {
                 this.userToken = savedUserToken;

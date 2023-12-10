@@ -44,6 +44,10 @@ export function SysUserProfileForm(props: SysUserProfileFormProps) {
             <input name="action" type="hidden" defaultValue={FORM_ACTION_SUBMIT}/>
             <input name="pk" type="hidden" defaultValue={sysUserProfileData?.PK?.S || ''}/>
             <input name="sk" type="hidden" defaultValue={sysUserProfileData?.SK?.S || ''}/>
+            <div className="flex flex-col gap-2 mb-4">
+                <p className="text-xl">System User Profile Settings</p>
+                <p className="text-sm text-muted-foreground">Here you can view and update the system user profile data</p>
+            </div>
             <div className="flex flex-row gap-2">
                 {isEditing
                     ? (
@@ -59,6 +63,7 @@ export function SysUserProfileForm(props: SysUserProfileFormProps) {
                             <Button
                                 type="submit"
                                 size="sm"
+                                variant="outline"
                                 disabled={isInAction}
                             >
                                 <DelayedLoading
@@ -98,11 +103,8 @@ export function SysUserProfileForm(props: SysUserProfileFormProps) {
             </div>
             <div className="grow overflow-hidden">
                 <ScrollArea className="w-full h-full">
-                    <Card className="w-[350px]">
-                        <CardHeader>
-                            <CardDescription>Here you can view and update the system user profile data</CardDescription>
-                            <ActionDataRequestError actionData={fetcher.data}/>
-                        </CardHeader>
+                    <Card className="w-[350px] pt-6">
+                        <ActionDataRequestError actionData={fetcher.data} className="p-6 pt-0"/>
                         <CardContent>
                             <div className="flex flex-col gap-4">
                                 <div className="flex flex-col gap-2">

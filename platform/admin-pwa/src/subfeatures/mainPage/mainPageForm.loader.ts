@@ -6,17 +6,17 @@ export type MainPageLoaderResponse = {
     mainPageDataRequest: MainPageDataRequest;
 };
 
-export async function mainPageLoader() {
+export async function mainPageFormLoader() {
     return defer({
         mainPageDataRequest: mainPageDataSingleton.getPageContent()
     });
 }
 
-export function mainPageLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean {
-    const {formData, actionResult} = args;
+export function mainPageFormLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean {
+    const {formData, actionResult, defaultShouldRevalidate} = args;
     if (formData && actionResult) {
         const action = formData.get('action');
         return action === FORM_ACTION_SUBMIT && !!actionResult.ok;
     }
-    return true;
+    return defaultShouldRevalidate;
 }

@@ -54,6 +54,10 @@ export function MainPageForm(props: MainPageFormProps) {
             <input name="action" type="hidden" defaultValue={FORM_ACTION_SUBMIT}/>
             <input name="pk" type="hidden" defaultValue={mainPageData?.PK?.S || ''}/>
             <input name="sk" type="hidden" defaultValue={mainPageData?.SK?.S || ''}/>
+            <div className="flex flex-col gap-2 mb-4">
+                <p className="text-xl">Home Page Content Editor</p>
+                <p className="text-sm text-muted-foreground">Set the Home page content here</p>
+            </div>
             <div className="flex flex-row gap-2">
                 {isEditing
                     ? (
@@ -111,7 +115,7 @@ export function MainPageForm(props: MainPageFormProps) {
                                 disabled={isLoadingData}
                                 onClick={handlePreview}
                             >
-                                <LucideExternalLink className="mr-2 h-3 w-3" />
+                                <LucideExternalLink className="mr-2 h-3 w-3"/>
                                 Preview Page
                             </Button>
                         </>
@@ -120,11 +124,8 @@ export function MainPageForm(props: MainPageFormProps) {
             </div>
             <div className="grow overflow-hidden">
                 <ScrollArea className="w-full h-full">
-                    <Card className="w-[500px]">
-                        <CardHeader>
-                            <CardDescription>Set the Home page content here</CardDescription>
-                            <ActionDataRequestError actionData={fetcher.data}/>
-                        </CardHeader>
+                    <Card className="w-[500px] pt-6">
+                        <ActionDataRequestError actionData={fetcher.data} className="p-6 pt-0"/>
                         <CardContent>
                             <div className="flex flex-col gap-4">
                                 <div className="flex flex-col gap-2">

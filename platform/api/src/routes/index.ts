@@ -12,6 +12,8 @@ import postSysUserProfile from './post-sys-user-profile';
 import getPageContent from './get-page-content';
 import postPageContent from './post-page-content';
 import getPreview from './get-preview';
+import getWebsiteUrl from './get-website-url';
+import postCustomDomain from './post-custom-domain';
 
 const router = Router();
 
@@ -27,5 +29,7 @@ router.use(postSysUserProfile);
 router.use(getPageContent);
 router.use(postPageContent);
 router.use(getPreview);
+router.use(getWebsiteUrl);
+router.use(postCustomDomain);
 
 export default router;

@@ -13,7 +13,7 @@ interface ButtonLinkProps {
 
 export function ButtonLink({to, end = false, label, icon, className}: ButtonLinkProps) {
     let resolved = useResolvedPath(to);
-    let match = useMatch({ path: resolved.pathname, end });
+    let match = useMatch({ path: to, end });
     return (
         <Button
             variant={match ? 'secondary' : 'ghost'}

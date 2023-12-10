@@ -12,7 +12,7 @@ const formSchema = z.object({
     }),
 });
 
-export async function sysUserProfileAction({request}: LoaderFunctionArgs) {
+export async function sysUserProfileFormAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
             let formData = await request.formData();

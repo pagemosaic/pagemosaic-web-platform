@@ -10,7 +10,8 @@ const {
     PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
     PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
     PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM
+    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM,
+    PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM
 } = require("common-utils");
 
 const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME; // Get AWS profile name from environment variable
@@ -39,6 +40,7 @@ if (!existsSync(CDK_OUTPUT_FILE)) {
 // Read and parse the CDK output file
 const cdkOutputs = JSON.parse(readFileSync(CDK_OUTPUT_FILE, 'utf8'));
 const entryPointDomainName = cdkOutputs[stackName][PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM];
+const entryPointDistributionId = cdkOutputs[stackName][PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM];
 const previewPointDomainName = cdkOutputs[stackName][PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM];
 const sysUserPoolId = cdkOutputs[stackName][PLATFORM_SYS_USER_POOL_ID_SSM_PARAM];
 const sysUserPoolClientId = cdkOutputs[stackName][PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM];
@@ -116,6 +118,9 @@ putParameter(PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM, entryPointDomainName)
     })
     .then(() => {
         return putParameter(PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM, sysUserPoolClientId);
+    })
+    .then(() => {
+        return putParameter(PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM, entryPointDistributionId);
     })
     .then(() => {
         return signUpAdminUser();

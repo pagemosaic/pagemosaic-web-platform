@@ -15,7 +15,7 @@ const formSchema = z.object({
     }),
 });
 
-export async function mainPageAction({request}: LoaderFunctionArgs) {
+export async function mainPageFormAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
             let formData = await request.formData();
