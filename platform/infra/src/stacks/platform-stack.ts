@@ -6,7 +6,7 @@ import {
     PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
     PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
     PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM,
-    PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM
+    PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM,
 } from 'common-utils';
 import {ApiConstruct} from '../constructs/api';
 import {EntryPointConstruct} from '../constructs/entry-point';
@@ -17,9 +17,16 @@ import {PreviewPointConstruct} from '../constructs/preview-point';
 import {SystemBucketDeploymentConstruct} from '../constructs/system-bucket-deployment';
 import {SysUserPoolConstruct} from '../constructs/sys-user-pool';
 
+interface PlatformStackProps {
+    domainNames?: Array<string>;
+    certificateArn?: string;
+}
+
 export class PlatformStack extends Stack {
-    constructor(scope: Construct, id: string) {
+    constructor(scope: Construct, id: string, props: PlatformStackProps) {
         super(scope, id);
+        const {domainNames, certificateArn} = props;
+
         const sysUserPoolConstruct = new SysUserPoolConstruct(this, 'SysUserPoolConstruct');
         const dbTablesConstruct = new DbTablesConstruct(this, 'DbTablesConstruct');
         const apiConstruct = new ApiConstruct(this, 'ApiConstruct', {
@@ -36,7 +43,9 @@ export class PlatformStack extends Stack {
             systemBucket: systemBucketConstruct.bucket,
             systemBucketOAI: systemBucketConstruct.bucketOAI,
             httpApiGatewayOrigin: apiConstruct.httpApiGatewayOrigin,
-            webAppHttpApiGatewayOrigin: webAppApiConstruct.httpApiGatewayOrigin
+            webAppHttpApiGatewayOrigin: webAppApiConstruct.httpApiGatewayOrigin,
+            domainNames,
+            certificateArn
         });
 
         const previewPointConstruct = new PreviewPointConstruct(this, 'PreviewPointConstruct', {

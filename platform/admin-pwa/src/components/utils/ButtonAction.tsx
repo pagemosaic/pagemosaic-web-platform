@@ -1,21 +1,18 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import {Button, ButtonProps} from '@/components/ui/button';
 import {LucideIcon, LucideRefreshCw} from 'lucide-react';
 
-type ButtonLinkProps = ButtonProps & {
-    to: string;
+type ButtonActionProps = ButtonProps & {
     label: string;
     Icon: LucideIcon;
     isLoading?: boolean;
 }
 
-export function ButtonLink({to, label, Icon, isLoading, ...rest}: ButtonLinkProps) {
+export function ButtonAction({label, Icon, isLoading, ...rest}: ButtonActionProps) {
     return (
         <Button
             {...rest}
             disabled={!!isLoading}
-            asChild={!isLoading}
         >
             {isLoading
                 ? (
@@ -25,12 +22,10 @@ export function ButtonLink({to, label, Icon, isLoading, ...rest}: ButtonLinkProp
                     </div>
                 )
                 : (
-                    <Link to={to}>
-                        <div className="flex flex-row gap-2 items-center">
-                            <Icon className="w-3 h-3"/>
-                            <span className="whitespace-nowrap">{label}</span>
-                        </div>
-                    </Link>
+                    <div className="flex flex-row gap-2 items-center">
+                        <Icon className="w-3 h-3"/>
+                        <span className="whitespace-nowrap">{label}</span>
+                    </div>
                 )
             }
         </Button>

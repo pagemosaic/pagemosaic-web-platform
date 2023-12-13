@@ -33,7 +33,7 @@ export async function passwordRecoveryAction({request}: LoaderFunctionArgs) {
                 return json(formatted);
             }
             try {
-                const authResponse = await post<AuthResponse>('/api/post-sys-user-auth-reset-confirm', data);
+                const authResponse = await post<AuthResponse>('/api/admin/post-sys-user-auth-reset-confirm', data);
                 if (authResponse) {
                     await sysUserDataSingleton.setData({
                         userAttributes: authResponse.userAttributes,

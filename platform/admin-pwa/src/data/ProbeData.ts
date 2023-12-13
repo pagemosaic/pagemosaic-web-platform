@@ -1,7 +1,7 @@
-import {accessTokenSingleton} from '@/utils/AccessToken';
+import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
 import {get} from '@/utils/ClientApi';
 
-export type ProbeData = {name: string} | undefined;
+export type ProbeData = {name: string} | null;
 export type ProbeDataRequest = Promise<ProbeData>;
 
 class ProbeDataSingleton {
@@ -10,16 +10,16 @@ class ProbeDataSingleton {
     private expirationPeriod: number;
     private expirationTime: number | undefined;
     constructor(expirationPeriod: number) {
-        this.instance = undefined;
+        this.instance = null;
         this.initializationPromise = undefined;
         this.expirationPeriod = expirationPeriod; // in milliseconds
         this.expirationTime = undefined;
     }
 
     private async initialize(): ProbeDataRequest {
-        const accessToken: string | undefined = await accessTokenSingleton.getAccessToken();
+        const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {
-            return get<ProbeData>('/api/get-probe-data');
+            return get<ProbeData>('/api/admin/get-probe-data');
         }
         throw Error('Missing access token');
     }

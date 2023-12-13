@@ -33,7 +33,7 @@ export async function signUpAction({request}: LoaderFunctionArgs) {
                 return json(formatted);
             }
             try {
-                const authResponse = await post<AuthResponse>('/api/post-sys-user-auth-signup-confirm', data);
+                const authResponse = await post<AuthResponse>('/api/admin/post-sys-user-auth-signup-confirm', data);
                 if (authResponse) {
                     await sysUserDataSingleton.setData({
                         userAttributes: authResponse.userAttributes,

@@ -1,7 +1,7 @@
-import {ButtonLink} from '@/components/utils/ButtonLink';
 import {LucideSettings, LucideBookOpen} from 'lucide-react';
 import {NavigationMenuList, NavigationMenuItem, NavigationMenu} from '@/components/ui/navigation-menu';
 import {MainAccountNavigation} from '@/roots/main/MainAccountNavigation';
+import {NavigationButtonLink} from '@/components/utils/NavigationButtonLink';
 
 export function MainNavigation() {
     return (
@@ -9,7 +9,7 @@ export function MainNavigation() {
             <NavigationMenu>
                 <NavigationMenuList>
                     <NavigationMenuItem asChild={true}>
-                        <ButtonLink
+                        <NavigationButtonLink
                             to="/pages"
                             end={false}
                             label="Pages"
@@ -18,7 +18,7 @@ export function MainNavigation() {
                         />
                     </NavigationMenuItem>
                     <NavigationMenuItem asChild={true}>
-                        <ButtonLink
+                        <NavigationButtonLink
                             to="/settings"
                             end={false}
                             label="Settings"

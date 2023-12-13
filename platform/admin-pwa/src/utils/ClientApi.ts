@@ -1,12 +1,14 @@
-export interface PostStreamController {
+export interface ClientController {
     abort: () => void;
 }
+
+export type ClientControllerCallback = (controller: ClientController) => void;
 
 export async function get<T>(
     url: string,
     token?: string,
-    controllerCb?: (controller: PostStreamController) => void,
-): Promise<T | undefined> {
+    controllerCb?: ClientControllerCallback,
+): Promise<T | null> {
     let response;
     const abortController = new AbortController();
     if (controllerCb){
@@ -28,7 +30,7 @@ export async function get<T>(
         if (e.name === 'AbortError') {
             throw Error('Request was canceled.');
         }
-        throw Error(`There is no connection to ${url}. The reason of failure... CORS`);
+        throw Error(`There is no connection to ${url}. ${e.message}`);
     }
 
     if (!response.ok) {
@@ -39,15 +41,17 @@ export async function get<T>(
         throw Error(errorData);
     }
     const result = await response.json();
-    return result as T;
+    return Object.keys(result).length === 0
+        ? null
+        : result as T;
 }
 
 export async function post<T>(
     url: string,
     body: any,
     token?: string,
-    controllerCb?: (controller: PostStreamController) => void,
-): Promise<T | undefined> {
+    controllerCb?: (controller: ClientController) => void,
+): Promise<T | null> {
     let response;
     const abortController = new AbortController();
     if (controllerCb){
@@ -72,7 +76,7 @@ export async function post<T>(
         if (e.name === 'AbortError') {
             throw Error('Request was canceled.');
         }
-        throw Error(`There is no connection to ${url}. The reason of failure can be CORS.`);
+        throw Error(`There is no connection to ${url}. ${e.message}`);
     }
     if (!response.ok) {
         if (response.status === 404) {
@@ -82,7 +86,9 @@ export async function post<T>(
         throw Error(errorData);
     }
     const result = await response.json();
-    return result as T;
+    return Object.keys(result).length === 0
+        ? null
+        : result as T;
 }
 
 export async function postStream(
@@ -90,7 +96,7 @@ export async function postStream(
     body: any,
     cb: (text: string) => void,
     done: (error?: string) => void,
-    controllerCb: (controller: PostStreamController) => void,
+    controllerCb: (controller: ClientController) => void,
     token?: string
 ): Promise<void> {
     const abortController = new AbortController();
@@ -106,7 +112,7 @@ export async function postStream(
             signal: abortController.signal
         });
     } catch (e: any) {
-        throw Error(`There is no connection to ${url}. The reason of failure can be CORS.`);
+        throw Error(`There is no connection to ${url}. ${e.message}`);
     }
 
     if (response && !response.ok) {
@@ -146,7 +152,7 @@ export async function postStream(
     }
 }
 
-export async function del<T>(url: string, body: any, token?: string): Promise<T> {
+export async function del<T>(url: string, body: any, token?: string): Promise<T | null> {
     let response;
     try {
         response = await fetch(encodeURI(url), {
@@ -158,7 +164,7 @@ export async function del<T>(url: string, body: any, token?: string): Promise<T>
             body: JSON.stringify(body),
         });
     } catch (e: any) {
-        throw Error(`There is no connection to ${url}. The reason of failure... CORS?`);
+        throw Error(`There is no connection to ${url}. ${e.message}`);
     }
 
     if (!response.ok) {
@@ -169,7 +175,9 @@ export async function del<T>(url: string, body: any, token?: string): Promise<T>
         throw Error(errorData);
     }
     const result = await response.json();
-    return result as T;
+    return Object.keys(result).length === 0
+        ? null
+        : result as T;
 }
 
 export async function putFile(url: string, file: File, token?: string) {

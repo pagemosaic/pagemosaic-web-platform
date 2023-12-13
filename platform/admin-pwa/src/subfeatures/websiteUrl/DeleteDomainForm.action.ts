@@ -4,12 +4,12 @@ import {FORM_ACTION_SUBMIT} from '@/utils/FormUtils';
 import {websiteDataSingleton} from '@/data/WebsiteUrlData';
 
 const formSchema = z.object({
-    customDomainName: z.string().min(2, {
-        message: "Custom domain name must be at least 2 characters.",
+    sslCertificateArn: z.string().min(2, {
+        message: "SSL certificate ARN must be at least 2 characters.",
     }),
 });
 
-export async function customDomainFormAction({request}: LoaderFunctionArgs) {
+export async function deleteDomainFormAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
             let formData = await request.formData();
@@ -22,10 +22,8 @@ export async function customDomainFormAction({request}: LoaderFunctionArgs) {
                     return json(formatted);
                 }
                 try {
-                    await websiteDataSingleton.setCustomDomainCertificate(data);
-                    // If you have just created a certificate using the RequestCertificate action,
-                    // there is a delay of several seconds before you can retrieve information about it.
-                    await new Promise((res) => setTimeout(res, 5000));
+                    await websiteDataSingleton.deleteCustomDomain();
+                    // await new Promise((res) => setTimeout(res, 1000));
                 } catch (e: any) {
                     return json({error: e.message});
                 }

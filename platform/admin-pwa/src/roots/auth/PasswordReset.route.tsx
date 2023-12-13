@@ -34,7 +34,7 @@ export async function passwordResetAction({request}: LoaderFunctionArgs) {
                 return json(formatted);
             }
             try {
-                const authResponse = await post<AuthResponse>('/api/post-sys-user-auth-reset-start', data);
+                const authResponse = await post<AuthResponse>('/api/admin/post-sys-user-auth-reset-start', data);
                 if (authResponse) {
                     return redirect('/password-reset-confirm');
                 }

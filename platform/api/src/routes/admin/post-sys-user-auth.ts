@@ -1,6 +1,6 @@
 import {Router, Request, Response} from 'express';
 import {AuthResponse} from 'common-utils';
-import {getUserAttributes, authenticateSysUser} from '../utility/CognitoUtils';
+import {getUserAttributes, authenticateSysUser} from '../../utility/CognitoUtils';
 
 const router = Router();
 

@@ -9,7 +9,7 @@
     "dev": "vite"
   },
   "dependencies": {
-    "common-utils": "workspace:^",
+    "common-utils": "workspace:*",
     "jsonwebtoken": "9.0.2",
     "jwks-rsa": "3.1.0",
     "express": "4.18.2",
@@ -17,9 +17,11 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@aws-sdk/client-ssm": "3.460.0",
-    "@aws-sdk/client-dynamodb": "3.460.0",
-    "@aws-sdk/client-cognito-identity-provider": "3.460.0",
+    "@aws-sdk/client-acm": "3.470.0",
+    "@aws-sdk/client-cloudfront": "3.472.0",
+    "@aws-sdk/client-ssm": "3.470.0",
+    "@aws-sdk/client-dynamodb": "3.470.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.470.0",
     "@rollup/plugin-commonjs": "24.0.0",
     "@rollup/plugin-json": "^6.0.1",
     "@rollup/plugin-node-resolve": "15.0.1",

@@ -1,8 +1,8 @@
-import {accessTokenSingleton} from '@/utils/AccessToken';
+import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
 import {get, post} from '@/utils/ClientApi';
 import {UserProfile} from 'common-utils';
 
-export type SysUserProfileData = UserProfile | undefined;
+export type SysUserProfileData = UserProfile | null;
 export type SysUserProfileDataRequest = Promise<SysUserProfileData>;
 
 class SysUserProfileDataSingleton {
@@ -11,20 +11,16 @@ class SysUserProfileDataSingleton {
     private expirationPeriod: number;
     private expirationTime: number | undefined;
     constructor(expirationPeriod: number) {
-        this.instance = undefined;
+        this.instance = null;
         this.initializationPromise = undefined;
         this.expirationPeriod = expirationPeriod; // in milliseconds
         this.expirationTime = undefined;
     }
 
     private async initialize(): SysUserProfileDataRequest {
-        const accessToken: string | undefined = await accessTokenSingleton.getAccessToken();
+        const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {
-            const userProfile = await get<UserProfile | undefined>('/api/get-sys-user-profile', accessToken);
-            if (userProfile) {
-                return userProfile;
-            }
-            return undefined;
+            return await get<UserProfile>('/api/admin/get-sys-user-profile', accessToken);
         }
         throw Error('Missing access token');
     }
@@ -55,10 +51,10 @@ class SysUserProfileDataSingleton {
             UserEmail: {S: formDataObject.email as string},
             UserFullName: {S: formDataObject.fullName as string}
         };
-        const accessToken: string | undefined = await accessTokenSingleton.getAccessToken();
+        const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {
-            await post<any>('/api/post-sys-user-profile', {profile: userProfile}, accessToken);
-            this.instance = undefined;
+            await post<any>('/api/admin/post-sys-user-profile', {profile: userProfile}, accessToken);
+            this.instance = null;
             return;
         }
         throw Error('Missing access token');

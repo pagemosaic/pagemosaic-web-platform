@@ -19,6 +19,10 @@ import {WebsiteUrlRoute} from '@/subfeatures/websiteUrl/WebsiteUrl.route';
 import {WebsiteUrlViewRoute} from '@/subfeatures/websiteUrl/WebsiteUrlView.route';
 import {customDomainFormAction} from '@/subfeatures/websiteUrl/CustomDomainForm.action';
 import {CustomDomainFormRoute} from '@/subfeatures/websiteUrl/CustomDomainForm.route';
+import {deleteDomainFormAction} from '@/subfeatures/websiteUrl/DeleteDomainForm.action';
+import {DeleteDomainFormRoute} from '@/subfeatures/websiteUrl/DeleteDomainForm.route';
+import {distributionDomainFormAction} from '@/subfeatures/websiteUrl/DistributionDomainForm.action';
+import {DistributionDomainFormRoute} from '@/subfeatures/websiteUrl/DistributionDomainForm.route';
 
 const router = createBrowserRouter([
     {
@@ -73,7 +77,17 @@ const router = createBrowserRouter([
                                 path: 'custom-domain',
                                 action: customDomainFormAction,
                                 element: <CustomDomainFormRoute />
-                            }
+                            },
+                            {
+                                path: 'delete-domain',
+                                action: deleteDomainFormAction,
+                                element: <DeleteDomainFormRoute />
+                            },
+                            {
+                                path: 'link-domain',
+                                action: distributionDomainFormAction,
+                                element: <DistributionDomainFormRoute />
+                            },
                         ]
                     },
                 ]

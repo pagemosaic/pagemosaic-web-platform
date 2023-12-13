@@ -5,7 +5,7 @@ import {
     authenticateSysUser,
     getUserAttributes,
     confirmSignUpSysUser, getSysUser
-} from '../utility/CognitoUtils';
+} from '../../utility/CognitoUtils';
 
 const router = Router();
 

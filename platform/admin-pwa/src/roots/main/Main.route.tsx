@@ -4,7 +4,7 @@ import React from 'react';
 import {AwaitError} from '@/components/utils/AwaitError';
 import {DelayedFallback} from '@/components/utils/DelayedFallback';
 import {sysUserDataSingleton, SysUserDataRequest} from '@/data/SysUserData';
-import {AccessTokenRequest, accessTokenSingleton} from '@/utils/AccessToken';
+import {AccessTokenRequest, accessTokenSingleton} from '@/utils/AccessTokenSingleton';
 import {ToolbarSection} from '@/components/layouts/ToolbarSection';
 import {CentralSection} from '@/components/layouts/CentralSection';
 

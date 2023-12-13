@@ -46,7 +46,7 @@ export async function loginAction({request}: LoaderFunctionArgs) {
                 return json(formatted);
             }
             try {
-                const authResponse = await post<AuthResponse>('/api/post-sys-user-auth', data);
+                const authResponse = await post<AuthResponse>('/api/admin/post-sys-user-auth', data);
                 if (authResponse) {
                     if (authResponse.code === 'change_password') {
                         return json({error: 'You have to change password'});

@@ -1,6 +1,6 @@
 import {Router, Request, Response} from 'express';
-import {verifyAuthentication} from '../utility/RequestUtils';
-import {getPreviewPointDomain} from '../utility/SsmUtils';
+import {verifyAuthentication} from '../../utility/RequestUtils';
+import {getPreviewPointDomain} from '../../utility/SsmUtils';
 
 const router = Router();
 

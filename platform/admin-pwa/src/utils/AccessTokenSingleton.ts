@@ -2,12 +2,13 @@ import {UserToken, AuthRefreshResponse} from 'common-utils';
 import {getStorageRecord, setStorageRecord} from '@/utils/localStorage';
 import {post} from '@/utils/ClientApi';
 
-const delta: number = 5 * 60 * 1000; // 5 minutes
+const delta: number = 15 * 60 * 1000; // 15 minutes
 
-export type AccessTokenRequest = Promise<string | undefined>;
+export type AccessToken = string | null;
+export type AccessTokenRequest = Promise<AccessToken>;
 type UserTokenSingletonInstance = UserToken | null;
 
-export class AccessToken {
+export class AccessTokenSingleton {
     private userToken: UserTokenSingletonInstance;
     private initializationPromise: Promise<UserTokenSingletonInstance> | null;
 
@@ -20,9 +21,9 @@ export class AccessToken {
         const savedUserToken: UserToken | undefined = await getStorageRecord('userToken', 'auth');
         if (savedUserToken) {
             if (this.isExpired(savedUserToken.expiredAt)) {
-                let refreshResponse: AuthRefreshResponse | undefined = undefined;
+                let refreshResponse: AuthRefreshResponse | null = null;
                 try {
-                    refreshResponse = await post<AuthRefreshResponse>('/api/post-sys-user-auth-refresh', {
+                    refreshResponse = await post<AuthRefreshResponse>('/api/admin/post-sys-user-auth-refresh', {
                         username: savedUserToken.username,
                         refreshToken: savedUserToken.refreshToken
                     });
@@ -43,7 +44,7 @@ export class AccessToken {
         }
     }
 
-    private isExpired(expirationTimeUTC: number | undefined): boolean {
+    private isExpired(expirationTimeUTC?: number): boolean {
         if (expirationTimeUTC) {
             const expireAt = new Date(expirationTimeUTC);
             return (expireAt.getTime() - Date.now()) < delta;
@@ -79,4 +80,4 @@ export class AccessToken {
     }
 }
 
-export const accessTokenSingleton = new AccessToken();
+export const accessTokenSingleton = new AccessTokenSingleton();
