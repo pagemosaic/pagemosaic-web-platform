@@ -135,6 +135,14 @@ In the picture below, you can see which resources are used on AWS and what they 
       </a>
    </p>
 
+### A step-by-step linking a wildcard (multi) domain video tutorial
+
+   <p align="center">
+      <a href="https://youtu.be/8yYePPo-pO8" target="_blank">
+   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="50%"/>
+      </a>
+   </p>
+
 
 <br/>
 <br/>
