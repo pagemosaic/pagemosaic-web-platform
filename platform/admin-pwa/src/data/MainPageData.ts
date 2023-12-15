@@ -1,17 +1,17 @@
-import {accessTokenSingleton} from '@/utils/AccessToken';
+import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
 import {get, post} from '@/utils/ClientApi';
 import {MainPage} from 'common-utils';
 
-export type MainPageData = MainPage | undefined;
+export type MainPageData = MainPage | null;
 export type MainPageDataRequest = Promise<MainPageData>;
 
 class MainPageDataSingleton {
     constructor() {}
 
     async getPageContent(): MainPageDataRequest {
-        const accessToken: string | undefined = await accessTokenSingleton.getAccessToken();
+        const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {
-            return get<MainPageData>(`/api/get-page-content?pk=Page_main&sk=Content_main`, accessToken);
+            return get<MainPageData>(`/api/admin/get-page-content?pk=Page_main&sk=Content_main`, accessToken);
         }
         throw Error('Missing access token');
     }
@@ -26,9 +26,9 @@ class MainPageDataSingleton {
             HeroTitle: {S: formDataObject.heroTitle as string},
             Body: {S: formDataObject.body as string}
         };
-        const accessToken: string | undefined = await accessTokenSingleton.getAccessToken();
+        const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {
-            await post<MainPageData>('/api/post-page-content', {page}, accessToken);
+            await post<MainPageData>('/api/admin/post-page-content', {page}, accessToken);
             return;
         }
         throw Error('Missing access token');

@@ -1,30 +1,77 @@
-import {ScrollArea} from '@/components/ui/scroll-area';
-import {ButtonLink} from '@/components/utils/ButtonLink';
-import {LucideUserCircle, LucideSettings, LucideBookOpen} from 'lucide-react';
+import React, {useEffect} from 'react';
+import {useLocation} from 'react-router-dom';
+import {LucideSettings, LucideBookOpen, LucideIcon} from 'lucide-react';
+import {NavigationMenuList, NavigationMenuItem, NavigationMenu} from '@/components/ui/navigation-menu';
+import {MainAccountNavigation} from '@/roots/main/MainAccountNavigation';
+import {NavigationButtonLink} from '@/components/utils/NavigationButtonLink';
+import {getSessionState, setSessionState} from '@/utils/localStorage';
+
+type RouteMeta = {
+    key: string;
+    defaultKey: string;
+    stateKey: string;
+    label: string;
+    Icon: LucideIcon
+};
+
+const navigationRoutesMeta: Array<RouteMeta> = [
+    {
+        key: '/pages',
+        defaultKey: '/pages/main-page',
+        stateKey: 'pagesPath',
+        label: 'Pages',
+        Icon: LucideBookOpen
+    },
+    {
+        key: '/settings',
+        defaultKey: '/settings/website-url',
+        stateKey: 'settingsPath',
+        label: 'Settings',
+        Icon: LucideSettings
+    }
+];
+
+function findRouteMeta(pathname: string): RouteMeta | undefined {
+    return navigationRoutesMeta.find(i => pathname.startsWith(i.key));
+}
 
 export function MainNavigation() {
+    let location = useLocation();
+
+    useEffect(() => {
+        const {pathname} = location;
+        const mainNavigationCurrentPaths = getSessionState('mainNavigationCurrentPaths');
+        const routeMeta: RouteMeta | undefined = findRouteMeta(pathname);
+        if (routeMeta && pathname.length - routeMeta.key.length > 2) {
+            setSessionState('mainNavigationCurrentPaths', {
+                ...mainNavigationCurrentPaths, [routeMeta.stateKey]: location.pathname
+            });
+        }
+    }, [location]);
+
+    const mainNavigationCurrentPaths = getSessionState('mainNavigationCurrentPaths');
+
     return (
-        <ScrollArea className="w-full h-full p-4">
-            <div className="w-full flex flex-col gap-2">
-                <div>
-                    <ButtonLink
-                        to="/pages/main-page"
-                        end={false}
-                        label="Pages"
-                        className="w-full justify-start"
-                        icon={<LucideBookOpen className="h-3 w-3"/>}
-                    />
-                </div>
-                <div>
-                    <ButtonLink
-                        to="/settings/sys-user-profile"
-                        end={false}
-                        label="Settings"
-                        className="w-full justify-start"
-                        icon={<LucideSettings className="h-3 w-3"/>}
-                    />
-                </div>
-            </div>
-        </ScrollArea>
+        <div className="flex flex-row justify-between">
+            <NavigationMenu>
+                <NavigationMenuList>
+                    {navigationRoutesMeta.map(navItem => {
+                        return (
+                            <NavigationMenuItem key={navItem.key} asChild={true}>
+                                <NavigationButtonLink
+                                    pathKey={navItem.key}
+                                    to={mainNavigationCurrentPaths[navItem.stateKey] || navItem.defaultKey}
+                                    end={false}
+                                    label={navItem.label}
+                                    className="w-full justify-start"
+                                    icon={<navItem.Icon className="h-3 w-3"/>}
+                                />
+                            </NavigationMenuItem>
+                        );
+                    })}
+                </NavigationMenuList>
+            </NavigationMenu>
+            <MainAccountNavigation/>
+        </div>
     );
 }

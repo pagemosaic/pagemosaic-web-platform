@@ -4,10 +4,8 @@ const {
     SignUpCommand
 } = require("@aws-sdk/client-cognito-identity-provider");
 const {
-    PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM
+    INFRA_SYS_USER_POOL_ID,
+    INFRA_SYS_USER_POOL_CLIENT_ID
 } = require("common-utils");
 
 const awsAccessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -28,8 +26,8 @@ if (!existsSync(CDK_OUTPUT_FILE)) {
 
 // Read and parse the CDK output file
 const cdkOutputs = JSON.parse(readFileSync(CDK_OUTPUT_FILE, 'utf8'));
-const sysUserPoolId = cdkOutputs[stackName][PLATFORM_SYS_USER_POOL_ID_SSM_PARAM];
-const sysUserPoolClientId = cdkOutputs[stackName][PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM];
+const sysUserPoolId = cdkOutputs[stackName][INFRA_SYS_USER_POOL_ID];
+const sysUserPoolClientId = cdkOutputs[stackName][INFRA_SYS_USER_POOL_CLIENT_ID];
 
 const cognitoClient = new CognitoIdentityProviderClient({
     region: awsRegion,

@@ -107,7 +107,7 @@ Check out how this is done in a step-by-step video tutorial.
 
    <p align="center">
       <a href="https://youtu.be/Xax4WC9Br5w" target="_blank">
-   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="45%"/>
+   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="50%"/>
       </a>
    </p>
 
@@ -119,106 +119,30 @@ Check out how this is done in a step-by-step video tutorial.
 In the picture below, you can see which resources are used on AWS and what they are used for.
 
    <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/31a5c8e2e6f6036af667edc177570c4f4759e925/images/v0/fig-2.png" alt="Fig-2.png" width="80%" />
+      <img src="https://github.com/pagemosaic/.github/blob/31a5c8e2e6f6036af667edc177570c4f4759e925/images/v0/fig-2.png" alt="Fig-2.png" width="90%" />
    </p>
 
 <br/>
 <br/>
 
-## Project Code Structure
+## Admin Panel Usage
 
-### local-run
+### A step-by-step linking a subdomain video tutorial
 
-This module functions similarly to the cross-env library.
-```json
-{
-  "scripts": {
-     "start": "local-run <some command>"
-  }
-}
-```
-
-It reads AWS credentials and runs commands with these credentials.
    <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-3.png" alt="Fig-3.png" width="50%" />
-   </p>
- 
-
-### common-utils
-
-This module contains common types and utilities used by other modules.
-   <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-4.png" alt="Fig-4.png" width="50%" />
+      <a href="https://youtu.be/pNepEH6aH08" target="_blank">
+   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="50%"/>
+      </a>
    </p>
 
-### admin-pwa
+### A step-by-step linking a wildcard (multi) domain video tutorial
 
-Implementation of the Admin Panel.
    <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-5.png" alt="Fig-5.png" width="50%" />
+      <a href="https://youtu.be/8yYePPo-pO8" target="_blank">
+   <img src="https://github.com/pagemosaic/.github/blob/e78b5f8dc9587d939d19de70446be7124bef94a5/images/og/youtube_video_cover_image-min.png" alt="SSL certificate issuing" width="50%"/>
+      </a>
    </p>
 
-Screenshots.
-
-<p align="center"><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-1.png" alt="screen-shot-1.png" width="50%" /></p>
-<p align="center"><img src="https://github.com/pagemosaic/.github/blob/42d5fed67b258a5b112ec7b00a1122c94db5d4fa/images/v0/screen-shot-2.png" alt="screen-shot-2.png" width="50%" /></p>
-
-Used stack:
-* React Router V6 (data router)
-* Shadcn UI
-* Tailwind CSS
-* Vite
-
-### api
-
-REST interface for the Admin Panel
-   <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-6.png" alt="Fig-6.png" width="50%" />
-   </p>
-
-Used stack:
-* Exress
-* AWS SDK
-* Rollup
-
-### web-adapter
-
-An adapter for Remix to be used in AWS lambda. 
-Parts of the code are taken from the `architect` module in the `remix.run` repository.
-   <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-7.png" alt="Fig-7.png" width="50%" />
-   </p>
-
-Used stack:
-* AWS SDK
-* Rollup
-
-### web-app
-
-A Remix application for the website.
-   <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-8.png" alt="Fig-8.png" width="50%" />
-   </p>
-
-Used stack:
-* AWS SDK
-* Remix
-* Tailwind CSS 
-* Vite 
-* Rollup
-
-### infra
-
-This module is responsible for initializing AWS resources and deploying files to AWS.
-   <p align="center">
-      <img src="https://github.com/pagemosaic/.github/blob/54c708b8ffbf783a1ec84e83066fba4adff2cb5c/images/v0/fig-9.png" alt="Fig-9.png" width="80%" />
-   </p>
-
-Used stack:
-* AWS CLI
-* AWS CDK
-* AWS SDK
-* Rollup
 
 <br/>
 <br/>
@@ -255,12 +179,7 @@ To remove resources created on AWS during deployment, run the command:
 pnpm destroy-platform
 ```
 
-Afterward, resources created for DynamoDB tables with data may remain on AWS. 
-You can easily identify them as their names begin with the stack name you specified in the `.env` file under `STACK_NAME`: 
-* `<stack name>System`
-* `<stack name>Pages`
-
-Go to the AWS console and manually delete them after successfully executing the destroy-platform command.
+**Warning!!!** All created and deployed resources on AWS account will be erased.
 
 <br/>
 <br/>

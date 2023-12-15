@@ -4,8 +4,8 @@ import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
-import * as apigwv2 from '@aws-cdk/aws-apigatewayv2-alpha';
-import * as apigwv2Integrations from '@aws-cdk/aws-apigatewayv2-integrations-alpha';
+import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
+import * as apigwv2Integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import {PLATFORM_STACK_NAME} from 'common-utils';
 
@@ -34,13 +34,32 @@ export class ApiConstruct extends Construct {
 
         // Grant the Lambda function permission to read all SSM parameters
         lambdaHandler.addToRolePolicy(new iam.PolicyStatement({
-            actions: ['ssm:GetParameter', 'ssm:GetParameters', 'ssm:GetParametersByPath'],
+            actions: ['ssm:*'],
             resources: [`arn:aws:ssm:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:parameter/*`],
         }));
 
         lambdaHandler.addToRolePolicy(new iam.PolicyStatement({
             actions: ['cognito-idp:*'], // Grant all actions for Cognito User Pool
             resources: [`arn:aws:cognito-idp:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:userpool/${sysUserPoolId}`],
+        }));
+
+        // Add ACM permissions to us-east-1 region certificates
+        lambdaHandler.addToRolePolicy(new iam.PolicyStatement({
+            actions: [
+                'acm:DescribeCertificate',
+                'acm:RequestCertificate',
+                'acm:DeleteCertificate'
+            ],
+            resources: [`arn:aws:acm:us-east-1:${cdk.Aws.ACCOUNT_ID}:certificate/*`], // Adjust as needed
+        }));
+
+        // Add CloudFront permissions
+        lambdaHandler.addToRolePolicy(new iam.PolicyStatement({
+            actions: [
+                'cloudfront:GetDistributionConfig',
+                'cloudfront:UpdateDistribution'
+            ],
+            resources: [`arn:aws:cloudfront::${cdk.Aws.ACCOUNT_ID}:distribution/*`], // Adjust as needed
         }));
 
         if (tables.length > 0) {

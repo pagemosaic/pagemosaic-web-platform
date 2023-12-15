@@ -2,10 +2,11 @@ import * as cdk from 'aws-cdk-lib';
 import {Stack} from 'aws-cdk-lib/core';
 import {Construct} from 'constructs';
 import {
-    PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM
+    INFRA_ENTRY_POINT_DOMAIN,
+    INFRA_PREVIEW_POINT_DOMAIN,
+    INFRA_SYS_USER_POOL_ID,
+    INFRA_SYS_USER_POOL_CLIENT_ID,
+    INFRA_ENTRY_POINT_DISTRIBUTION_ID,
 } from 'common-utils';
 import {ApiConstruct} from '../constructs/api';
 import {EntryPointConstruct} from '../constructs/entry-point';
@@ -16,9 +17,16 @@ import {PreviewPointConstruct} from '../constructs/preview-point';
 import {SystemBucketDeploymentConstruct} from '../constructs/system-bucket-deployment';
 import {SysUserPoolConstruct} from '../constructs/sys-user-pool';
 
+interface PlatformStackProps {
+    domainNames?: Array<string>;
+    certificateArn?: string;
+}
+
 export class PlatformStack extends Stack {
-    constructor(scope: Construct, id: string) {
+    constructor(scope: Construct, id: string, props: PlatformStackProps) {
         super(scope, id);
+        const {domainNames, certificateArn} = props;
+
         const sysUserPoolConstruct = new SysUserPoolConstruct(this, 'SysUserPoolConstruct');
         const dbTablesConstruct = new DbTablesConstruct(this, 'DbTablesConstruct');
         const apiConstruct = new ApiConstruct(this, 'ApiConstruct', {
@@ -35,7 +43,9 @@ export class PlatformStack extends Stack {
             systemBucket: systemBucketConstruct.bucket,
             systemBucketOAI: systemBucketConstruct.bucketOAI,
             httpApiGatewayOrigin: apiConstruct.httpApiGatewayOrigin,
-            webAppHttpApiGatewayOrigin: webAppApiConstruct.httpApiGatewayOrigin
+            webAppHttpApiGatewayOrigin: webAppApiConstruct.httpApiGatewayOrigin,
+            domainNames,
+            certificateArn
         });
 
         const previewPointConstruct = new PreviewPointConstruct(this, 'PreviewPointConstruct', {
@@ -51,19 +61,22 @@ export class PlatformStack extends Stack {
         });
 
         // Output the distribution domain name so it can be easily accessed
-        new cdk.CfnOutput(this, PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_ENTRY_POINT_DOMAIN, {
             value: entryPointConstruct.distribution.distributionDomainName,
         });
         // Output the distribution domain name so it can be easily accessed
-        new cdk.CfnOutput(this, PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_PREVIEW_POINT_DOMAIN, {
             value: previewPointConstruct.distribution.distributionDomainName,
         });
         // Output the sys user pool ID
-        new cdk.CfnOutput(this, PLATFORM_SYS_USER_POOL_ID_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_SYS_USER_POOL_ID, {
             value: sysUserPoolConstruct.userPool.userPoolId,
         });
-        new cdk.CfnOutput(this, PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_SYS_USER_POOL_CLIENT_ID, {
             value: sysUserPoolConstruct.userPoolClient.userPoolClientId,
+        });
+        new cdk.CfnOutput(this, INFRA_ENTRY_POINT_DISTRIBUTION_ID, {
+            value: entryPointConstruct.distribution.distributionId,
         });
     }
 }

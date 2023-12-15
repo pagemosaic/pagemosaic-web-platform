@@ -1,6 +1,7 @@
 import {Construct} from 'constructs';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import {PLATFORM_PAGES_TABLE_NAME, PLATFORM_SYSTEM_TABLE_NAME} from 'common-utils';
+import {RemovalPolicy} from 'aws-cdk-lib';
 
 export class DbTablesConstruct extends Construct {
     public readonly tables: Array<dynamodb.Table>;
@@ -14,6 +15,7 @@ export class DbTablesConstruct extends Construct {
                 partitionKey: {name: 'PK', type: dynamodb.AttributeType.STRING},
                 sortKey: {name: 'SK', type: dynamodb.AttributeType.STRING},
                 billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // Use on-demand billing mode
+                removalPolicy: RemovalPolicy.DESTROY
             })
         );
         this.tables.push(new dynamodb.Table(this, PLATFORM_SYSTEM_TABLE_NAME, {
@@ -21,6 +23,7 @@ export class DbTablesConstruct extends Construct {
                 partitionKey: {name: 'PK', type: dynamodb.AttributeType.STRING},
                 sortKey: {name: 'SK', type: dynamodb.AttributeType.STRING},
                 billingMode: dynamodb.BillingMode.PAY_PER_REQUEST, // Use on-demand billing mode
+                removalPolicy: RemovalPolicy.DESTROY
             })
         );
         // // Store the table name in AWS Systems Manager Parameter Store

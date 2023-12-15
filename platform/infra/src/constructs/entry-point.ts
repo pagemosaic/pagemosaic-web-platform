@@ -10,10 +10,9 @@ export interface EntryPointConstructProps {
     webAppHttpApiGatewayOrigin: origins.HttpOrigin;
     systemBucket: s3.Bucket;
     systemBucketOAI: cloudfront.OriginAccessIdentity;
+    domainNames?: Array<string>;
+    certificateArn?: string;
 }
-
-const certificateArn = process.env.CERTIFICATE_ARN;
-const domainNames = process.env.DOMAIN_NAMES ? process.env.DOMAIN_NAMES.split(',') : [];
 
 export class EntryPointConstruct extends Construct {
     public readonly distribution: cloudfront.Distribution;
@@ -46,8 +45,9 @@ export class EntryPointConstruct extends Construct {
         });
 
         // Create the CloudFront distribution
+        const {domainNames, certificateArn} = props;
         this.distribution = new cloudfront.Distribution(this, 'EntryPointDistribution', {
-            domainNames: domainNames.length > 0 ? domainNames : undefined,
+            domainNames,
             certificate: certificateArn
                 ? acm.Certificate.fromCertificateArn(this, 'CustomCertificate', certificateArn)
                 : undefined,

@@ -7,10 +7,16 @@ const {
     SignUpCommand
 } = require("@aws-sdk/client-cognito-identity-provider");
 const {
-    PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM
+    PARAM_PREVIEW_POINT_DOMAIN,
+    PARAM_ENTRY_POINT_DOMAIN,
+    PARAM_SYS_USER_POOL_ID,
+    PARAM_SYS_USER_POOL_CLIENT_ID,
+    PARAM_ENTRY_POINT_DISTRIBUTION_ID,
+    INFRA_PREVIEW_POINT_DOMAIN,
+    INFRA_ENTRY_POINT_DOMAIN,
+    INFRA_SYS_USER_POOL_ID,
+    INFRA_SYS_USER_POOL_CLIENT_ID,
+    INFRA_ENTRY_POINT_DISTRIBUTION_ID
 } = require("common-utils");
 
 const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME; // Get AWS profile name from environment variable
@@ -38,10 +44,11 @@ if (!existsSync(CDK_OUTPUT_FILE)) {
 
 // Read and parse the CDK output file
 const cdkOutputs = JSON.parse(readFileSync(CDK_OUTPUT_FILE, 'utf8'));
-const entryPointDomainName = cdkOutputs[stackName][PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM];
-const previewPointDomainName = cdkOutputs[stackName][PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM];
-const sysUserPoolId = cdkOutputs[stackName][PLATFORM_SYS_USER_POOL_ID_SSM_PARAM];
-const sysUserPoolClientId = cdkOutputs[stackName][PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM];
+const entryPointDomainName = cdkOutputs[stackName][INFRA_ENTRY_POINT_DOMAIN];
+const entryPointDistributionId = cdkOutputs[stackName][INFRA_ENTRY_POINT_DISTRIBUTION_ID];
+const previewPointDomainName = cdkOutputs[stackName][INFRA_PREVIEW_POINT_DOMAIN];
+const sysUserPoolId = cdkOutputs[stackName][INFRA_SYS_USER_POOL_ID];
+const sysUserPoolClientId = cdkOutputs[stackName][INFRA_SYS_USER_POOL_CLIENT_ID];
 
 // Create SSM service object
 // Initialize SSM client with explicit credentials
@@ -61,11 +68,9 @@ const putParameter = async (name, value) => {
         Value: value,
         Overwrite: true
     };
-
     try {
         const command = new PutParameterCommand(params);
-        const response = await ssmClient.send(command);
-        // console.log(`Parameter stored: ${name}, Version: ${response.Version}`);
+        await ssmClient.send(command);
     } catch (err) {
         console.error(`Error storing parameter ${name}:`, err);
     }
@@ -107,15 +112,18 @@ const signUpAdminUser = async () => {
     }
 };
 
-putParameter(PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM, entryPointDomainName)
+putParameter(PARAM_ENTRY_POINT_DOMAIN, entryPointDomainName)
     .then(() => {
-        return putParameter(PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM, previewPointDomainName);
+        return putParameter(PARAM_PREVIEW_POINT_DOMAIN, previewPointDomainName);
     })
     .then(() => {
-        return putParameter(PLATFORM_SYS_USER_POOL_ID_SSM_PARAM, sysUserPoolId);
+        return putParameter(PARAM_SYS_USER_POOL_ID, sysUserPoolId);
     })
     .then(() => {
-        return putParameter(PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM, sysUserPoolClientId);
+        return putParameter(PARAM_SYS_USER_POOL_CLIENT_ID, sysUserPoolClientId);
+    })
+    .then(() => {
+        return putParameter(PARAM_ENTRY_POINT_DISTRIBUTION_ID, entryPointDistributionId);
     })
     .then(() => {
         return signUpAdminUser();
