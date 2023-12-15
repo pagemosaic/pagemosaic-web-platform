@@ -56,6 +56,10 @@ export function DeleteDomainForm(props: DeleteDomainFormProps) {
                        type="hidden"
                        defaultValue={websiteUrlData?.sslCertificateArn || ''}
                 />
+                <input name="entryPointDomain"
+                       type="hidden"
+                       defaultValue={websiteUrlData?.entryPointDomain || ''}
+                />
                 <ScrollArea className="w-full h-full">
                     <Card className="w-[500px] pt-6">
                         <ActionDataRequestError actionData={fetcher.data} className="p-6 pt-0"/>

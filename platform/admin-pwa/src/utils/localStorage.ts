@@ -1,16 +1,15 @@
 import localforage from 'localforage';
-import {SequentialTaskQueue} from 'sequential-task-queue';
-
-export const sessionStorageTaskQueue = new SequentialTaskQueue();
+// import {SequentialTaskQueue} from 'sequential-task-queue';
+//
+// export const sessionStorageTaskQueue = new SequentialTaskQueue();
 let storageInstance: LocalForage;
 
-export async function getGlobalState(key: string) {
-    let result: any = undefined;
+export function getSessionState(key: string): any {
+    let result: any = {};
     let stringValue: string | null = sessionStorage.getItem(key);
     if (stringValue) {
         try {
-            stringValue = JSON.parse(stringValue);
-            result = stringValue;
+            result = JSON.parse(stringValue);
         } catch (e: any) {
             console.error(`Error reading session storage ${key}. ${e.message}`);
         }
@@ -18,15 +17,15 @@ export async function getGlobalState(key: string) {
     return result;
 }
 
-export async function setGlobalState(key: string, val: any) {
+export function setSessionState(key: string, val: any) {
     sessionStorage.setItem(key, JSON.stringify(val));
 }
 
-export async function delGlobalState(key: string) {
+export function delSessionState(key: string) {
     sessionStorage.removeItem(key);
 }
 
-export async function clearGlobalState() {
+export function clearSessionState() {
     sessionStorage.clear();
 }
 

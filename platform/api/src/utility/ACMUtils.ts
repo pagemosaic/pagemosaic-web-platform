@@ -25,7 +25,7 @@ export async function requestSSLCertificate(domainName: string): Promise<string>
     const requestCertificateCommand = new RequestCertificateCommand({
         DomainName: validDomain.rootName,
         ValidationMethod: 'DNS',
-        SubjectAlternativeNames: validDomain.alternativeName ? [validDomain.alternativeName] : []
+        SubjectAlternativeNames: validDomain.alternativeName ? [validDomain.alternativeName] : undefined
     });
 
     const requestCertificateResponse = await client.send(requestCertificateCommand);
@@ -34,30 +34,34 @@ export async function requestSSLCertificate(domainName: string): Promise<string>
 
 export async function getCertificateDetail(certificateArn: string): Promise<PlatformWebsiteSslCertificateDetails | undefined> {
     const client = getACMClient();
-    const command = new DescribeCertificateCommand({CertificateArn: certificateArn});
-    const response = await client.send(command);
-
-    if (response.Certificate) {
-        const {DomainValidationOptions, DomainName, Status} = response.Certificate;
-        const details: PlatformWebsiteSslCertificateDetails = {
-            sslCertificateStatus: Status,
-            customDomainName: DomainName
-        };
-        if (DomainValidationOptions && DomainValidationOptions.length > 0) {
-            const {ResourceRecord} = DomainValidationOptions[0];
-            if (ResourceRecord && ResourceRecord.Type === 'CNAME') {
-                const {Name, Value} = ResourceRecord;
-                const nameParts = Name?.split('.') || [];
-                if (nameParts.length > 0) {
-                    details.validationCName = nameParts[0];
-                    details.validationCValue = Value;
+    try {
+        const command = new DescribeCertificateCommand({CertificateArn: certificateArn});
+        const response = await client.send(command);
+        if (response.Certificate) {
+            const {DomainValidationOptions, DomainName, Status} = response.Certificate;
+            const details: PlatformWebsiteSslCertificateDetails = {
+                sslCertificateStatus: Status,
+                customDomainName: DomainName
+            };
+            if (DomainValidationOptions && DomainValidationOptions.length > 0) {
+                const {ResourceRecord} = DomainValidationOptions[0];
+                if (ResourceRecord && ResourceRecord.Type === 'CNAME') {
+                    const {Name, Value} = ResourceRecord;
+                    if (DomainName && Name && Value) {
+                        const domainNameParts: Array<string> = DomainName.split('.');
+                        const rootDomainName = domainNameParts.slice(domainNameParts.length - 2, domainNameParts.length).join('.');
+                        details.validationCName = Name.replace(`.${rootDomainName}.`, '');
+                        details.validationCValue = Value;
+                    }
                 }
             }
+            return details;
         }
-        return details;
-    } else {
-        return undefined;
+    } catch (e) {
+        ///
     }
+    return undefined;
+
 }
 
 export async function deleteSSLCertificate(certificateArn: string): Promise<void> {

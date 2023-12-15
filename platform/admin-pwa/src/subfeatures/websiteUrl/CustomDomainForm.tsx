@@ -29,7 +29,11 @@ export function CustomDomainForm(props: CustomDomainFormProps) {
     return (
         <fetcher.Form method="post" onReset={handleReset} className="flex flex-col gap-2 w-full h-full p-4">
             <div className="mb-4">
-                <p className="text-xl">Website Custom Domain</p>
+                <p className="text-xl">Set Website Custom Domain</p>
+                <p className="text-sm text-muted-foreground max-w-[70ch]">
+                    Remember to purchase a domain name from a domain service provider.
+                    Also, ensure you have access to the DNS record management panel.
+                </p>
                 {/*<Separator className="mb-4" />*/}
             </div>
             <input name="action" type="hidden" defaultValue={FORM_ACTION_SUBMIT}/>
@@ -58,7 +62,7 @@ export function CustomDomainForm(props: CustomDomainFormProps) {
                         <CardContent>
                             <div className="flex flex-col gap-4">
                                 <div className="flex flex-col gap-2">
-                                    <Label htmlFor="customDomainName">Custom Domain Name</Label>
+                                    <Label htmlFor="customDomainName">Domain Name</Label>
                                     <Input
                                         name="customDomainName"
                                         type="text"
@@ -66,6 +70,14 @@ export function CustomDomainForm(props: CustomDomainFormProps) {
                                         defaultValue=""
                                     />
                                     <ActionDataFieldError actionData={fetcher.data} fieldName="customDomainName"/>
+                                    <p className="text-sm text-muted-foreground max-w-[70ch]">
+                                        You can specify only second-level or third-level domain names.
+                                        For example, use <code>promo.domain.com</code> or <code>domain.com</code>.
+                                    </p>
+                                    <p className="text-sm text-muted-foreground max-w-[70ch]">
+                                        Additionally, you can specify a wildcard domain name, allowing you to use subdomains for your website's pages.
+                                        For instance, use <code>*.domain.com</code>.
+                                    </p>
                                 </div>
                             </div>
                         </CardContent>

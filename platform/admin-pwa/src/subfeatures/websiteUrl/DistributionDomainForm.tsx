@@ -11,6 +11,7 @@ import {ButtonAction} from '@/components/utils/ButtonAction';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {CopyToClipboardButton} from '@/components/utils/CopyToClipboardButton';
 import {getSubdomainRecordName} from 'common-utils';
+import {Separator} from '@/components/ui/separator';
 
 interface DistributionDomainFormProps {
     websiteUrlData?: WebsiteUrlData;
@@ -30,7 +31,7 @@ export function DistributionDomainForm(props: DistributionDomainFormProps) {
     return (
         <fetcher.Form method="post" onReset={handleReset} className="flex flex-col gap-2 w-full h-full p-4">
             <div className="mb-4">
-                <p className="text-xl">Assign Custom Domain To Website</p>
+                <p className="text-xl">Link Custom Domain to Website</p>
                 {/*<Separator className="mb-4" />*/}
             </div>
             <input name="action" type="hidden" defaultValue={FORM_ACTION_SUBMIT}/>
@@ -66,10 +67,9 @@ export function DistributionDomainForm(props: DistributionDomainFormProps) {
                             <div className="flex flex-col gap-4">
                                 <ActionDataFieldError actionData={fetcher.data} fieldName="sslCertificateArn"/>
                                 <div>
-                                    <p className="text-sm max-w-[77ch]">
-                                        To successfully validate the domain you've specified, you need to add the
-                                        following records to the DNS configuration of the DNS service provider where you
-                                        purchased your domain name.
+                                    <p className="text-sm">
+                                        Ensure to add the following DNS record via your domain name
+                                        provider before initiating the domain linking process.
                                     </p>
                                 </div>
                                 <div>

@@ -15,7 +15,7 @@ export class SystemBucketDeploymentConstruct extends Construct {
     constructor(scope: Construct, id: string, props: SystemBucketConstructProps) {
         super(scope, id);
 
-        const adminPwaDeployment = new s3deploy.BucketDeployment(this, 'AdminPwaDeployment', {
+        new s3deploy.BucketDeployment(this, 'AdminPwaDeployment', {
             sources: [s3deploy.Source.asset(resolve('../admin-pwa/dist'))],
             destinationBucket: props.systemBucket,
             destinationKeyPrefix: 'admin', // Deploy contents to /admin directory in the bucket

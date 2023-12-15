@@ -22,10 +22,7 @@ router.delete('/delete-custom-domain', async (req: Request, res: Response) => {
         await removeCloudFrontDomain(distributionId);
 
         const certificateArn = await getSslCertificateArn();
-        const certificateDetails = await getCertificateDetail(certificateArn);
-        if (certificateDetails) {
-            await deleteSSLCertificate(certificateArn);
-        }
+        await deleteSSLCertificate(certificateArn);
 
         await delSslCertificateArn();
         await delDomainName();

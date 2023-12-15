@@ -4,7 +4,7 @@ import * as cognito from 'aws-cdk-lib/aws-cognito';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import {
-    PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
+    PARAM_ENTRY_POINT_DOMAIN,
 } from 'common-utils';
 
 export class SysUserPoolConstruct extends Construct {
@@ -30,13 +30,13 @@ export class SysUserPoolConstruct extends Construct {
                 exports.handler = async (event) => {
                     if (event.triggerSource === 'CustomMessage_SignUp' || event.triggerSource === 'CustomMessage_ResendCode') {
                         const { codeParameter, userAttributes: {name, email} } = event.request;
-                        const domainName = await getSsmParameter('${PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM}');
+                        const domainName = await getSsmParameter('${PARAM_ENTRY_POINT_DOMAIN}');
                         const customUrl = \`https://\${domainName}/admin/sign-up?username=\${email}&code=\${codeParameter}\`;
                         event.response.emailSubject = "Page Mosaic Email Verification";
                         event.response.emailMessage = \`Hello, \${name}. You received this letter because you sign up to Page Mosaic Web Platform as administrator.\\n\\nPlease go to this url to complete the sign up: \${customUrl}\`;
                     } else if (event.triggerSource === 'CustomMessage_ForgotPassword') {
                         const { codeParameter, userAttributes: {name, email} } = event.request;
-                        const domainName = await getSsmParameter('${PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM}');
+                        const domainName = await getSsmParameter('${PARAM_ENTRY_POINT_DOMAIN}');
                         const customUrl = \`https://\${domainName}/admin/password-recovery?username=\${email}&code=\${codeParameter}\`;
                         event.response.emailSubject = "Page Mosaic Forgot Password Recovery";
                         event.response.emailMessage = \`Hello, \${name}. It seems that you forgot your password.\\n\\nPlease go to this url to complete the password recovery: \${customUrl}\`;                        

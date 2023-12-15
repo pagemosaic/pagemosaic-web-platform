@@ -2,11 +2,11 @@ import * as cdk from 'aws-cdk-lib';
 import {Stack} from 'aws-cdk-lib/core';
 import {Construct} from 'constructs';
 import {
-    PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_ID_SSM_PARAM,
-    PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM,
-    PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM,
+    INFRA_ENTRY_POINT_DOMAIN,
+    INFRA_PREVIEW_POINT_DOMAIN,
+    INFRA_SYS_USER_POOL_ID,
+    INFRA_SYS_USER_POOL_CLIENT_ID,
+    INFRA_ENTRY_POINT_DISTRIBUTION_ID,
 } from 'common-utils';
 import {ApiConstruct} from '../constructs/api';
 import {EntryPointConstruct} from '../constructs/entry-point';
@@ -61,21 +61,21 @@ export class PlatformStack extends Stack {
         });
 
         // Output the distribution domain name so it can be easily accessed
-        new cdk.CfnOutput(this, PLATFORM_ENTRY_POINT_DOMAIN_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_ENTRY_POINT_DOMAIN, {
             value: entryPointConstruct.distribution.distributionDomainName,
         });
         // Output the distribution domain name so it can be easily accessed
-        new cdk.CfnOutput(this, PLATFORM_PREVIEW_POINT_DOMAIN_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_PREVIEW_POINT_DOMAIN, {
             value: previewPointConstruct.distribution.distributionDomainName,
         });
         // Output the sys user pool ID
-        new cdk.CfnOutput(this, PLATFORM_SYS_USER_POOL_ID_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_SYS_USER_POOL_ID, {
             value: sysUserPoolConstruct.userPool.userPoolId,
         });
-        new cdk.CfnOutput(this, PLATFORM_SYS_USER_POOL_CLIENT_ID_SSM_PARAM, {
+        new cdk.CfnOutput(this, INFRA_SYS_USER_POOL_CLIENT_ID, {
             value: sysUserPoolConstruct.userPoolClient.userPoolClientId,
         });
-        new cdk.CfnOutput(this, PLATFORM_ENTRY_POINT_DISTRIBUTION_ID_PARAM, {
+        new cdk.CfnOutput(this, INFRA_ENTRY_POINT_DISTRIBUTION_ID, {
             value: entryPointConstruct.distribution.distributionId,
         });
     }

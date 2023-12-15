@@ -7,6 +7,9 @@ const formSchema = z.object({
     sslCertificateArn: z.string().min(2, {
         message: "SSL certificate ARN must be at least 2 characters.",
     }),
+    entryPointDomain: z.string().min(2, {
+        message: "Entrypoint domain name must be at least 2 characters.",
+    }),
 });
 
 export async function deleteDomainFormAction({request}: LoaderFunctionArgs) {
@@ -23,7 +26,11 @@ export async function deleteDomainFormAction({request}: LoaderFunctionArgs) {
                 }
                 try {
                     await websiteDataSingleton.deleteCustomDomain();
-                    // await new Promise((res) => setTimeout(res, 1000));
+                    await new Promise((res) => setTimeout(res, 1000));
+                    const {entryPointDomain} = data;
+                    if (!request.url.includes(entryPointDomain.toString())){
+                        window.location.href = `https://${entryPointDomain}/admin/settings/website-url`;
+                    }
                 } catch (e: any) {
                     return json({error: e.message});
                 }

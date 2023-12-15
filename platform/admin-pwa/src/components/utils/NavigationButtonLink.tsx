@@ -4,14 +4,15 @@ import {Button, ButtonProps} from '@/components/ui/button';
 import {cn} from '@/utils/ComponentsUtils';
 
 type NavigationButtonLinkProps = ButtonProps & {
+    pathKey: string;
     to: string;
     end?: boolean;
     label: string;
     icon?: React.ReactNode;
 }
 
-export function NavigationButtonLink({to, end = false, label, icon, ...rest}: NavigationButtonLinkProps) {
-    let match = useMatch({ path: to, end });
+export function NavigationButtonLink({pathKey, to, end = false, label, icon, ...rest}: NavigationButtonLinkProps) {
+    let match = useMatch({ path: pathKey, end });
     return (
         <Button
             {...rest}

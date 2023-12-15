@@ -7,7 +7,7 @@ import {Separator} from '@/components/ui/separator';
 import {
     LucideRefreshCw,
     LucideGlobe,
-    LucideTrash2, LucideLink
+    LucideTrash2, LucideLink, LucideExternalLink
 } from 'lucide-react';
 import {CopyToClipboardButton} from '@/components/utils/CopyToClipboardButton';
 import {Skeleton} from '@/components/ui/skeleton';
@@ -46,15 +46,15 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
     const publicUrl = websiteUrlData?.entryPointDomainAlias
         ? `https://${websiteUrlData?.entryPointDomainAlias || ''}`
         : `https://${websiteUrlData?.entryPointDomain || ''}`;
-    const previewUrl = `https://${websiteUrlData?.previewPointDomain || ''}`;
+    const defaultUrl = `https://${websiteUrlData?.entryPointDomain || ''}`;
+    const defaultPreviewUrl = `https://${websiteUrlData?.previewPointDomain || ''}`;
 
     return (
         <div className="flex flex-col gap-2 w-full h-full p-4">
             <div className="flex flex-col gap-2 mb-4">
                 <p className="text-xl">Website Address (URL) Settings</p>
-                <p className="text-sm text-muted-foreground max-w-[70ch]">
-                    Here you can find the default URLs assigned to your website.
-                    You can also set your own domain so it is used in the address instead of the default domain.
+                <p className="text-sm text-muted-foreground">
+                    Here you can set your own domain instead of the <strong>{`${websiteUrlData?.entryPointDomain || 'default'}`}</strong> domain.
                 </p>
             </div>
             <div className="grow overflow-hidden">
@@ -64,7 +64,7 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                             <div className="flex flex-col gap-8">
                                 <div className="grid grid-cols-2 gap-4 w-full">
                                     <div className="flex flex-col gap-4">
-                                        <Label htmlFor="entryPointDomain">Website Public Address (URL):</Label>
+                                        <Label htmlFor="entryPointDomain">Website Address (URL):</Label>
                                         {isLoadingData
                                             ? (
                                                 <div>
@@ -73,11 +73,11 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                             )
                                             : (
                                                 <a
-                                                    className="text-sm font-semibold hover:underline"
+                                                    className="flex flex-row gap-2 items-center text-sm font-semibold hover:underline"
                                                     href={publicUrl}
                                                     target="_blank"
                                                 >
-                                                    {publicUrl}
+                                                    {publicUrl}<LucideExternalLink className="w-3 h-3"/>
                                                 </a>
                                             )
                                         }
@@ -95,21 +95,31 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                         )}
                                     </div>
                                     <div className="flex flex-col gap-4">
-                                        <Label htmlFor="previewPointDomain">Website Preview Address (URL):</Label>
+                                        <Label htmlFor="previewPointDomain">Default Website Addresses (URLs):</Label>
                                         {isLoadingData
                                             ? (
-                                                <div>
-                                                    <Skeleton className="h-[1.25em] w-full"/>
-                                                </div>
+                                                <>
+                                                    <div><Skeleton className="h-[1.25em] w-full"/></div>
+                                                    <div><Skeleton className="h-[1.25em] w-full"/></div>
+                                                </>
                                             )
                                             : (
-                                                <a
-                                                    className="text-sm font-semibold hover:underline"
-                                                    href={previewUrl}
-                                                    target="_blank"
-                                                >
-                                                    {previewUrl}
-                                                </a>
+                                                <>
+                                                    <a
+                                                        className="flex flex-row gap-2 items-center text-sm font-semibold hover:underline"
+                                                        href={defaultUrl}
+                                                        target="_blank"
+                                                    >
+                                                        <span>{defaultUrl}</span><LucideExternalLink className="w-3 h-3" />
+                                                    </a>
+                                                    <a
+                                                        className="flex flex-row gap-2 items-center text-sm font-semibold text-muted-foreground hover:underline"
+                                                        href={defaultPreviewUrl}
+                                                        target="_blank"
+                                                    >
+                                                        <span>{defaultPreviewUrl}</span><LucideExternalLink className="w-3 h-3" />
+                                                    </a>
+                                                </>
                                             )
                                         }
                                     </div>
@@ -200,9 +210,12 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                         <div>
                                             <Separator/>
                                         </div>
-                                        <div>
+                                        <div className="flex flex-col gap-2">
                                             <p className="text-sm max-w-[77ch]">
-                                                To successfully validate the domain you've specified, you need to add the following records to the DNS configuration of the DNS service provider where you purchased your domain name.
+                                                For successful domain validation, please add the specified records to your DNS configuration, accessible through your domain name's DNS service provider.
+                                            </p>
+                                            <p className="text-sm font-semibold max-w-[77ch]">
+                                                Domain ownership validation may require up to 48 hours, subject to the domain's DNS availability.
                                             </p>
                                         </div>
                                         <div>
