@@ -1,6 +1,6 @@
 import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
 import {get, post} from '@/utils/ClientApi';
-import {UserProfile} from 'common-utils';
+import {UserProfile} from 'infra-common/data/SysUser';
 
 export type SysUserProfileData = UserProfile | null;
 export type SysUserProfileDataRequest = Promise<SysUserProfileData>;

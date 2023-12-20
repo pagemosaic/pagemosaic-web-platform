@@ -1,6 +1,6 @@
-import { Router, Request, Response } from 'express';
-import { AuthRefreshResponse } from 'common-utils';
-import {refreshSysUser} from '../../utility/CognitoUtils';
+import {Router, Request, Response} from 'express';
+import {refreshSysUser} from 'infra-common/utils/sysAuth';
+import {AuthRefreshResponse} from 'infra-common/system/Auth';
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.post('/post-sys-user-auth-refresh', async (req: Request, res: Response) =
         return;
     }
     try {
-        const { username, refreshToken } = req.body;
+        const {username, refreshToken} = req.body;
         const response = await refreshSysUser(refreshToken);
         if (response.AuthenticationResult) {
             const result: AuthRefreshResponse = {

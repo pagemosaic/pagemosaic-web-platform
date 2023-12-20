@@ -3,22 +3,25 @@
   "version": "1.0.0",
   "main": "./dist/infra.js",
   "scripts": {
-    "build": "tsc",
-    "bootstrap": "node ./scripts/bootstrap.js",
-    "deploy": "node ./scripts/deploy.js",
-    "destroy": "node ./scripts/destroy.js",
-    "create-admin-user": "local-run node ./scripts/create-admin-user.js"
-  },
-  "devDependencies": {
-    "@types/node": "20.8.10",
-    "typescript": "^5.2.2"
+    "bootstrap": "ts-node ./src/exec/bootstrap.ts",
+    "deploy": "ts-node ./src/exec/deploy.ts",
+    "destroy": "ts-node ./src/exec/destroy.ts",
+    "create-admin-user": "local-run ts-node ./src/exec/create-admin-user.ts"
   },
   "dependencies": {
-    "common-utils": "workspace:*",
+    "lodash-es": "4.17.21"
+  },
+  "devDependencies": {
+    "@aws-sdk/client-acm": "3.477.0",
+    "@aws-sdk/client-cloudfront": "3.477.0",
+    "@aws-sdk/client-ssm": "3.477.0",
+    "@aws-sdk/client-dynamodb": "3.477.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.477.0",
+    "@types/lodash-es": "4.17.12",
+    "@types/node": "20.8.10",
     "aws-cdk-lib": "2.114.1",
-    "@aws-sdk/client-acm": "3.473.0",
-    "@aws-sdk/client-ssm": "3.473.0",
-    "@aws-sdk/client-cognito-identity-provider": "3.473.0",
-    "constructs": "10.3.0"
+    "constructs": "10.3.0",
+    "typescript": "^5.2.2",
+    "ts-node": "10.9.2"
   }
 }

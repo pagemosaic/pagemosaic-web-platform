@@ -12,7 +12,9 @@
     "strict": true,  // Enable all strict type-checking options
     "baseUrl": "./src"
   },
-  "files": ["./src/infra.ts"],
+  "files": [
+    "./src/stack/index.ts"
+  ],
   "include": ["./src/**/*"],
   "exclude": [
     "node_modules",

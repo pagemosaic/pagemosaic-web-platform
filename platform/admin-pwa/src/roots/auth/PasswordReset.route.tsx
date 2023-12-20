@@ -14,8 +14,8 @@ import {
 import {Label} from '@/components/ui/label';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {post} from '@/utils/ClientApi';
-import {AuthResponse} from 'common-utils';
 import {ActionDataRequestError} from '@/components/utils/ActionDataRequestError';
+import {AuthResponse} from 'infra-common/system/Auth';
 
 const forgotFormSchema = z.object({
     username: z.string().min(2, {

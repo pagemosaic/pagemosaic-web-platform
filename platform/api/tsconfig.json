@@ -22,8 +22,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "common-utils": ["../common-utils/src/index.ts"]
+      "infra-common/*": ["../infra/src/common/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "../infra/src/common/**/*"]
 }

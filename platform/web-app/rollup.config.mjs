@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import terser from '@rollup/plugin-terser';
 
 const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
+const infraPkg = JSON.parse(readFileSync('../infra/package.json', 'utf8'));
 
 export default {
     input: 'adapter/index.js',
@@ -13,7 +14,10 @@ export default {
             format: 'cjs'
         }
     ],
-    external: Object.keys(pkg.devDependencies || {}),
+    external: [
+        ...Object.keys(pkg.devDependencies || {}),
+        ...Object.keys(infraPkg.devDependencies || {})
+    ],
     plugins: [
         resolve({ preferBuiltins: true, exportConditions: ['node'] }),
         commonjs(),

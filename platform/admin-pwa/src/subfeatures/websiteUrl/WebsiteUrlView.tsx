@@ -13,7 +13,8 @@ import {CopyToClipboardButton} from '@/components/utils/CopyToClipboardButton';
 import {Skeleton} from '@/components/ui/skeleton';
 import {ButtonLink} from '@/components/utils/ButtonLink';
 import {ButtonAction} from '@/components/utils/ButtonAction';
-import {SslCertificateStatus, getSubdomainRecordName} from 'common-utils';
+import {SslCertificateStatus} from 'infra-common/system/Domain';
+import {getSubdomainRecordName} from 'infra-common/utils/domain';
 
 interface WebsiteUrlViewProps {
     websiteUrlData?: WebsiteUrlData;
@@ -187,7 +188,7 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                                     )
                                                     : (
                                                         <p className="text-sm font-semibold">
-                                                            {sslCertificateStatusLabels[websiteSslCertificateDetailsData?.sslCertificateStatus || 'UNKNOWN']}
+                                                            {sslCertificateStatusLabels[websiteSslCertificateDetailsData?.sslCertificateStatus as SslCertificateStatus || 'UNKNOWN']}
                                                         </p>
                                                     )
                                                 }

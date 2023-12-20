@@ -1,23 +1,24 @@
+import path from "path";
 import { defineConfig } from 'vite';
 import { VitePluginNode } from 'vite-plugin-node';
 
 export default defineConfig(({ command, mode }) => {
     // Development server configuration
     return {
+        define: {
+            'process.env.STACK_NAME': JSON.stringify(process.env.STACK_NAME || ''),
+        },
         plugins: [
             // ... other plugins
             ...VitePluginNode({
                 adapter: 'express',
                 appPath: './src/server.ts',
                 exportName: 'viteNodeApp',
-                optimizeDeps: {
-                    exclude: ['common-utils'],
-                }
             }),
         ],
         resolve: {
             alias: {
-                'common-utils': '../common-utils/dist/index.mjs',
+                'infra-common': path.resolve(__dirname, '../infra/src/common')
             }
         },
         server: {

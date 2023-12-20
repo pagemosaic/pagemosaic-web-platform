@@ -1,17 +1,32 @@
-import {defineConfig} from 'vite';
 import path from "path";
+import {readFileSync} from "fs";
+import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
+
+const pkg = JSON.parse(readFileSync('./package.json', 'utf8'));
+const infraPkg = JSON.parse(readFileSync('../infra/package.json', 'utf8'));
 
 // https://vitejs.dev/config/
 export default defineConfig(({command, mode}) => {
     if (command === 'serve') {
         return {
             base: '/admin/',
+            define: {
+                'process.env.STACK_NAME': JSON.stringify(process.env.STACK_NAME || ''),
+            },
+            build: {
+                rollupOptions: {
+                    external: [
+                        ...Object.keys(pkg.devDependencies || {}),
+                        ...Object.keys(infraPkg.devDependencies || {})
+                    ]
+                }
+            },
             plugins: [react()],
             resolve: {
                 alias: {
                     '@': path.resolve(__dirname, "./src"),
-                    'common-utils': path.resolve(__dirname, '../common-utils/dist/index.mjs')
+                    'infra-common': path.resolve(__dirname, '../infra/src/common')
                 },
             },
             server: {
@@ -39,9 +54,21 @@ export default defineConfig(({command, mode}) => {
     return {
         base: '/admin/',
         plugins: [react()],
+        define: {
+            'process.env.STACK_NAME': JSON.stringify(process.env.STACK_NAME || ''),
+        },
+        build: {
+            rollupOptions: {
+                external: [
+                    ...Object.keys(pkg.devDependencies || {}),
+                    ...Object.keys(infraPkg.devDependencies || {})
+                ]
+            }
+        },
         resolve: {
             alias: {
-                '@': path.resolve(__dirname, "./src")
+                '@': path.resolve(__dirname, "./src"),
+                'infra-common': path.resolve(__dirname, '../infra/src/common')
             },
         },
         server: {

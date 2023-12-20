@@ -1,23 +1,29 @@
-import {MainPage, PLATFORM_PAGES_TABLE_NAME} from 'common-utils';
-import {getItemByKey} from '~/utils/DynamoDbUtils';
+import {MainPage} from 'infra-common/data/MainPage';
+import {getItemByKey} from 'infra-common/utils/database';
+import {PLATFORM_DOCUMENTS_TABLE_NAME} from 'infra-common/constants';
 
 export interface MainPageContent {
-    title: string;
-    heroTitle: string;
-    body: string;
+    pageTitle: string;
+    pageDescription: string;
+    pageBody: string;
+    pageStyles: string;
+    pageData: any;
 }
 
 export async function getMainPageContent(): Promise<MainPageContent> {
-    const mainPageDbItem: MainPage | undefined = await getItemByKey(PLATFORM_PAGES_TABLE_NAME, {
+    const mainPageDbItem: MainPage | undefined = await getItemByKey(PLATFORM_DOCUMENTS_TABLE_NAME, {
         PK: {S: 'Page_main'},
         SK: {S: 'Content_main'}
     });
+    console.log('mainPageDbItem: ', mainPageDbItem);
     if (mainPageDbItem) {
         return {
-            title: mainPageDbItem.Title.S,
-            heroTitle: mainPageDbItem.HeroTitle.S,
-            body: mainPageDbItem.Body.S
+            pageTitle: mainPageDbItem.PageTitle?.S || '',
+            pageDescription: mainPageDbItem.PageDescription?.S || '',
+            pageBody: mainPageDbItem.PageBody?.S || '',
+            pageStyles: mainPageDbItem.PageStyles?.S || '',
+            pageData: mainPageDbItem.PageData || {}
         }
     }
-    throw Error('Missing the Home page content');
+    throw Error('Missing the home page content');
 }

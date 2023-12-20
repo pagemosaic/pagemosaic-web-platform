@@ -5,10 +5,10 @@ import {Input} from '@/components/ui/input';
 import {Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter} from '@/components/ui/card';
 import {Label} from '@/components/ui/label';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
-import {AuthResponse} from 'common-utils';
 import {post} from '@/utils/ClientApi';
 import {ActionDataRequestError} from '@/components/utils/ActionDataRequestError';
 import {sysUserDataSingleton} from '@/data/SysUserData';
+import {AuthResponse} from 'infra-common/system/Auth';
 
 const formSchema = z.object({
     verificationCode: z.string().min(2, {

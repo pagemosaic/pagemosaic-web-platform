@@ -4,14 +4,14 @@ import {mainPageDataSingleton} from '@/data/MainPageData';
 import {FORM_ACTION_SUBMIT, FORM_ACTION_RESET} from '@/utils/FormUtils';
 
 const formSchema = z.object({
-    title: z.string().min(2, {
-        message: "Email must be at least 2 characters.",
+    pageTitle: z.string().min(2, {
+        message: "Page title must be at least 2 characters.",
     }),
-    heroTitle: z.string().min(2, {
-        message: "Full name must be at least 2 characters.",
+    pageDescription: z.string().min(2, {
+        message: "Page description must be at least 2 characters.",
     }),
-    body: z.string().min(2, {
-        message: "Body must be at least 2 characters.",
+    pageBody: z.string().min(2, {
+        message: "Page body must be at least 2 characters.",
     }),
 });
 

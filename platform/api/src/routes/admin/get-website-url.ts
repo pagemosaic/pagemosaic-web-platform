@@ -1,8 +1,8 @@
 import {Router, Request, Response} from 'express';
-import {PlatformWebsiteUrl} from 'common-utils';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {getPlatformWebsiteUrlParams} from '../../utility/SsmUtils';
-import {getDistributionDomainAlias} from '../../utility/CloudFrontUtils';
+import {PlatformWebsiteUrl} from 'infra-common/system/Domain';
+import {getPlatformWebsiteUrlParams} from 'infra-common/utils/sysParameters';
+import {getDistributionDomainAlias} from 'infra-common/utils/cdn';
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
 import {get, post, del, ClientControllerCallback} from '@/utils/ClientApi';
-import {PlatformWebsiteUrl, PlatformWebsiteSslCertificateDetails} from 'common-utils';
 import {useGetData, GetDataStatus} from '@/data/hooks';
+import {PlatformWebsiteUrl, PlatformWebsiteSslCertificateDetails} from 'infra-common/system/Domain';
 
 export type WebsiteUrlData = PlatformWebsiteUrl | null;
 export type WebsiteUrlDataRequest = Promise<WebsiteUrlData>;

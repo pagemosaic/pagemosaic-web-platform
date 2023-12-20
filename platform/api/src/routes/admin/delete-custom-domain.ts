@@ -1,12 +1,13 @@
 import {Router, Request, Response} from 'express';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {deleteSSLCertificate, getCertificateDetail} from '../../utility/ACMUtils';
 import {
     getEntryPointDistributionId,
     getSslCertificateArn,
-    delSslCertificateArn, delDomainName
-} from '../../utility/SsmUtils';
-import {removeCloudFrontDomain} from '../../utility/CloudFrontUtils';
+    delSslCertificateArn,
+    delDomainName
+} from 'infra-common/utils/sysParameters';
+import {removeCloudFrontDomain} from 'infra-common/utils/cdn';
+import {deleteSSLCertificate} from 'infra-common/utils/sslCertificate';
 
 const router = Router();
 

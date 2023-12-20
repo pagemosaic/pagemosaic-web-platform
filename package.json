@@ -17,7 +17,7 @@
     "bootstrap-platform": "local-run turbo run build && local-run turbo run bootstrap",
     "build-platform": "local-run turbo run build",
     "deploy-platform": "local-run turbo run build && local-run turbo run deploy",
-    "destroy-platform": "local-run turbo run build && local-run turbo run destroy",
+    "destroy-platform": "local-run turbo run destroy",
     "api": "local-run turbo run dev --filter=api",
     "admin-pwa": "turbo run dev --filter=admin-pwa",
     "admin-pwa-preview": "turbo run preview --filter=admin-pwa",

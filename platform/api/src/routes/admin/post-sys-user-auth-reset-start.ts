@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import {forgotSysUser} from '../../utility/CognitoUtils';
+import {forgotSysUser} from 'infra-common/utils/sysAuth';
 
 const router = Router();
 

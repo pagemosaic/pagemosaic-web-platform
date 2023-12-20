@@ -1,8 +1,8 @@
 import {Router, Request, Response} from 'express';
-import {PlatformWebsiteUrl, PlatformWebsiteSslCertificateDetails} from 'common-utils';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {getPlatformWebsiteUrlParams} from '../../utility/SsmUtils';
-import {getCertificateDetail} from '../../utility/ACMUtils';
+import {getPlatformWebsiteUrlParams} from 'infra-common/utils/sysParameters';
+import {PlatformWebsiteUrl, PlatformWebsiteSslCertificateDetails} from 'infra-common/system/Domain';
+import {getCertificateDetail} from 'infra-common/utils/sslCertificate';
 
 const router = Router();
 

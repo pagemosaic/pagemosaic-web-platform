@@ -1,7 +1,8 @@
 import {Router, Request, Response} from 'express';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {UserProfile, PLATFORM_SYSTEM_TABLE_NAME} from 'common-utils';
-import {createOrUpdateItem} from '../../utility/DynamoDbUtils';
+import {UserProfile} from 'infra-common/data/SysUser';
+import {createOrUpdateItem} from 'infra-common/utils/database';
+import {PLATFORM_SYSTEM_TABLE_NAME} from 'infra-common/constants';
 
 const router = Router();
 

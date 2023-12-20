@@ -23,7 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "common-utils": ["../common-utils/src/index.ts"]
+      "infra-common/*": ["../infra/src/common/*"]
     }
   },
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -1,6 +1,6 @@
 import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
 import {get, post} from '@/utils/ClientApi';
-import {MainPage} from 'common-utils';
+import {MainPage} from 'infra-common/data/MainPage';
 
 export type MainPageData = MainPage | null;
 export type MainPageDataRequest = Promise<MainPageData>;
@@ -22,9 +22,9 @@ class MainPageDataSingleton {
         const page: MainPage = {
             PK: {S: pk.length > 0 ? pk : 'Page_main'},
             SK: {S: sk.length > 0 ? sk : 'Content_main'},
-            Title: {S: formDataObject.title as string},
-            HeroTitle: {S: formDataObject.heroTitle as string},
-            Body: {S: formDataObject.body as string}
+            PageTitle: {S: formDataObject.pageTitle as string},
+            PageDescription: {S: formDataObject.pageDescription as string},
+            PageBody: {S: formDataObject.pageBody as string}
         };
         const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {

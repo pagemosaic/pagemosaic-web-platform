@@ -17,6 +17,7 @@ import postCustomDomainCertificate from './post-custom-domain-certificate';
 import postCustomDomainDistribution from './post-custom-domain-distribution';
 import getWebsiteSslCertificateDetails from './get-website-ssl-certificate-details';
 import deleteCustomDomain from './delete-custom-domain';
+import getTest1 from './get-test-1';
 
 const router = Router();
 
@@ -37,5 +38,7 @@ router.use(postCustomDomainCertificate);
 router.use(postCustomDomainDistribution);
 router.use(getWebsiteSslCertificateDetails);
 router.use(deleteCustomDomain);
+
+router.use(getTest1);
 
 export default router;

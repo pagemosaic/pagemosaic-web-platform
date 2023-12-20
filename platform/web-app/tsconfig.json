@@ -1,5 +1,10 @@
 {
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "../infra/src/common/**/*"
+  ],
   "exclude": [
     "node_modules"
   ],
@@ -18,7 +23,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./app/*"],
-      "common-utils": ["../common-utils/src/index.ts"]
+      "infra-common/*": ["../infra/src/common/*"]
     }
   }
 }

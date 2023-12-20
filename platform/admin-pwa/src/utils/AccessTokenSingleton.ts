@@ -1,6 +1,6 @@
-import {UserToken, AuthRefreshResponse} from 'common-utils';
 import {getStorageRecord, setStorageRecord} from '@/utils/localStorage';
 import {post} from '@/utils/ClientApi';
+import {UserToken, AuthRefreshResponse} from 'infra-common/system/Auth';
 
 const delta: number = 15 * 60 * 1000; // 15 minutes
 

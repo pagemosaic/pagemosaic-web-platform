@@ -1,5 +1,5 @@
 import {getStorageRecord, setStorageRecord} from '@/utils/localStorage';
-import {UserToken, UserAttributes} from 'common-utils';
+import {UserAttributes, UserToken} from 'infra-common/system/Auth';
 
 export type SysUserData = {
     userAttributes?: UserAttributes,

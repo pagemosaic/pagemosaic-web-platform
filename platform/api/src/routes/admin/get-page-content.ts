@@ -1,7 +1,8 @@
 import {Router, Request, Response} from 'express';
-import {BasicItem, PLATFORM_PAGES_TABLE_NAME} from 'common-utils';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {getItemByKey} from '../../utility/DynamoDbUtils';
+import {BasicItem} from 'infra-common/data/BasicItem';
+import {getItemByKey} from 'infra-common/utils/database';
+import {PLATFORM_DOCUMENTS_TABLE_NAME} from 'infra-common/constants';
 
 const router = Router();
 
@@ -23,7 +24,7 @@ router.get('/get-page-content', async (req: Request, res: Response) => {
     }
     try {
         const page: BasicItem | undefined = await getItemByKey<BasicItem>(
-            PLATFORM_PAGES_TABLE_NAME, {
+            PLATFORM_DOCUMENTS_TABLE_NAME, {
                 PK: {S: pk as string},
                 SK: {S: sk as string}
             }

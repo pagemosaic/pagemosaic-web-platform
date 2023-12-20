@@ -1,9 +1,9 @@
 import {Router, Request, Response} from 'express';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {getCertificateDetail} from '../../utility/ACMUtils';
-import {getPlatformWebsiteUrlParams} from '../../utility/SsmUtils';
-import {setCloudFrontDomain, getDistributionDomainAlias} from '../../utility/CloudFrontUtils';
-import {PlatformWebsiteSslCertificateDetails} from 'common-utils';
+import {getPlatformWebsiteUrlParams} from 'infra-common/utils/sysParameters';
+import {PlatformWebsiteSslCertificateDetails} from 'infra-common/system/Domain';
+import {getCertificateDetail} from 'infra-common/utils/sslCertificate';
+import {getDistributionDomainAlias, setCloudFrontDomain} from 'infra-common/utils/cdn';
 
 const router = Router();
 
