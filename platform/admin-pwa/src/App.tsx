@@ -23,6 +23,17 @@ import {deleteDomainFormAction} from '@/subfeatures/websiteUrl/DeleteDomainForm.
 import {DeleteDomainFormRoute} from '@/subfeatures/websiteUrl/DeleteDomainForm.route';
 import {distributionDomainFormAction} from '@/subfeatures/websiteUrl/DistributionDomainForm.action';
 import {DistributionDomainFormRoute} from '@/subfeatures/websiteUrl/DistributionDomainForm.route';
+import {allPagesLoader, allPagesLoaderGuard} from '@/subfeatures/allPages/allPages.loader';
+import {AllPagesRoute} from '@/subfeatures/allPages/AllPages.route';
+import {NewPageRoute} from '@/features/newPage/NewPage.route';
+import {
+    allPageTemplatesLoader,
+    allPageTemplatesLoaderGuard
+} from '@/subfeatures/newPageTemplates/newPageTemplates.loader';
+import {NewPageTemplatesRoute} from '@/subfeatures/newPageTemplates/NewPageTemplates.route';
+import {createNewPageLoader, createNewPageLoaderGuard} from '@/subfeatures/createNewPage/createNewPage.loader';
+import {createNewPageAction} from '@/subfeatures/createNewPage/createNewPage.action';
+import {CreateNewPageRoute} from '@/subfeatures/createNewPage/CreateNewPage.route';
 
 const router = createBrowserRouter([
     {
@@ -41,6 +52,13 @@ const router = createBrowserRouter([
                 path: 'pages',
                 element: <PagesRoute />,
                 children: [
+                    {
+                        path: '',
+                        index: true,
+                        loader: allPagesLoader,
+                        shouldRevalidate: allPagesLoaderGuard,
+                        element: <AllPagesRoute />
+                    },
                     {
                         path: 'main-page',
                         action: mainPageFormAction,
@@ -89,6 +107,26 @@ const router = createBrowserRouter([
                                 element: <DistributionDomainFormRoute />
                             },
                         ]
+                    },
+                ]
+            },
+            {
+                path: 'new-page',
+                element: <NewPageRoute />,
+                children: [
+                    {
+                        path: '',
+                        index: true,
+                        loader: allPageTemplatesLoader,
+                        shouldRevalidate: allPageTemplatesLoaderGuard,
+                        element: <NewPageTemplatesRoute />
+                    },
+                    {
+                        path: ':templateId',
+                        action: createNewPageAction,
+                        loader: createNewPageLoader,
+                        shouldRevalidate: createNewPageLoaderGuard,
+                        element: <CreateNewPageRoute />
                     },
                 ]
             }

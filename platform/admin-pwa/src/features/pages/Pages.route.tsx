@@ -11,11 +11,27 @@ export function PagesRoute() {
             <LeftSubSection>
                 <ScrollArea className="w-full h-full">
                     <div className="w-full flex flex-col gap-2">
+                        {/*<div>*/}
+                        {/*    <NavigationLink*/}
+                        {/*        to="/pages"*/}
+                        {/*        end={true}*/}
+                        {/*        label="All Pages"*/}
+                        {/*        className="w-full justify-start"*/}
+                        {/*    />*/}
+                        {/*</div>*/}
                         <div>
                             <NavigationLink
-                                to="/pages/main-page"
+                                to="/pages?entryType=main_page"
                                 end={true}
-                                label="Home"
+                                label="Home Page"
+                                className="w-full justify-start"
+                            />
+                        </div>
+                        <div>
+                            <NavigationLink
+                                to="/pages?entryType=page"
+                                end={true}
+                                label="All Pages"
                                 className="w-full justify-start"
                             />
                         </div>

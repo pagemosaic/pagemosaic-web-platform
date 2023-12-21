@@ -21,7 +21,7 @@ export const INFRA_SYS_USER_POOL_ID = 'SysUserPoolId';
 export const INFRA_SYS_USER_POOL_CLIENT_ID = 'SysUserPoolClientId';
 export const INFRA_ENTRY_POINT_DISTRIBUTION_ID = 'EntryPointDistributionId';
 
-// Database constants
+// Database document item constants
 export const DI_MAIN_PAGE_ENTRY_TYPE = 'main_page';
 export const DI_REGULAR_PAGE_ENTRY_TYPE = 'page';
 export const DI_TAG_ENTRY_TYPE = 'tag';
@@ -30,10 +30,16 @@ export const DI_ENTRY_SLICE_KEY = 'ENTRY';
 export const DI_CONTENT_SLICE_KEY = 'CONTENT';
 export const DI_META_SLICE_KEY = 'META';
 export const DI_TAG_SLICE_KEY = 'TAG';
+export const DI_DESCRIPTION_SLICE_KEY = 'DESCRIPTION';
 
-export const DI_SLICE_KEYS = [
+export const DI_PAGE_ENTRY_SLICE_KEYS = [
     DI_ENTRY_SLICE_KEY,
     DI_CONTENT_SLICE_KEY,
     DI_META_SLICE_KEY,
     DI_TAG_SLICE_KEY
+] as const;
+
+export const DI_TAG_ENTRY_SLICE_KEYS = [
+    DI_ENTRY_SLICE_KEY,
+    DI_DESCRIPTION_SLICE_KEY
 ] as const;

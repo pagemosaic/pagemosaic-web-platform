@@ -37,14 +37,21 @@ export type DI_ContentSlice = ItemKey & {
     ContentData: { S: string };
 };
 
-
-export type DI_PageEntry = {
-    entry?: DI_EntrySlice; // PK: PAGE#[PAGE_ID], SK: ENTRY
-    meta?: DI_MetaSlice; // PK: PAGE#[PAGE_ID], SK: META
-    content?: DI_ContentSlice; // PK: PAGE#[PAGE_ID], SK: CONTENT
-    tags?: Array<DI_TagSlice>; // PK: PAGE#[PAGE_ID], SK: TAG#[TAG_ID]
+// Tag -> PK: TAG#[TAG_ID], SK: DESCRIPTION
+export type DI_DescriptionSlice = ItemKey & {
+    DescriptionLabel: {S: string};
+    DescriptionText: {S: string};
 };
 
 export type DI_TagEntry = {
-    entry: DI_EntrySlice // PK: TAG#[TAG_ID], SK: ENTRY
-}
+    Entry: DI_EntrySlice; // PK: TAG#[TAG_ID], SK: ENTRY
+    Description: DI_DescriptionSlice; // PK: TAG#[TAG_ID], SK: DESCRIPTION
+};
+
+export type DI_PageEntry = {
+    Entry?: DI_EntrySlice; // PK: PAGE#[PAGE_ID], SK: ENTRY
+    Meta?: DI_MetaSlice; // PK: PAGE#[PAGE_ID], SK: META
+    Content?: DI_ContentSlice; // PK: PAGE#[PAGE_ID], SK: CONTENT
+    Tags?: Array<DI_TagSlice>; // PK: PAGE#[PAGE_ID], SK: TAG#[TAG_ID]
+    TagEntries?: Array<DI_TagEntry>;
+};

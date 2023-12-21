@@ -1,7 +1,6 @@
 {
   "name": "infra",
   "version": "1.0.0",
-  "main": "./dist/infra.js",
   "scripts": {
     "bootstrap": "ts-node ./src/exec/bootstrap.ts",
     "deploy": "ts-node ./src/exec/deploy.ts",

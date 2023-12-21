@@ -1,5 +1,5 @@
 import {ToolbarSection} from '@/components/layouts/ToolbarSection';
-import {CentralSection} from '@/components/layouts/CentralSection';
+import {MainSection} from '@/components/layouts/MainSection';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {Link} from 'react-router-dom';
 import {CentralSubSection} from '@/components/layouts/CentralSubSection';

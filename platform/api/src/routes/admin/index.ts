@@ -18,6 +18,8 @@ import postCustomDomainDistribution from './post-custom-domain-distribution';
 import getWebsiteSslCertificateDetails from './get-website-ssl-certificate-details';
 import deleteCustomDomain from './delete-custom-domain';
 import getTest1 from './get-test-1';
+import getAllPages from './get-all-pages';
+import getAllPageTemplates from './get-all-page-templates';
 
 const router = Router();
 
@@ -40,5 +42,7 @@ router.use(getWebsiteSslCertificateDetails);
 router.use(deleteCustomDomain);
 
 router.use(getTest1);
+router.use(getAllPages);
+router.use(getAllPageTemplates);
 
 export default router;

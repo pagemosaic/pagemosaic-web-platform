@@ -6,7 +6,7 @@ import {DelayedFallback} from '@/components/utils/DelayedFallback';
 import {sysUserDataSingleton, SysUserDataRequest} from '@/data/SysUserData';
 import {AccessTokenRequest, accessTokenSingleton} from '@/utils/AccessTokenSingleton';
 import {ToolbarSection} from '@/components/layouts/ToolbarSection';
-import {CentralSection} from '@/components/layouts/CentralSection';
+import {MainSection} from '@/components/layouts/MainSection';
 
 export interface MainRouteLoaderResponse {
     accessTokenRequest: AccessTokenRequest;
@@ -53,9 +53,9 @@ export function MainRoute() {
                         <ToolbarSection>
                             <MainNavigation/>
                         </ToolbarSection>
-                        <CentralSection>
+                        <MainSection>
                             <Outlet/>
-                        </CentralSection>
+                        </MainSection>
                     </>
                 </Await>
             </React.Suspense>

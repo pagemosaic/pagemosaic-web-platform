@@ -18,6 +18,7 @@ export function NavigationButtonLink({pathKey, to, end = false, label, icon, ...
             {...rest}
             variant={match ? 'secondary' : 'ghost'}
             asChild={true}
+            size="sm"
         >
             <Link to={to}>
                 {icon}
