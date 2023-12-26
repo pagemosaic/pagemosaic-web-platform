@@ -6,9 +6,11 @@ import {
     DI_MAIN_PAGE_ENTRY_TYPE,
     DI_CONTENT_SLICE_KEY,
     DI_REGULAR_PAGE_ENTRY_TYPE,
-    PLATFORM_DOCUMENTS_TABLE_NAME, DI_DESCRIPTION_SLICE_KEY, DI_META_SLICE_KEY
+    PLATFORM_DOCUMENTS_TABLE_NAME,
+    DI_DESCRIPTION_SLICE_KEY,
+    DI_META_SLICE_KEY
 } from 'infra-common/constants';
-import {createOrUpdateItem} from 'infra-common/utils/database';
+import {createOrUpdateItem} from 'infra-common/aws/database';
 import {BasicItem} from 'infra-common/data/BasicItem';
 import {getEntrySliceByEntryType} from 'infra-common/dao/documentDao';
 
@@ -84,6 +86,7 @@ router.get('/get-test-1', async (req: Request, res: Response) => {
             PK: {S: 'PAGE#1'},
             SK: {S: DI_CONTENT_SLICE_KEY},
             ContentScript: {S: '<html></html>'},
+            ContentHeader: {S: '<link rel="stylesheet" href="https://unpkg.com/open-props"/><link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>'},
             ContentStyles: {S: ''},
             ContentData: {S: '{}'},
             ContentDataConfig: {S: '{}'}
@@ -111,6 +114,7 @@ router.get('/get-test-1', async (req: Request, res: Response) => {
             PK: {S: 'PAGE#2'},
             SK: {S: DI_CONTENT_SLICE_KEY},
             ContentScript: {S: '<html></html>'},
+            ContentHeader: {S: '<link rel="stylesheet" href="https://unpkg.com/open-props"/><link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>'},
             ContentStyles: {S: ''},
             ContentData: {S: '{}'},
             ContentDataConfig: {S: '{}'}
@@ -155,6 +159,7 @@ router.get('/get-test-1', async (req: Request, res: Response) => {
             PK: {S: 'PAGE#3'},
             SK: {S: 'CONTENT'},
             ContentScript: {S: '<html></html>'},
+            ContentHeader: {S: '<link rel="stylesheet" href="https://unpkg.com/open-props"/><link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>'},
             ContentStyles: {S: ''},
             ContentData: {S: '{}'},
             ContentDataConfig: {S: '{}'}
@@ -194,6 +199,7 @@ router.get('/get-test-1', async (req: Request, res: Response) => {
             PK: {S: 'PAGE_TEMPLATE#1'},
             SK: {S: DI_CONTENT_SLICE_KEY},
             ContentScript: {S: '<html></html>'},
+            ContentHeader: {S: '<link rel="stylesheet" href="https://unpkg.com/open-props"/><link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>'},
             ContentStyles: {S: ''},
             ContentData: {S: '{}'},
             ContentDataConfig: {S: '{}'}
@@ -221,6 +227,7 @@ router.get('/get-test-1', async (req: Request, res: Response) => {
             PK: {S: 'PAGE_TEMPLATE#2'},
             SK: {S: DI_CONTENT_SLICE_KEY},
             ContentScript: {S: '<html></html>'},
+            ContentHeader: {S: '<link rel="stylesheet" href="https://unpkg.com/open-props"/><link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>'},
             ContentStyles: {S: ''},
             ContentData: {S: '{}'},
             ContentDataConfig: {S: '{}'}

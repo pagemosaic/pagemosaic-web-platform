@@ -1,5 +1,5 @@
 import {Router, Request, Response} from 'express';
-import {getSysUser, confirmSignUpSysUser, authenticateSysUser, getUserAttributes} from 'infra-common/utils/sysAuth';
+import {getSysUser, confirmSignUpSysUser, authenticateSysUser, getUserAttributes} from 'infra-common/aws/sysAuth';
 import {AuthResponse} from 'infra-common/system/Auth';
 
 const router = Router();

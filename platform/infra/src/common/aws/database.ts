@@ -4,7 +4,9 @@ import {
     UpdateItemInput,
     GetItemCommand,
     UpdateItemCommand,
-    PutItemCommand, QueryCommand, QueryCommandInput
+    PutItemCommand,
+    QueryCommand,
+    QueryCommandInput
 } from '@aws-sdk/client-dynamodb';
 import {BasicItem, ItemKey} from '../data/BasicItem';
 

@@ -3,6 +3,7 @@ import {PageTemplatesData} from '@/data/PageTemplatesData';
 import {CardContent, Card} from '@/components/ui/card';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {PageEntryThumbnail} from '@/components/utils/PageEntryThumbnail';
+import {getIdFromPK} from 'infra-common/utility/database';
 
 interface AllPageTemplatesViewProps {
     pageTemplatesData?: PageTemplatesData;
@@ -40,7 +41,7 @@ export function AllPageTemplatesView(props: AllPageTemplatesViewProps) {
                                             aspectRatio="square"
                                             width={200}
                                             height={200}
-                                            useTemplateLink="/new-page/345345"
+                                            useTemplateLink={`/new-page/${getIdFromPK(pageTemplateEntry.Entry?.PK.S)}`}
                                         />
                                     );
                                 })}

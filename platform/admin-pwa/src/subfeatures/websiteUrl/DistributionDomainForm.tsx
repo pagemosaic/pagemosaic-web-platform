@@ -10,7 +10,7 @@ import {LucideX, LucideCheck} from 'lucide-react';
 import {ButtonAction} from '@/components/utils/ButtonAction';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {CopyToClipboardButton} from '@/components/utils/CopyToClipboardButton';
-import {getSubdomainRecordName} from 'infra-common/utils/domain';
+import {getSubdomainRecordName} from 'infra-common/aws/domain';
 
 interface DistributionDomainFormProps {
     websiteUrlData?: WebsiteUrlData;

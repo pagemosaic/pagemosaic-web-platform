@@ -7,7 +7,7 @@ import {
     INFRA_SYS_USER_POOL_ID,
     INFRA_SYS_USER_POOL_CLIENT_ID
 } from '../common/constants';
-import {getCognitoClient} from '../common/utils/sysAuth';
+import {getCognitoClient} from '../common/./aws/sysAuth';
 
 const awsAccessKeyId = process.env.AWS_ACCESS_KEY_ID;
 const awsSecretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;

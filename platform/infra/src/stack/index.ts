@@ -14,7 +14,7 @@ import {
 } from '../common/constants';
 import {Platform} from './platform';
 import {ValidDomain} from '../common/system/Domain';
-import {getValidDomain} from '../common/utils/domain';
+import {getValidDomain} from '../common/./aws/domain';
 
 const stackName = process.env.STACK_NAME;
 

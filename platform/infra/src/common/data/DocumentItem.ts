@@ -26,21 +26,22 @@ export type DI_MetaSlice = ItemKey & {
     MetaDescription: { S: string }; // description text used as description in an HTML page
     MetaTitle: { S: string }; // any arbitrary text used as a title in an HTML page
     MetaRoute: { S: string }; // route path, used for grouping pages...
-    MetaSlug: {S: string}; // slug of the page route: /{slug}
+    MetaSlug: { S: string }; // slug of the page route: /{slug}
 };
 
 // Page -> PK: PAGE#[PAGE_ID], SK: CONTENT
 export type DI_ContentSlice = ItemKey & {
     ContentScript: { S: string }; // html + handlebars
     ContentStyles: { S: string }; // CSS styles
+    ContentHeader: { S: string }; // html head
     ContentDataConfig: { S: string }; // input fields config
     ContentData: { S: string };
 };
 
 // Tag -> PK: TAG#[TAG_ID], SK: DESCRIPTION
 export type DI_DescriptionSlice = ItemKey & {
-    DescriptionLabel: {S: string};
-    DescriptionText: {S: string};
+    DescriptionLabel: { S: string };
+    DescriptionText: { S: string };
 };
 
 export type DI_TagEntry = {

@@ -1,6 +1,6 @@
 import {execSync} from 'child_process';
-import {getSsmParameter, delSsmParameter} from '../common/utils/sysParameters';
-import {deleteSSLCertificate} from '../common/utils/sslCertificate';
+import {getSsmParameter, delSsmParameter} from '../common/./aws/sysParameters';
+import {deleteSSLCertificate} from '../common/./aws/sslCertificate';
 import {
     PARAM_PREVIEW_POINT_DOMAIN,
     PARAM_ENTRY_POINT_DOMAIN,

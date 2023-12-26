@@ -11,6 +11,7 @@ const containerStyle: CSSProperties = {
     inset: 0,
     borderRadius: '8px',
     border: '1px dashed #cdcdcd',
+    backgroundColor: '#fff'
 };
 
 export type IFrameExtendedHandle = {

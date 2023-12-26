@@ -14,7 +14,7 @@ import {Skeleton} from '@/components/ui/skeleton';
 import {ButtonLink} from '@/components/utils/ButtonLink';
 import {ButtonAction} from '@/components/utils/ButtonAction';
 import {SslCertificateStatus} from 'infra-common/system/Domain';
-import {getSubdomainRecordName} from 'infra-common/utils/domain';
+import {getSubdomainRecordName} from 'infra-common/aws/domain';
 
 interface WebsiteUrlViewProps {
     websiteUrlData?: WebsiteUrlData;

@@ -1,11 +1,18 @@
 import localforage from 'localforage';
+import {useEffect, useState} from 'react';
 // import {SequentialTaskQueue} from 'sequential-task-queue';
 //
 // export const sessionStorageTaskQueue = new SequentialTaskQueue();
 let storageInstance: LocalForage;
+const SESSION_STORAGE_SET_EVENT = 'session_storage_set';
+const SESSION_STORAGE_DEL_EVENT = 'session_storage_del';
 
-export function getSessionState(key: string): any {
-    let result: any = {};
+export type SessionStorageEvent = {
+    key: string;
+};
+
+export function getSessionState<T>(key: string): T | undefined {
+    let result: T | undefined = undefined;
     let stringValue: string | null = sessionStorage.getItem(key);
     if (stringValue) {
         try {
@@ -17,15 +24,21 @@ export function getSessionState(key: string): any {
     return result;
 }
 
-export function setSessionState(key: string, val: any) {
+export function setSessionState(key: string, val: any): void {
     sessionStorage.setItem(key, JSON.stringify(val));
+    window.dispatchEvent(new CustomEvent<SessionStorageEvent>(SESSION_STORAGE_SET_EVENT, {
+        detail: {key}
+    }));
 }
 
-export function delSessionState(key: string) {
+export function delSessionState(key: string): void {
     sessionStorage.removeItem(key);
+    window.dispatchEvent(new CustomEvent<SessionStorageEvent>(SESSION_STORAGE_DEL_EVENT, {
+        detail: {key}
+    }));
 }
 
-export function clearSessionState() {
+export function clearSessionState(): void {
     sessionStorage.clear();
 }
 
@@ -64,4 +77,24 @@ export async function getStorageRecord(recordObjectKey: string, storageKey: stri
             record = record || {};
             return record[recordObjectKey];
         });
+}
+
+export function useSessionState<T>(key: string) {
+    const [value, setValue] = useState<T | undefined>(getSessionState<T>(key));
+    const eventHandler = (event: Event) => {
+        const {detail: {key: eventKey}} = event as CustomEvent<SessionStorageEvent>;
+        if (key === eventKey) {
+            console.log('Session storage changed!');
+            setValue(getSessionState<T>(key));
+        }
+    };
+    useEffect(() => {
+        window.addEventListener(SESSION_STORAGE_SET_EVENT, eventHandler);
+        return () => {
+            window.removeEventListener(SESSION_STORAGE_SET_EVENT, eventHandler);
+        };
+    }, []);
+    return {
+        value
+    };
 }

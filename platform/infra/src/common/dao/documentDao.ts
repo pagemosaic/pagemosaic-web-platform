@@ -7,17 +7,21 @@ import {
     DI_CONTENT_SLICE_KEY,
     DI_ENTRY_SLICE_KEY,
     DI_META_SLICE_KEY,
-    DI_TAG_SLICE_KEY, DI_TAG_ENTRY_SLICE_KEYS, DI_DESCRIPTION_SLICE_KEY
+    DI_TAG_SLICE_KEY,
+    DI_TAG_ENTRY_SLICE_KEYS,
+    DI_DESCRIPTION_SLICE_KEY
 } from '../constants';
 import {
     DI_EntrySlice,
     DI_PageEntry,
     DI_ContentSlice,
     DI_MetaSlice,
-    DI_TagSlice, DI_TagEntry, DI_DescriptionSlice
+    DI_TagSlice,
+    DI_TagEntry,
+    DI_DescriptionSlice
 } from '../data/DocumentItem';
 import {BasicItem, ItemKey} from '../data/BasicItem';
-import {queryWithExponentialBackoff} from '../utils/database';
+import {queryWithExponentialBackoff} from '../aws/database';
 
 export async function getEntrySliceByEntryType(entryTypeValue: {S: string}): Promise<Array<DI_EntrySlice>> {
     const params: QueryCommandInput = {

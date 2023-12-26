@@ -1,6 +1,6 @@
 import jwt, { VerifyErrors, JwtHeader, SigningKeyCallback } from 'jsonwebtoken';
 import jwksClient, { JwksClient } from 'jwks-rsa';
-import {getSysUserPoolConfig} from 'infra-common/utils/sysParameters';
+import {getSysUserPoolConfig} from 'infra-common/aws/sysParameters';
 
 const REGION = process.env.AWS_REGION;
 

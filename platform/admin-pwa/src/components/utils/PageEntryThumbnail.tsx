@@ -24,8 +24,8 @@ export function PageEntryThumbnail(props: PageEntryThumbnailProps) {
         ...rest
     } = props;
     return (
-        <div className={cn("space-y-3", className)} {...rest}>
-            <div className="overflow-hidden rounded-md">
+        <div className={cn("flex flex-col gap-3 h-full", className)} {...rest}>
+            <div className="flex-grow-0 overflow-hidden rounded-md">
                 <img
                     src={imagePlaceholder}
                     alt={pageEntry.Meta?.MetaTitle.S || 'Unknown'}
@@ -37,7 +37,7 @@ export function PageEntryThumbnail(props: PageEntryThumbnailProps) {
                     )}
                 />
             </div>
-            <div className="space-y-1 text-sm">
+            <div className="flex-grow space-y-1 text-sm">
                 <h3 className="font-medium leading-none line-clamp-1">
                     {pageEntry.Meta?.MetaTitle.S || 'Unknown Title'}
                 </h3>
@@ -45,7 +45,7 @@ export function PageEntryThumbnail(props: PageEntryThumbnailProps) {
                     {pageEntry.Meta?.MetaDescription.S || 'Unknown Description'}
                 </p>
             </div>
-            <div>
+            <div className="flex-grow-0">
                 <ButtonLink
                     label="Use Template"
                     to={useTemplateLink}

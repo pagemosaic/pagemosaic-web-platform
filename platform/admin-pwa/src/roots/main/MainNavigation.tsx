@@ -11,7 +11,8 @@ type RouteMeta = {
     defaultKey: string;
     stateKey: string;
     label: string;
-    Icon: LucideIcon
+    Icon: LucideIcon;
+    isCommand?: boolean;
 };
 
 const navigationRoutesMeta: Array<RouteMeta> = [
@@ -34,7 +35,8 @@ const navigationRoutesMeta: Array<RouteMeta> = [
         defaultKey: '/new-page',
         stateKey: 'newPagePath',
         label: 'Add New Page',
-        Icon: LucideFilePlus2
+        Icon: LucideFilePlus2,
+        isCommand: true,
     }
 ];
 
@@ -47,16 +49,16 @@ export function MainNavigation() {
 
     useEffect(() => {
         const {pathname} = location;
-        const mainNavigationCurrentPaths = getSessionState('mainNavigationCurrentPaths');
+        const mainNavigationCurrentPaths = getSessionState('mainNavigationCurrentPaths') || {};
         const routeMeta: RouteMeta | undefined = findRouteMeta(pathname);
-        if (routeMeta && pathname.length - routeMeta.key.length > 2) {
+        if (routeMeta && !routeMeta.isCommand && pathname.length - routeMeta.key.length > 2) {
             setSessionState('mainNavigationCurrentPaths', {
                 ...mainNavigationCurrentPaths, [routeMeta.stateKey]: location.pathname
             });
         }
     }, [location]);
 
-    const mainNavigationCurrentPaths = getSessionState('mainNavigationCurrentPaths');
+    const mainNavigationCurrentPaths: Record<string, string> = getSessionState('mainNavigationCurrentPaths') || {};
 
     return (
         <div className="flex flex-row justify-between">
@@ -67,7 +69,10 @@ export function MainNavigation() {
                             <NavigationMenuItem key={navItem.key} asChild={true}>
                                 <NavigationButtonLink
                                     pathKey={navItem.key}
-                                    to={mainNavigationCurrentPaths[navItem.stateKey] || navItem.defaultKey}
+                                    to={navItem.isCommand
+                                        ? navItem.defaultKey
+                                        : mainNavigationCurrentPaths[navItem.stateKey] || navItem.defaultKey
+                                    }
                                     end={false}
                                     label={navItem.label}
                                     className="w-full justify-start"

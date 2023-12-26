@@ -1,7 +1,7 @@
 import {Router, Request, Response} from 'express';
 import {verifyAuthentication} from '../../utility/RequestUtils';
-import {getSslCertificateArn, setSslCertificateArn, setDomainName} from 'infra-common/utils/sysParameters';
-import {requestSSLCertificate} from 'infra-common/utils/sslCertificate';
+import {getSslCertificateArn, setSslCertificateArn, setDomainName} from 'infra-common/aws/sysParameters';
+import {requestSSLCertificate} from 'infra-common/aws/sslCertificate';
 
 const router = Router();
 

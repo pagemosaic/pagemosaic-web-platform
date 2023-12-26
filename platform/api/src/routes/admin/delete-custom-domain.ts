@@ -5,9 +5,9 @@ import {
     getSslCertificateArn,
     delSslCertificateArn,
     delDomainName
-} from 'infra-common/utils/sysParameters';
-import {removeCloudFrontDomain} from 'infra-common/utils/cdn';
-import {deleteSSLCertificate} from 'infra-common/utils/sslCertificate';
+} from 'infra-common/aws/sysParameters';
+import {removeCloudFrontDomain} from 'infra-common/aws/cdn';
+import {deleteSSLCertificate} from 'infra-common/aws/sslCertificate';
 
 const router = Router();
 

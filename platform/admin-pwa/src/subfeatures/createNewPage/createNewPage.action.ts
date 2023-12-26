@@ -1,6 +1,5 @@
 import {LoaderFunctionArgs, json, redirect} from 'react-router-dom';
 import * as z from 'zod';
-import {mainPageDataSingleton} from '@/data/MainPageData';
 import {FORM_ACTION_SUBMIT, FORM_ACTION_RESET} from '@/utils/FormUtils';
 
 const formSchema = z.object({
@@ -24,21 +23,22 @@ const formSchema = z.object({
 export async function createNewPageAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
+            console.log('createNewPageAction');
             let formData = await request.formData();
             const action = formData.get('action');
             if (action === FORM_ACTION_SUBMIT) {
                 const data = Object.fromEntries(formData);
+                console.log('Form Data: ', JSON.stringify(data, null, 4));
                 const validationResult = formSchema.safeParse(data);
                 if (!validationResult.success) {
                     const formatted = validationResult.error.format();
                     return json(formatted);
                 }
                 try {
-                    await mainPageDataSingleton.updatePageContent(data);
+                    return redirect('/pages?entryType=page');
                 } catch (e: any) {
                     return json({error: e.message});
                 }
-                return json({ok: true});
             } else if (action === FORM_ACTION_RESET) {
                 return redirect('/new-page');
             }

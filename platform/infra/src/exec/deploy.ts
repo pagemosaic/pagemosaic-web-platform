@@ -18,8 +18,8 @@ import {
     INFRA_SYS_USER_POOL_CLIENT_ID,
     INFRA_ENTRY_POINT_DISTRIBUTION_ID
 } from '../common/constants';
-import {getCognitoClient} from '../common/utils/sysAuth';
-import {putSsmParameter} from '../common/utils/sysParameters';
+import {getCognitoClient} from '../common/./aws/sysAuth';
+import {putSsmParameter} from '../common/./aws/sysParameters';
 
 const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME;
 const defaultAdminEmail = process.env.DEFAULT_ADMIN_EMAIL;
