@@ -14,7 +14,6 @@ export async function websiteUrlLoader() {
 
 export function websiteUrlLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean {
     const {formData, actionResult, defaultShouldRevalidate, currentUrl, nextUrl} = args;
-    console.log('defaultShouldRevalidate: ', defaultShouldRevalidate);
     if (formData && actionResult) {
         const action = formData.get('action');
         return action === FORM_ACTION_SUBMIT && !!actionResult.ok;

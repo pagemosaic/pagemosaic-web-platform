@@ -18,22 +18,3 @@ export type ContentDataBlockClass = {
 };
 
 export type ContentDataConfigClass = Array<ContentDataBlockClass>;
-
-const probe = [
-    {
-        "label": "Hero",
-        "code": "hero",
-        "fields": [
-            {
-                "label": "Hero Title",
-                "code": "heroTitle",
-                "type": "text"
-            },
-            {
-                "label": "Hero Description",
-                "code": "heroDescription",
-                "type": "text"
-            }
-        ]
-    }
-];

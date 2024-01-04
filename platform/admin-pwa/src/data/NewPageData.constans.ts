@@ -7,7 +7,7 @@ export function initNewPageData(pageTemplateEntry: DI_PageEntry): NewPageData {
     if (Entry && Meta && Content) {
         const id = nanoid();
         return {
-            pagesEntry: {
+            pageEntry: {
                 Entry: {
                     ...Entry,
                     PK: {S: `PAGE#${id}`},

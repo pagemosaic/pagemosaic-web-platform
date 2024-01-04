@@ -8,7 +8,7 @@ import {AllPagesView} from '@/subfeatures/allPages/AllPagesView';
 export function AllPagesRoute() {
     const {pagesDataRequest} = useLoaderData() as AllPagesDataLoaderResponse;
     return (
-        <React.Suspense fallback={<AllPagesView isLoadingData={true}/>}>
+        <React.Suspense fallback={<AllPagesView isInitialLoading={true}/>}>
             <Await
                 resolve={pagesDataRequest}
                 errorElement={<AwaitError/>}

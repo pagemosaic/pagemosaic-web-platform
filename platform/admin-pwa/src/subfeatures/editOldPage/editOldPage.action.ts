@@ -1,8 +1,8 @@
 import {LoaderFunctionArgs, json, redirect} from 'react-router-dom';
 import * as z from 'zod';
 import {FORM_ACTION_SUBMIT, FORM_ACTION_RESET} from '@/utils/FormUtils';
-import {NewPageData, newPageDataSingleton} from '@/data/NewPageData';
 import {getSessionState} from '@/utils/localStorage';
+import {EditPageData, editPageDataSingleton} from '@/data/EditPageData';
 
 const ZPageEntry = z.object({
     MetaTitle: z.string().min(2, {
@@ -28,10 +28,10 @@ const formSchema = z.object({
     })
 });
 
-export async function createNewPageAction({request}: LoaderFunctionArgs) {
+export async function editOldPageAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
-            console.log('createNewPageAction');
+            console.log('editPageAction');
             let formData = await request.formData();
             const action = formData.get('action');
             if (action === FORM_ACTION_SUBMIT) {
@@ -43,29 +43,29 @@ export async function createNewPageAction({request}: LoaderFunctionArgs) {
                 }
 
                 const sessionStateKey = data['sessionStateKey'].toString();
-                const newPageData: NewPageData | undefined = getSessionState<NewPageData>(sessionStateKey);
-                if (!newPageData) {
+                const editPageData: EditPageData | undefined = getSessionState<EditPageData>(sessionStateKey);
+                if (!editPageData) {
                     return json({error: 'Missing the page data to save'});
                 }
                 try {
                     const pageEntryValidationResult = ZPageEntry.safeParse({
-                        MetaTitle: newPageData.pageEntry.Meta?.MetaTitle.S,
-                        MetaDescription: newPageData.pageEntry.Meta?.MetaDescription.S,
-                        MetaSlug: newPageData.pageEntry.Meta?.MetaSlug.S,
-                        ContentScript: newPageData.pageEntry.Content?.ContentScript.S,
-                        ContentStyles: newPageData.pageEntry.Content?.ContentStyles.S
+                        MetaTitle: editPageData.pageEntry.Meta?.MetaTitle.S,
+                        MetaDescription: editPageData.pageEntry.Meta?.MetaDescription.S,
+                        MetaSlug: editPageData.pageEntry.Meta?.MetaSlug.S,
+                        ContentScript: editPageData.pageEntry.Content?.ContentScript.S,
+                        ContentStyles: editPageData.pageEntry.Content?.ContentStyles.S
                     });
                     if (!pageEntryValidationResult.success) {
                         const formatted = pageEntryValidationResult.error.format();
                         return json(formatted);
                     }
-                    await newPageDataSingleton.saveNewPage(newPageData);
+                    await editPageDataSingleton.saveEditPage(editPageData);
                     return redirect('/pages?entryType=page');
                 } catch (e: any) {
                     return json({error: e.message});
                 }
             } else if (action === FORM_ACTION_RESET) {
-                return redirect('/new-page');
+                return redirect('/edit-page');
             }
             break;
         }

@@ -11,6 +11,7 @@ import getSysUserProfile from './get-sys-user-profile';
 import postSysUserProfile from './post-sys-user-profile';
 import getPageContent from './get-page-content';
 import postPageContent from './post-page-content';
+import postPage from './post-page';
 import getPreview from './get-preview';
 import getWebsiteUrl from './get-website-url';
 import postCustomDomainCertificate from './post-custom-domain-certificate';
@@ -20,6 +21,7 @@ import deleteCustomDomain from './delete-custom-domain';
 import getTest1 from './get-test-1';
 import getAllPages from './get-all-pages';
 import getAllPageTemplates from './get-all-page-templates';
+import getPage from './get-page';
 
 const router = Router();
 
@@ -34,6 +36,7 @@ router.use(getSysUserProfile);
 router.use(postSysUserProfile);
 router.use(getPageContent);
 router.use(postPageContent);
+router.use(postPage);
 router.use(getPreview);
 router.use(getWebsiteUrl);
 router.use(postCustomDomainCertificate);
@@ -44,5 +47,6 @@ router.use(deleteCustomDomain);
 router.use(getTest1);
 router.use(getAllPages);
 router.use(getAllPageTemplates);
+router.use(getPage);
 
 export default router;

@@ -1,11 +1,11 @@
 import {DI_PageEntry} from 'infra-common/data/DocumentItem';
 import {accessTokenSingleton, AccessToken} from '@/utils/AccessTokenSingleton';
-import {get} from '@/utils/ClientApi';
+import {get, post} from '@/utils/ClientApi';
 import {setSessionState} from '@/utils/localStorage';
 import {initNewPageData} from '@/data/NewPageData.constans';
 import {defaultPageTemplateEntry} from '@/data/PageTemplatesData.constants';
 
-export type NewPageData = { pagesEntry: DI_PageEntry; };
+export type NewPageData = { pageEntry: DI_PageEntry; };
 export type NewPageDataRequest = Promise<string>;
 
 class NewPageDataSingleton {
@@ -30,6 +30,15 @@ class NewPageDataSingleton {
             //     `/api/admin/get-all-pages?entryType=${entryType || ''}&tagId=${tagId || ''}`,
             //     accessToken
             // );
+        }
+        throw Error('Missing access token');
+    }
+
+    public async saveNewPage(newPagesData: NewPageData): Promise<void> {
+        const accessToken: AccessToken= await accessTokenSingleton.getAccessToken();
+        if (accessToken) {
+            await post<any>('/api/admin/post-page', {page: newPagesData.pageEntry}, accessToken);
+            return;
         }
         throw Error('Missing access token');
     }

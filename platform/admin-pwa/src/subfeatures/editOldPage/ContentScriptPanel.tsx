@@ -4,21 +4,21 @@ import {DI_ContentSlice} from 'infra-common/data/DocumentItem';
 import {Card, CardContent} from '@/components/ui/card';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {getSessionState, setSessionState} from '@/utils/localStorage';
-import {NewPageData} from '@/data/NewPageData';
-import {CodeEditor} from '@/components/utils/CodeEditor';
+import {CodeEditorHtml} from '@/components/utils/CodeEditorHtml';
+import {EditPageData} from '@/data/EditPageData';
 
-interface ContentHeaderPanelProps {
+interface ContentScriptPanelProps {
     sessionStateKey: string;
     isInAction?: boolean;
     actionData: any;
 }
 
-export function ContentHeaderPanel(props: ContentHeaderPanelProps) {
+export function ContentScriptPanel(props: ContentScriptPanelProps) {
     const {sessionStateKey, isInAction, actionData} = props;
 
-    const newPageData: NewPageData | undefined = getSessionState<NewPageData>(sessionStateKey);
+    const editPageData: EditPageData | undefined = getSessionState<EditPageData>(sessionStateKey);
 
-    if (!newPageData?.pageEntry.Content) {
+    if (!editPageData?.pageEntry.Content) {
         return (
             <div>
                 <p>Missing Initial Data For Content Script</p>
@@ -26,12 +26,12 @@ export function ContentHeaderPanel(props: ContentHeaderPanelProps) {
         );
     }
 
-    const {Content} = newPageData.pageEntry;
+    const {Content} = editPageData.pageEntry;
 
     const debouncedOnChange = debounce((field: keyof DI_ContentSlice, newValue: string) => {
         if (Content) {
             Content[field] = {S: newValue};
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, editPageData);
         }
     }, 800);
 
@@ -43,13 +43,16 @@ export function ContentHeaderPanel(props: ContentHeaderPanelProps) {
         <Card className="w-full h-full pt-6">
             <CardContent className="h-full">
                 <div className="h-full w-full flex flex-col gap-2">
-                    <ActionDataFieldError actionData={actionData}
-                                          fieldName="ContentScript"/>
-                    <CodeEditor
-                        language="html"
-                        code={Content?.ContentHeader.S || ''}
+                    <ActionDataFieldError
+                        actionData={actionData}
+                        fieldName="ContentScript"
+                    />
+                    <CodeEditorHtml
                         readOnly={isInAction}
-                        onChange={handleChange('ContentHeader')}
+                        code={Content?.ContentScript.S || ''}
+                        onChange={handleChange('ContentScript')}
+                        object={JSON.parse(Content?.ContentData.S)}
+                        styles={Content?.ContentStyles.S || ''}
                     />
                 </div>
             </CardContent>

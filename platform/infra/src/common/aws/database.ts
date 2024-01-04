@@ -29,7 +29,6 @@ export async function createOrUpdateItem<T extends BasicItem>(tableName: string,
         const updateCommand = new UpdateItemCommand(updateParams);
         await dynamoClient.send(updateCommand);
     } else {
-        // create new user profile
         const command = new PutItemCommand({TableName: tableName, Item: item});
         await dynamoClient.send(command);
     }
@@ -42,6 +41,7 @@ export async function getItemByKey<T extends BasicItem>(tableName: string, itemK
         TableName: tableName,
         Key: itemKey
     };
+    console.log('selectParams: ', JSON.stringify(selectParams, null, 4));
     const command = new GetItemCommand(selectParams);
     const response = await dynamoClient.send(command);
     if (response.Item) {

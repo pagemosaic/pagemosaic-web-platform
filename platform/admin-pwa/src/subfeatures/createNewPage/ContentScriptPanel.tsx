@@ -18,7 +18,7 @@ export function ContentScriptPanel(props: ContentScriptPanelProps) {
 
     const newPageData: NewPageData | undefined = getSessionState<NewPageData>(sessionStateKey);
 
-    if (!newPageData?.pagesEntry.Content) {
+    if (!newPageData?.pageEntry.Content) {
         return (
             <div>
                 <p>Missing Initial Data For Content Script</p>
@@ -26,7 +26,7 @@ export function ContentScriptPanel(props: ContentScriptPanelProps) {
         );
     }
 
-    const {Content} = newPageData.pagesEntry;
+    const {Content} = newPageData.pageEntry;
 
     const debouncedOnChange = debounce((field: keyof DI_ContentSlice, newValue: string) => {
         if (Content) {

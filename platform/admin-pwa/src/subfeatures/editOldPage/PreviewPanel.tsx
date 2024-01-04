@@ -3,6 +3,7 @@ import {useSessionState} from '@/utils/localStorage';
 import {NewPageData} from '@/data/NewPageData';
 import IFrameExtended from '@/components/utils/IFrameExtended';
 import {getHTML} from '@/utils/HtmlUtils';
+import {EditPageData} from '@/data/EditPageData';
 
 interface PreviewPanelProps {
     sessionStateKey: string;
@@ -11,12 +12,12 @@ interface PreviewPanelProps {
 export function PreviewPanel(props: PreviewPanelProps) {
     const {sessionStateKey} = props;
 
-    const {value: newPageData} = useSessionState<NewPageData>(sessionStateKey);
+    const {value: editPageData} = useSessionState<EditPageData>(sessionStateKey);
 
     let newHtml: string = '';
 
-    if (newPageData) {
-        const {Content} = newPageData.pageEntry;
+    if (editPageData) {
+        const {Content} = editPageData.pageEntry;
         if (Content) {
             const {ContentStyles, ContentScript, ContentHeader, ContentData} = Content;
             try {

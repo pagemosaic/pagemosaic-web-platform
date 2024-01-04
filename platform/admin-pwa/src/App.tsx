@@ -34,6 +34,10 @@ import {NewPageTemplatesRoute} from '@/subfeatures/newPageTemplates/NewPageTempl
 import {createNewPageLoader, createNewPageLoaderGuard} from '@/subfeatures/createNewPage/createNewPage.loader';
 import {createNewPageAction} from '@/subfeatures/createNewPage/createNewPage.action';
 import {CreateNewPageRoute} from '@/subfeatures/createNewPage/CreateNewPage.route';
+import {EditPageRoute} from '@/features/editPage/EditPage.route';
+import {EditOldPageRoute} from '@/subfeatures/editOldPage/EditOldPage.route';
+import {editOldPageAction} from '@/subfeatures/editOldPage/editOldPage.action';
+import {editOldPageLoader, editOldPageLoaderGuard} from '@/subfeatures/editOldPage/editOldPage.loader';
 
 const router = createBrowserRouter([
     {
@@ -127,6 +131,19 @@ const router = createBrowserRouter([
                         loader: createNewPageLoader,
                         shouldRevalidate: createNewPageLoaderGuard,
                         element: <CreateNewPageRoute />
+                    },
+                ]
+            },
+            {
+                path: 'edit-page',
+                element: <EditPageRoute />,
+                children: [
+                    {
+                        path: ':pageId',
+                        action: editOldPageAction,
+                        loader: editOldPageLoader,
+                        shouldRevalidate: editOldPageLoaderGuard,
+                        element: <EditOldPageRoute />
                     },
                 ]
             }

@@ -19,12 +19,12 @@ import {PreviewPanel} from './PreviewPanel';
 import {ContentHeaderPanel} from './ContentHeaderPanel';
 import {ContentDataPanel} from './ContentDataPanel';
 
-interface NewPageFormProps {
+interface EditOldPageFormProps {
     sessionStateKey?: string;
     isLoadingData?: boolean;
 }
 
-export function NewPageForm(props: NewPageFormProps) {
+export function EditOldPageForm(props: EditOldPageFormProps) {
     const {sessionStateKey, isLoadingData = false} = props;
     const fetcher = useFetcher();
 
@@ -63,7 +63,7 @@ export function NewPageForm(props: NewPageFormProps) {
         <fetcher.Form method="post" onSubmit={(e) => e.preventDefault()} onReset={handleReset} className="w-full h-full p-4">
             <Tabs defaultValue="content" className="flex flex-col gap-2 w-full h-full">
                 <div className="flex flex-col gap-2 mb-4">
-                    <p className="text-xl">Create New Page</p>
+                    <p className="text-xl">Edit Page</p>
                     {/*<p className="text-sm text-muted-foreground">Set the home page content here</p>*/}
                 </div>
                 <div className="flex flex-row justify-between w-full">

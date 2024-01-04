@@ -20,8 +20,6 @@ export function allPagesLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean
     if (formData && actionResult) {
         const action = formData.get('action');
         return action === FORM_ACTION_SUBMIT && !!actionResult.ok;
-    } else if (nextUrl.searchParams.size !== currentUrl.searchParams.size) {
-        return false;
     }
     return defaultShouldRevalidate;
 }
