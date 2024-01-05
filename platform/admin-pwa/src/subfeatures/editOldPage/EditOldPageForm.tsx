@@ -12,12 +12,12 @@ import {
     TabsList,
     TabsTrigger,
 } from '@/components/ui/tabs';
-import {MetaPanel} from './MetaPanel';
-import {ContentScriptPanel} from './ContentScriptPanel';
-import {ContentStylesPanel} from './ContentStylesPanel';
-import {PreviewPanel} from './PreviewPanel';
-import {ContentHeaderPanel} from './ContentHeaderPanel';
-import {ContentDataPanel} from './ContentDataPanel';
+import {MetaPanel} from '@/subfeatures/pageContentEditing/MetaPanel';
+import {ContentScriptPanel} from '@/subfeatures/pageContentEditing/ContentScriptPanel';
+import {ContentStylesPanel} from '@/subfeatures/pageContentEditing/ContentStylesPanel';
+import {PreviewPanel} from '@/subfeatures/pageContentEditing/PreviewPanel';
+import {ContentHeaderPanel} from '@/subfeatures/pageContentEditing/ContentHeaderPanel';
+import {ContentDataPanel} from '@/subfeatures/pageContentEditing/ContentDataPanel';
 
 interface EditOldPageFormProps {
     sessionStateKey?: string;

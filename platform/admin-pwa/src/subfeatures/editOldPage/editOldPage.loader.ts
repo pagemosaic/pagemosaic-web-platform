@@ -1,15 +1,15 @@
 import {defer, ShouldRevalidateFunctionArgs, LoaderFunctionArgs, redirect} from 'react-router-dom';
 import {FORM_ACTION_SUBMIT} from '@/utils/FormUtils';
-import {EditPageDataRequest, editPageDataSingleton} from '@/data/EditPageData';
+import {PageDataRequest, pageDataSingleton} from '@/data/PageData';
 
 export type EditOldPageLoaderResponse = {
-    editPageDataRequest: EditPageDataRequest;
+    editPageDataRequest: PageDataRequest;
 };
 
 export async function editOldPageLoader({params}: LoaderFunctionArgs) {
     if (params.pageId) {
         return defer({
-            editPageDataRequest: editPageDataSingleton.getEditPage({pageId: params.pageId})
+            editPageDataRequest: pageDataSingleton.getEditPage({pageId: params.pageId})
         });
     }
     return redirect('/pages');

@@ -4,34 +4,34 @@ import {DI_ContentSlice} from 'infra-common/data/DocumentItem';
 import {Card, CardContent} from '@/components/ui/card';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {getSessionState, setSessionState} from '@/utils/localStorage';
-import {CodeEditorHtml} from '@/components/utils/CodeEditorHtml';
-import {EditPageData} from '@/data/EditPageData';
+import {CodeEditorCss} from '@/components/utils/CodeEditorCss';
+import {PageData} from '@/data/PageData';
 
-interface ContentScriptPanelProps {
+interface ContentStylesPanelProps {
     sessionStateKey: string;
     isInAction?: boolean;
     actionData: any;
 }
 
-export function ContentScriptPanel(props: ContentScriptPanelProps) {
+export function ContentStylesPanel(props: ContentStylesPanelProps) {
     const {sessionStateKey, isInAction, actionData} = props;
 
-    const editPageData: EditPageData | undefined = getSessionState<EditPageData>(sessionStateKey);
+    const pageData: PageData | undefined = getSessionState<PageData>(sessionStateKey);
 
-    if (!editPageData?.pageEntry.Content) {
+    if (!pageData?.pageEntry.Content) {
         return (
             <div>
-                <p>Missing Initial Data For Content Script</p>
+                <p>Missing Initial Data For Content Styles</p>
             </div>
         );
     }
 
-    const {Content} = editPageData.pageEntry;
+    const {Content} = pageData.pageEntry;
 
     const debouncedOnChange = debounce((field: keyof DI_ContentSlice, newValue: string) => {
         if (Content) {
             Content[field] = {S: newValue};
-            setSessionState(sessionStateKey, editPageData);
+            setSessionState(sessionStateKey, pageData);
         }
     }, 800);
 
@@ -45,14 +45,12 @@ export function ContentScriptPanel(props: ContentScriptPanelProps) {
                 <div className="h-full w-full flex flex-col gap-2">
                     <ActionDataFieldError
                         actionData={actionData}
-                        fieldName="ContentScript"
+                        fieldName="ContentStyles"
                     />
-                    <CodeEditorHtml
+                    <CodeEditorCss
                         readOnly={isInAction}
-                        code={Content?.ContentScript.S || ''}
-                        onChange={handleChange('ContentScript')}
-                        object={JSON.parse(Content?.ContentData.S)}
-                        styles={Content?.ContentStyles.S || ''}
+                        code={Content?.ContentStyles.S || ''}
+                        onChange={handleChange('ContentStyles')}
                     />
                 </div>
             </CardContent>

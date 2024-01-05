@@ -2,7 +2,7 @@ import {LoaderFunctionArgs, json, redirect} from 'react-router-dom';
 import * as z from 'zod';
 import {FORM_ACTION_SUBMIT, FORM_ACTION_RESET} from '@/utils/FormUtils';
 import {getSessionState} from '@/utils/localStorage';
-import {EditPageData, editPageDataSingleton} from '@/data/EditPageData';
+import {PageData, pageDataSingleton} from '@/data/PageData';
 
 const ZPageEntry = z.object({
     MetaTitle: z.string().min(2, {
@@ -43,7 +43,7 @@ export async function editOldPageAction({request}: LoaderFunctionArgs) {
                 }
 
                 const sessionStateKey = data['sessionStateKey'].toString();
-                const editPageData: EditPageData | undefined = getSessionState<EditPageData>(sessionStateKey);
+                const editPageData: PageData | undefined = getSessionState<PageData>(sessionStateKey);
                 if (!editPageData) {
                     return json({error: 'Missing the page data to save'});
                 }
@@ -59,13 +59,13 @@ export async function editOldPageAction({request}: LoaderFunctionArgs) {
                         const formatted = pageEntryValidationResult.error.format();
                         return json(formatted);
                     }
-                    await editPageDataSingleton.saveEditPage(editPageData);
+                    await pageDataSingleton.savePage(editPageData);
                     return redirect('/pages?entryType=page');
                 } catch (e: any) {
                     return json({error: e.message});
                 }
             } else if (action === FORM_ACTION_RESET) {
-                return redirect('/edit-page');
+                return redirect('/pages?entryType=page');
             }
             break;
         }

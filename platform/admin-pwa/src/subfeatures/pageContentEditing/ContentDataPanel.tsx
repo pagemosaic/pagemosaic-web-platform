@@ -20,10 +20,9 @@ import {
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {CodeEditorJson} from '@/components/utils/CodeEditorJson';
 import {buildOrUpdateContentObject} from '@/utils/PageUtils';
-import {EditPageData} from '@/data/EditPageData';
+import {PageData} from '@/data/PageData';
 import {IndexPositionBadge} from '@/components/utils/IndexPositionBadge';
 import {arrayMove} from '@/utils/arrayUtils';
-import {NewPageData} from '@/data/NewPageData';
 
 interface ContentDataPanelProps {
     sessionStateKey: string;
@@ -35,9 +34,9 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
     const {sessionStateKey, isInAction, actionData} = props;
     const [isDataConfigMode, setDataConfigMode] = useState<boolean>(false);
     const [uniqueValue, setUniqueValue] = useState<number>(0);
-    const {value: newPageData} = useSessionState<NewPageData>(sessionStateKey);
+    const {value: pageData} = useSessionState<PageData>(sessionStateKey);
 
-    if (!newPageData?.pageEntry.Content) {
+    if (!pageData?.pageEntry.Content) {
         return (
             <div>
                 <p>Missing Initial Data For Content Data</p>
@@ -45,7 +44,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
         );
     }
 
-    const {Content} = newPageData.pageEntry;
+    const {Content} = pageData.pageEntry;
 
     const handleSubmitConfig = (code: string) => {
         if (Content) {
@@ -58,7 +57,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                 );
                 Content.ContentData.S = JSON.stringify(newContentData);
                 Content.ContentDataConfig.S = code;
-                setSessionState(sessionStateKey, newPageData);
+                setSessionState(sessionStateKey, pageData);
                 setDataConfigMode(false);
             } catch (e: any) {
                 // do nothing
@@ -84,7 +83,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
         if (Content) {
             const newContentData = set(contentData, path, value);
             Content.ContentData.S = JSON.stringify(newContentData);
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, pageData);
         }
     }, 800);
 
@@ -103,7 +102,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                 prevContentData
             );
             Content.ContentData.S = JSON.stringify(newContentData);
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, pageData);
             setUniqueValue(uniqueValue + 1);
         }
     };
@@ -115,7 +114,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
             const prevContentData = JSON.parse(Content?.ContentData.S);
             (prevContentData[code] as Array<ContentDataBlock>).splice(blockIndex, 1);
             Content.ContentData.S = JSON.stringify(prevContentData);
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, pageData);
             setUniqueValue(uniqueValue + 1);
         }
     };
@@ -125,7 +124,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
             let prevContentData = JSON.parse(Content?.ContentData.S);
             prevContentData[code] = arrayMove(prevContentData[code], blockIndex, newBlockIndex);
             Content.ContentData.S = JSON.stringify(prevContentData);
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, pageData);
             setUniqueValue(uniqueValue + 1);
         }
     };
@@ -139,7 +138,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
             fieldContentData.splice(fieldIndex, 0, {value: ''});
             set(prevContentData, fieldPath, fieldContentData);
             Content.ContentData.S = JSON.stringify(prevContentData);
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, pageData);
             setUniqueValue(uniqueValue + 1);
         }
     };
@@ -154,7 +153,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                 fieldContentData.splice(fieldIndex, 1);
                 set(prevContentData, fieldPath, fieldContentData);
                 Content.ContentData.S = JSON.stringify(prevContentData);
-                setSessionState(sessionStateKey, newPageData);
+                setSessionState(sessionStateKey, pageData);
                 setUniqueValue(uniqueValue + 1);
             }
         }
@@ -169,7 +168,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                     fieldContentData = arrayMove(fieldContentData, fieldIndex, newFieldIndex);
                     set(prevContentData, fieldPath, fieldContentData);
                     Content.ContentData.S = JSON.stringify(prevContentData);
-                    setSessionState(sessionStateKey, newPageData);
+                    setSessionState(sessionStateKey, pageData);
                     setUniqueValue(uniqueValue + 1);
                 }
             }

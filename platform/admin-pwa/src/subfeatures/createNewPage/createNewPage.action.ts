@@ -1,7 +1,7 @@
 import {LoaderFunctionArgs, json, redirect} from 'react-router-dom';
 import * as z from 'zod';
 import {FORM_ACTION_SUBMIT, FORM_ACTION_RESET} from '@/utils/FormUtils';
-import {NewPageData, newPageDataSingleton} from '@/data/NewPageData';
+import {PageData, pageDataSingleton} from '@/data/PageData';
 import {getSessionState} from '@/utils/localStorage';
 
 const ZPageEntry = z.object({
@@ -43,7 +43,7 @@ export async function createNewPageAction({request}: LoaderFunctionArgs) {
                 }
 
                 const sessionStateKey = data['sessionStateKey'].toString();
-                const newPageData: NewPageData | undefined = getSessionState<NewPageData>(sessionStateKey);
+                const newPageData: PageData | undefined = getSessionState<PageData>(sessionStateKey);
                 if (!newPageData) {
                     return json({error: 'Missing the page data to save'});
                 }
@@ -59,13 +59,13 @@ export async function createNewPageAction({request}: LoaderFunctionArgs) {
                         const formatted = pageEntryValidationResult.error.format();
                         return json(formatted);
                     }
-                    await newPageDataSingleton.saveNewPage(newPageData);
+                    await pageDataSingleton.savePage(newPageData);
                     return redirect('/pages?entryType=page');
                 } catch (e: any) {
                     return json({error: e.message});
                 }
             } else if (action === FORM_ACTION_RESET) {
-                return redirect('/new-page');
+                return redirect('/pages?entryType=page');
             }
             break;
         }

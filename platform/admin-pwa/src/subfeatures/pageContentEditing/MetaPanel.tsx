@@ -6,8 +6,8 @@ import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import React from 'react';
 import {getSessionState, setSessionState} from '@/utils/localStorage';
-import {NewPageData} from '@/data/NewPageData';
 import {debounce} from 'lodash-es';
+import {PageData} from '@/data/PageData';
 
 interface MetaPanelProps {
     sessionStateKey: string;
@@ -18,9 +18,9 @@ interface MetaPanelProps {
 export function MetaPanel(props: MetaPanelProps) {
     const {sessionStateKey, isInAction, actionData} = props;
 
-    const newPageData: NewPageData | undefined = getSessionState<NewPageData>(sessionStateKey);
+    const pageData: PageData | undefined = getSessionState<PageData>(sessionStateKey);
 
-    if (!newPageData?.pageEntry.Meta) {
+    if (!pageData?.pageEntry.Meta) {
         return (
             <div>
                 <p>Missing Initial Data</p>
@@ -28,12 +28,12 @@ export function MetaPanel(props: MetaPanelProps) {
         );
     }
 
-    const {Meta} = newPageData.pageEntry;
+    const {Meta} = pageData.pageEntry;
 
     const debouncedOnChange = debounce((field: keyof DI_MetaSlice, newValue: string) => {
         if (Meta) {
             Meta[field] = {S: newValue};
-            setSessionState(sessionStateKey, newPageData);
+            setSessionState(sessionStateKey, pageData);
         }
     }, 800);
 

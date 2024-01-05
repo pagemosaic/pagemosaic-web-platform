@@ -1,15 +1,15 @@
 import {defer, ShouldRevalidateFunctionArgs, LoaderFunctionArgs, redirect} from 'react-router-dom';
 import {FORM_ACTION_SUBMIT} from '@/utils/FormUtils';
-import {NewPageDataRequest, newPageDataSingleton} from '@/data/NewPageData';
+import {PageDataRequest, pageDataSingleton} from '@/data/PageData';
 
 export type CreateNewPageLoaderResponse = {
-    newPageDataRequest: NewPageDataRequest;
+    newPageDataRequest: PageDataRequest;
 };
 
 export async function createNewPageLoader({params}: LoaderFunctionArgs) {
     if (params.templateId) {
         return defer({
-            newPageDataRequest: newPageDataSingleton.initNewPage({pageTemplateId: params.templateId})
+            newPageDataRequest: pageDataSingleton.initNewPage({pageTemplateId: params.templateId})
         });
     }
     return redirect('/new-page');
