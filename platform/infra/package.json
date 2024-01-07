@@ -11,14 +11,16 @@
     "lodash-es": "4.17.21"
   },
   "devDependencies": {
-    "@aws-sdk/client-acm": "3.477.0",
-    "@aws-sdk/client-cloudfront": "3.477.0",
-    "@aws-sdk/client-ssm": "3.477.0",
-    "@aws-sdk/client-dynamodb": "3.477.0",
-    "@aws-sdk/client-cognito-identity-provider": "3.477.0",
+    "@aws-sdk/client-acm": "3.485.0",
+    "@aws-sdk/client-cloudfront": "3.485.0",
+    "@aws-sdk/client-ssm": "3.485.0",
+    "@aws-sdk/client-dynamodb": "3.485.0",
+    "@aws-sdk/client-cognito-identity-provider": "3.485.0",
+    "@aws-sdk/client-s3": "3.485.0",
+    "@aws-sdk/s3-request-presigner": "3.485.0",
     "@types/lodash-es": "4.17.12",
     "@types/node": "20.8.10",
-    "aws-cdk-lib": "2.114.1",
+    "aws-cdk-lib": "2.118.0",
     "constructs": "10.3.0",
     "typescript": "^5.2.2",
     "ts-node": "10.9.2"

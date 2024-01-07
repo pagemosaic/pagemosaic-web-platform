@@ -38,6 +38,10 @@ import {EditPageRoute} from '@/features/editPage/EditPage.route';
 import {EditOldPageRoute} from '@/subfeatures/editOldPage/EditOldPage.route';
 import {editOldPageAction} from '@/subfeatures/editOldPage/editOldPage.action';
 import {editOldPageLoader, editOldPageLoaderGuard} from '@/subfeatures/editOldPage/editOldPage.loader';
+import {FilesRoute} from '@/features/files/Files.route';
+import {filesFinderLoader, filesFinderLoaderGuard} from '@/subfeatures/filesFinder/filesFinder.loader';
+import {FilesFinderRoute} from '@/subfeatures/filesFinder/FilesFinder.route';
+import {filesFinderAction} from '@/subfeatures/filesFinder/filesFinder.action';
 
 const router = createBrowserRouter([
     {
@@ -145,6 +149,20 @@ const router = createBrowserRouter([
                         shouldRevalidate: editOldPageLoaderGuard,
                         element: <EditOldPageRoute />
                     },
+                ]
+            },
+            {
+                path: 'files',
+                element: <FilesRoute />,
+                children: [
+                    {
+                        path: '',
+                        index: true,
+                        action: filesFinderAction,
+                        loader: filesFinderLoader,
+                        shouldRevalidate: filesFinderLoaderGuard,
+                        element: <FilesFinderRoute />
+                    }
                 ]
             }
         ]

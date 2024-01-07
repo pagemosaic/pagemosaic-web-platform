@@ -11,11 +11,12 @@ import {
     PARAM_PREVIEW_POINT_DOMAIN,
     PARAM_ENTRY_POINT_DISTRIBUTION_ID,
     PARAM_ENTRY_POINT_DOMAIN,
-    PARAM_SSL_CERTIFICATE_ARN, PARAM_DOMAIN
+    PARAM_SSL_CERTIFICATE_ARN, PARAM_DOMAIN, PARAM_USER_BUCKET_NAME
 } from '../constants';
 import {
     PlatformWebsiteUrlParams
 } from '../system/Domain';
+import {UserBucketParams} from '../system/Bucket';
 
 export type CognitoUserPoolConfig = {
     UserPoolId: string;
@@ -116,5 +117,12 @@ export async function getPlatformWebsiteUrlParams(): Promise<PlatformWebsiteUrlP
         entryPointDomain: await getSsmParameter(PARAM_ENTRY_POINT_DOMAIN),
         sslCertificateArn: await getSsmParameter(PARAM_SSL_CERTIFICATE_ARN),
         domain: await getSsmParameter(PARAM_DOMAIN)
+    };
+}
+
+export async function getUserBucketParams(): Promise<UserBucketParams> {
+    return {
+        bucketName: await getSsmParameter(PARAM_USER_BUCKET_NAME),
+        entryPointDomain: await getSsmParameter(PARAM_PREVIEW_POINT_DOMAIN)
     };
 }

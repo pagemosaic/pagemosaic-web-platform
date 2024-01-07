@@ -7,9 +7,6 @@ import {ContentDataFieldTypes} from 'infra-common/data/ContentDataConfig';
 import CompletionItemInsertTextRule = languages.CompletionItemInsertTextRule;
 import {ButtonAction} from '@/components/utils/ButtonAction';
 import {LucideX, LucideCheck} from 'lucide-react';
-import {ContentData} from 'infra-common/data/ContentData';
-import {buildOrUpdateContentObject} from '@/utils/PageUtils';
-import {setSessionState} from '@/utils/localStorage';
 
 interface CodeEditorJsonProps {
     code: string;
@@ -19,7 +16,7 @@ interface CodeEditorJsonProps {
 }
 
 // Define the ContentDataFieldTypes
-const ZContentDataFieldTypes = z.enum(['image', 'text'], {
+const ZContentDataFieldTypes = z.enum(['image', 'text', 'rich_text'], {
     errorMap: (issue, ctx) => ({message: 'Please select a correct field type'})
 });
 

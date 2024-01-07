@@ -1,8 +1,8 @@
 import {nanoid} from 'nanoid';
 import {DI_PageEntry} from 'infra-common/data/DocumentItem';
-import {NewPageData} from '@/data/NewPageData';
+import {PageData} from '@/data/PageData';
 
-export function initNewPageData(pageTemplateEntry: DI_PageEntry): NewPageData {
+export function initNewPageData(pageTemplateEntry: DI_PageEntry): PageData {
     const {Entry, Meta, Content, TagEntries, Tags} = pageTemplateEntry;
     if (Entry && Meta && Content) {
         const id = nanoid();

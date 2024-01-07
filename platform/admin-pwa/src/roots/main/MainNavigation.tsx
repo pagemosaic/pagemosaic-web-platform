@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
-import {LucideSettings, LucideBookOpen, LucideIcon, LucidePlus, LucideFilePlus2} from 'lucide-react';
+import {LucideSettings, LucideBookOpen, LucideIcon, LucidePlus, LucideFilePlus2, LucideFiles} from 'lucide-react';
 import {NavigationMenuList, NavigationMenuItem, NavigationMenu} from '@/components/ui/navigation-menu';
 import {MainAccountNavigation} from '@/roots/main/MainAccountNavigation';
 import {NavigationButtonLink} from '@/components/utils/NavigationButtonLink';
@@ -36,6 +36,14 @@ const navigationRoutesMeta: Array<RouteMeta> = [
         stateKey: 'newPagePath',
         label: 'Add New Page',
         Icon: LucideFilePlus2,
+        isCommand: true,
+    },
+    {
+        key: '/files',
+        defaultKey: '/files',
+        stateKey: 'filesPath',
+        label: 'Files',
+        Icon: LucideFiles,
         isCommand: true,
     }
 ];

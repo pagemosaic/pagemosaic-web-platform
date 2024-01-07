@@ -14,8 +14,9 @@ import {
     INFRA_ENTRY_POINT_DOMAIN,
     INFRA_PREVIEW_POINT_DOMAIN,
     INFRA_SYS_USER_POOL_CLIENT_ID,
-    INFRA_ENTRY_POINT_DISTRIBUTION_ID
+    INFRA_ENTRY_POINT_DISTRIBUTION_ID, INFRA_USER_BUCKET_NAME
 } from '../common/constants';
+import {UserBucketConstruct} from './constructs/user-bucket';
 
 interface PlatformProps {
     domainNames?: Array<string>;
@@ -27,9 +28,13 @@ export class Platform extends Stack {
         super(scope, id);
         const {domainNames, certificateArn} = props;
 
+        const systemBucketConstruct = new SystemBucketConstruct(this, 'SystemBucketConstruct');
+        const userBucketConstruct = new UserBucketConstruct(this, 'UserBucketConstruct');
+
         const sysUserPoolConstruct = new SysUserPoolConstruct(this, 'SysUserPoolConstruct');
         const dbTablesConstruct = new DbTablesConstruct(this, 'DbTablesConstruct');
         const apiConstruct = new ApiConstruct(this, 'ApiConstruct', {
+            userBucket: userBucketConstruct.bucket,
             tables: dbTablesConstruct.tables,
             sysUserPoolId: sysUserPoolConstruct.userPool.userPoolId
         });
@@ -37,11 +42,12 @@ export class Platform extends Stack {
             tables: dbTablesConstruct.tables
         });
 
-        const systemBucketConstruct = new SystemBucketConstruct(this, 'SystemBucketConstruct');
 
         const entryPointConstruct = new EntryPointConstruct(this, 'EntryPointConstruct', {
             systemBucket: systemBucketConstruct.bucket,
             systemBucketOAI: systemBucketConstruct.bucketOAI,
+            userBucket: userBucketConstruct.bucket,
+            userBucketOAI: userBucketConstruct.bucketOAI,
             httpApiGatewayOrigin: apiConstruct.httpApiGatewayOrigin,
             webAppHttpApiGatewayOrigin: webAppApiConstruct.httpApiGatewayOrigin,
             domainNames,
@@ -51,6 +57,8 @@ export class Platform extends Stack {
         const previewPointConstruct = new PreviewPointConstruct(this, 'PreviewPointConstruct', {
             systemBucket: systemBucketConstruct.bucket,
             systemBucketOAI: systemBucketConstruct.bucketOAI,
+            userBucket: userBucketConstruct.bucket,
+            userBucketOAI: userBucketConstruct.bucketOAI,
             webAppHttpApiGatewayOrigin: webAppApiConstruct.httpApiGatewayOrigin
         });
 
@@ -77,6 +85,9 @@ export class Platform extends Stack {
         });
         new cdk.CfnOutput(this, INFRA_ENTRY_POINT_DISTRIBUTION_ID, {
             value: entryPointConstruct.distribution.distributionId,
+        });
+        new cdk.CfnOutput(this, INFRA_USER_BUCKET_NAME, {
+            value: userBucketConstruct.bucket.bucketName
         });
     }
 }

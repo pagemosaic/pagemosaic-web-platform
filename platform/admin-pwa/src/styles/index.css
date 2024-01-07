@@ -64,3 +64,18 @@ body {
 /*    !*background-color: rgba(0, 0, 0, .1);*!*/
 /*    background-color: #cdcdcd;*/
 /*}*/
+
+.ProseMirror p.is-empty:first-child::before, h1.is-empty:first-child::before {
+    color: #bdbdbd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+.ProseMirror h1,
+.ProseMirror h2,
+.ProseMirror h3 {
+    margin-bottom: 0;
+    margin-top: 0;
+}

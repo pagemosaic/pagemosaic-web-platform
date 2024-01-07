@@ -19,9 +19,7 @@ export function editOldPageLoaderGuard(args: ShouldRevalidateFunctionArgs): bool
     const {formData, actionResult, defaultShouldRevalidate} = args;
     if (formData && actionResult) {
         const action = formData.get('action');
-        console.log('Reload: ', action === FORM_ACTION_SUBMIT && !!actionResult.ok);
         return action === FORM_ACTION_SUBMIT && !!actionResult.ok;
     }
-    console.log('Reload: ', defaultShouldRevalidate);
     return defaultShouldRevalidate;
 }

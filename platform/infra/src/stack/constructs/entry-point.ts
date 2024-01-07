@@ -10,6 +10,8 @@ export interface EntryPointConstructProps {
     webAppHttpApiGatewayOrigin: origins.HttpOrigin;
     systemBucket: s3.Bucket;
     systemBucketOAI: cloudfront.OriginAccessIdentity;
+    userBucket: s3.Bucket;
+    userBucketOAI: cloudfront.OriginAccessIdentity;
     domainNames?: Array<string>;
     certificateArn?: string;
 }
@@ -104,6 +106,12 @@ export class EntryPointConstruct extends Construct {
                     }),
                     viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 },
+                '/public/*': {
+                    origin: new origins.S3Origin(props.userBucket, {
+                        originAccessIdentity: props.userBucketOAI
+                    }),
+                    viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                }
             }
         });
     }

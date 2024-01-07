@@ -4,7 +4,6 @@ import {get, post} from '@/utils/ClientApi';
 import {setSessionState, delSessionState} from '@/utils/localStorage';
 import {initNewPageData} from '@/data/NewPageData.constans';
 import {defaultPageTemplateEntry} from '@/data/PageTemplatesData.constants';
-import {NewPageDataRequest} from '@/data/NewPageData';
 
 export type PageData = { pageEntry: DI_PageEntry; };
 export type PageDataRequest = Promise<string>;
@@ -32,7 +31,7 @@ class PageDataSingleton {
         throw Error('Missing access token');
     }
 
-    public async initNewPage(options: {pageTemplateId: string;}): NewPageDataRequest {
+    public async initNewPage(options: {pageTemplateId: string;}): PageDataRequest {
         const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
         if (accessToken) {
             const {pageTemplateId} = options;

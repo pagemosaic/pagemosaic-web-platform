@@ -219,7 +219,7 @@ export function putFile1(
         xhr.abort();
     }
     return new Promise<void>((resolve, reject) => {
-        xhr.open('PUT', encodeURI(url), true);
+        xhr.open('PUT', url, true);
         // Listen to the upload progress.
         xhr.upload.onprogress = function(e) {
             if (e.lengthComputable) {

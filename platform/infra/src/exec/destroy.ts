@@ -1,6 +1,6 @@
 import {execSync} from 'child_process';
-import {getSsmParameter, delSsmParameter} from '../common/./aws/sysParameters';
-import {deleteSSLCertificate} from '../common/./aws/sslCertificate';
+import {getSsmParameter, delSsmParameter} from '../common/aws/sysParameters';
+import {deleteSSLCertificate} from '../common/aws/sslCertificate';
 import {
     PARAM_PREVIEW_POINT_DOMAIN,
     PARAM_ENTRY_POINT_DOMAIN,
@@ -8,7 +8,8 @@ import {
     PARAM_SYS_USER_POOL_CLIENT_ID,
     PARAM_ENTRY_POINT_DISTRIBUTION_ID,
     PARAM_SSL_CERTIFICATE_ARN,
-    PARAM_DOMAIN
+    PARAM_DOMAIN,
+    PARAM_USER_BUCKET_NAME
 } from '../common/constants';
 
 const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME; // Get AWS profile name from environment variable
@@ -31,6 +32,7 @@ async function finalCleaning(){
     await delSsmParameter(PARAM_SYS_USER_POOL_ID);
     await delSsmParameter(PARAM_DOMAIN);
     await delSsmParameter(PARAM_SSL_CERTIFICATE_ARN);
+    await delSsmParameter(PARAM_USER_BUCKET_NAME);
 
     if (certificateArn) {
         await deleteSSLCertificate(certificateArn);

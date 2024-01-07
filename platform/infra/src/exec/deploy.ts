@@ -16,10 +16,12 @@ import {
     INFRA_ENTRY_POINT_DOMAIN,
     INFRA_SYS_USER_POOL_ID,
     INFRA_SYS_USER_POOL_CLIENT_ID,
-    INFRA_ENTRY_POINT_DISTRIBUTION_ID
+    INFRA_ENTRY_POINT_DISTRIBUTION_ID,
+    INFRA_USER_BUCKET_NAME,
+    PARAM_USER_BUCKET_NAME
 } from '../common/constants';
-import {getCognitoClient} from '../common/./aws/sysAuth';
-import {putSsmParameter} from '../common/./aws/sysParameters';
+import {getCognitoClient} from '../common/aws/sysAuth';
+import {putSsmParameter} from '../common/aws/sysParameters';
 
 const AWS_PROFILE_NAME = process.env.AWS_PROFILE_NAME;
 const defaultAdminEmail = process.env.DEFAULT_ADMIN_EMAIL;
@@ -47,6 +49,7 @@ const entryPointDistributionId = cdkOutputs[stackName][INFRA_ENTRY_POINT_DISTRIB
 const previewPointDomainName = cdkOutputs[stackName][INFRA_PREVIEW_POINT_DOMAIN];
 const sysUserPoolId = cdkOutputs[stackName][INFRA_SYS_USER_POOL_ID];
 const sysUserPoolClientId = cdkOutputs[stackName][INFRA_SYS_USER_POOL_CLIENT_ID];
+const userBucketName = cdkOutputs[stackName][INFRA_USER_BUCKET_NAME];
 
 const postDeploy = async () => {
     try {
@@ -55,6 +58,7 @@ const postDeploy = async () => {
         await putSsmParameter(PARAM_SYS_USER_POOL_ID, sysUserPoolId);
         await putSsmParameter(PARAM_SYS_USER_POOL_CLIENT_ID, sysUserPoolClientId);
         await putSsmParameter(PARAM_ENTRY_POINT_DISTRIBUTION_ID, entryPointDistributionId);
+        await putSsmParameter(PARAM_USER_BUCKET_NAME, userBucketName);
 
         const cognitoClient: CognitoIdentityProviderClient = await getCognitoClient();
         // Check if there are existing users in the Sys User Pool

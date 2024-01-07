@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {debounce, get, set} from 'lodash-es';
+import {get, set} from 'lodash-es';
 import {Card, CardContent} from '@/components/ui/card';
 import {ActionDataFieldError} from '@/components/utils/ActionDataFieldError';
 import {setSessionState, useSessionState} from '@/utils/localStorage';
@@ -9,7 +9,6 @@ import {
     ContentDataFieldClass
 } from 'infra-common/data/ContentDataConfig';
 import {Label} from '@/components/ui/label';
-import {Input} from '@/components/ui/input';
 import {ContentData, ContentDataBlock, ContentDataField} from 'infra-common/data/ContentData';
 import {ButtonAction} from '@/components/utils/ButtonAction';
 import {
@@ -23,6 +22,9 @@ import {buildOrUpdateContentObject} from '@/utils/PageUtils';
 import {PageData} from '@/data/PageData';
 import {IndexPositionBadge} from '@/components/utils/IndexPositionBadge';
 import {arrayMove} from '@/utils/arrayUtils';
+import {ControlText} from '@/subfeatures/pageContentEditing/ControlText';
+import {ControlImage} from '@/subfeatures/pageContentEditing/ControlImage';
+import {ControlTipTap} from '@/subfeatures/pageContentEditing/ControlTipTap';
 
 interface ContentDataPanelProps {
     sessionStateKey: string;
@@ -79,16 +81,11 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
         contentDataError = 'Error parsing the content data values.';
     }
 
-    const debouncedOnContentDataTextChange = debounce((path: string, value: string) => {
+    const handleContentDataChange = (newContentData: ContentData) => {
         if (Content) {
-            const newContentData = set(contentData, path, value);
             Content.ContentData.S = JSON.stringify(newContentData);
             setSessionState(sessionStateKey, pageData);
         }
-    }, 800);
-
-    const handleContentDataTextChange = (path: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        debouncedOnContentDataTextChange(path, e.currentTarget.value);
     };
 
     const handleAddNewBlock = (code: string, blockIndex: number) => (e: React.MouseEvent) => {
@@ -185,7 +182,7 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
             if (fieldsContents.length === 0) {
                 return (
                     <div key={`firstField_${fieldClass.code}`} className="flex flex-row gap-2 items-center justify-between">
-                        <Label>
+                        <Label className="text-muted-foreground">
                             {fieldClass.label}
                         </Label>
                         <div>
@@ -200,15 +197,13 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                 );
             } else {
                 return fieldsContents.map((fieldContent, fieldContentIndex) => {
-                    let defaultTextValue = get(
-                        contentData,
-                        `${fieldPath}.${fieldContentIndex}.value`,
-                        undefined
-                    ) as string | undefined;
                     return (
                         <div key={`field_${fieldClass.code}_${fieldContentIndex}`} className="flex flex-col gap-2">
                             <div className="flex flex-row gap-2 items-center justify-between">
-                                <Label className="flex flex-row gap-2 items-center" htmlFor={fieldPath}>
+                                <Label
+                                    className="flex flex-row gap-2 items-center text-muted-foreground"
+                                    htmlFor={`${fieldPath}.${fieldContentIndex}`}
+                                >
                                     {fieldClass.label}
                                     <IndexPositionBadge
                                         index={fieldContentIndex}
@@ -237,14 +232,29 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                                 </div>
                             </div>
                             <div className="ml-3 flex flex-col gap-2">
-                                <Input
-                                    key={`${uniqueValue}_${fieldsContents.length}_${fieldContentIndex}`}
-                                    name={fieldPath}
-                                    type="text"
-                                    disabled={isInAction}
-                                    defaultValue={defaultTextValue}
-                                    onChange={handleContentDataTextChange(`${fieldPath}.${fieldContentIndex}.value`)}
-                                />
+                                {fieldClass.type === 'text' && (
+                                    <ControlText
+                                        key={`${fieldPath}.${fieldContentIndex}`}
+                                        controlKey={uniqueValue}
+                                        contentData={contentData}
+                                        fieldPath={`${fieldPath}.${fieldContentIndex}`}
+                                        disabled={isInAction}
+                                        onChange={handleContentDataChange}
+                                    />
+                                )}
+                                {fieldClass.type === 'image' && (
+                                    <ControlImage key={`${fieldPath}.${fieldContentIndex}`} />
+                                )}
+                                {fieldClass.type === 'rich_text' && (
+                                    <ControlTipTap
+                                        key={`${fieldPath}.${fieldContentIndex}`}
+                                        controlKey={uniqueValue}
+                                        fieldPath={`${fieldPath}.${fieldContentIndex}`}
+                                        contentData={contentData}
+                                        disabled={isInAction}
+                                        onChange={handleContentDataChange}
+                                    />
+                                )}
                                 <ActionDataFieldError
                                     actionData={actionData}
                                     fieldName={fieldPath}
@@ -255,26 +265,36 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                 });
             }
         } else {
-            let defaultTextValue = get(
-                contentData,
-                `${fieldPath}.value`,
-                undefined
-            ) as string | undefined;
             return (
                 <div key={`field_${fieldClass.code}`}
                      className="flex flex-col gap-2">
-                    <Label htmlFor={fieldPath}>
+                    <Label className="text-muted-foreground" htmlFor={fieldPath}>
                         {fieldClass.label}
                     </Label>
                     <div className="ml-3 flex flex-col gap-2">
-                        <Input
-                            key={uniqueValue}
-                            name={fieldPath}
-                            type="text"
-                            disabled={isInAction}
-                            defaultValue={defaultTextValue}
-                            onChange={handleContentDataTextChange(`${fieldPath}.value`)}
-                        />
+                        {fieldClass.type === 'text' && (
+                            <ControlText
+                                key={fieldPath}
+                                controlKey={uniqueValue}
+                                contentData={contentData}
+                                fieldPath={fieldPath}
+                                disabled={isInAction}
+                                onChange={handleContentDataChange}
+                            />
+                        )}
+                        {fieldClass.type === 'image' && (
+                            <ControlImage key={fieldPath} />
+                        )}
+                        {fieldClass.type === 'rich_text' && (
+                            <ControlTipTap
+                                key={fieldPath}
+                                controlKey={uniqueValue}
+                                fieldPath={fieldPath}
+                                contentData={contentData}
+                                disabled={isInAction}
+                                onChange={handleContentDataChange}
+                            />
+                        )}
                         <ActionDataFieldError
                             actionData={actionData}
                             fieldName={fieldPath}

@@ -7,6 +7,8 @@ export interface PreviewPointConstructProps {
     webAppHttpApiGatewayOrigin: origins.HttpOrigin;
     systemBucket: s3.Bucket;
     systemBucketOAI: cloudfront.OriginAccessIdentity;
+    userBucket: s3.Bucket;
+    userBucketOAI: cloudfront.OriginAccessIdentity;
 }
 
 export class PreviewPointConstruct extends Construct {
@@ -43,6 +45,12 @@ export class PreviewPointConstruct extends Construct {
                     }),
                     viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS
                 },
+                '/public/*': {
+                    origin: new origins.S3Origin(props.userBucket, {
+                        originAccessIdentity: props.userBucketOAI
+                    }),
+                    viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+                }
             }
         });
     }

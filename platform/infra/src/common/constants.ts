@@ -13,6 +13,7 @@ export const PARAM_SYS_USER_POOL_CLIENT_ID = `/pagemosaic/${PLATFORM_STACK_NAME}
 export const PARAM_ENTRY_POINT_DISTRIBUTION_ID = `/pagemosaic/${PLATFORM_STACK_NAME}/EntryPointDistributionId`;
 export const PARAM_SSL_CERTIFICATE_ARN = `/pagemosaic/${PLATFORM_STACK_NAME}/SslCertificateArn`;
 export const PARAM_DOMAIN = `/pagemosaic/${PLATFORM_STACK_NAME}/Domain`;
+export const PARAM_USER_BUCKET_NAME = `/pagemosaic/${PLATFORM_STACK_NAME}/UserBucketName`;
 
 // Platform Stack output IDs
 export const INFRA_ENTRY_POINT_DOMAIN = 'EntryPointDomain';
@@ -20,6 +21,7 @@ export const INFRA_PREVIEW_POINT_DOMAIN = 'PreviewPointDomain';
 export const INFRA_SYS_USER_POOL_ID = 'SysUserPoolId';
 export const INFRA_SYS_USER_POOL_CLIENT_ID = 'SysUserPoolClientId';
 export const INFRA_ENTRY_POINT_DISTRIBUTION_ID = 'EntryPointDistributionId';
+export const INFRA_USER_BUCKET_NAME = 'UserBucketName';
 
 // Database document item constants
 export const DI_MAIN_PAGE_ENTRY_TYPE = 'main_page';

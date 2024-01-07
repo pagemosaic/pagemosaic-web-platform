@@ -1,6 +1,7 @@
 export const ContentDataFieldTypes = [
     'image',
-    'text'
+    'text',
+    'rich_text'
 ] as const;
 
 export type ContentDataFieldClass = {

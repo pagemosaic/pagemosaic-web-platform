@@ -7,9 +7,11 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as apigwv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as apigwv2Integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
+import * as s3 from 'aws-cdk-lib/aws-s3';
 import {PLATFORM_STACK_NAME} from '../../common/constants';
 
 export interface AdminApiConstructProps {
+    userBucket: s3.Bucket;
     tables: Array<dynamodb.Table>;
     sysUserPoolId: string;
 }
@@ -20,7 +22,7 @@ export class ApiConstruct extends Construct {
 
     constructor(scope: Construct, id: string, props: AdminApiConstructProps) {
         super(scope, id);
-        const {tables, sysUserPoolId} = props;
+        const {userBucket, tables, sysUserPoolId} = props;
 
         const apiDirectoryPath = resolve('../api/dist');
         const lambdaHandler = new lambda.Function(this, 'ApiLambda', {
@@ -68,6 +70,12 @@ export class ApiConstruct extends Construct {
                 table.grantReadWriteData(lambdaHandler);
             }
         }
+
+        // Grant the Lambda function read and write access to the S3 user bucket
+        userBucket.grantRead(lambdaHandler);
+        userBucket.grantWrite(lambdaHandler);
+        userBucket.grantPut(lambdaHandler);
+        userBucket.grantDelete(lambdaHandler);
 
         // Define the HTTP API resource with the Lambda integration
         const lambdaIntegration = new apigwv2Integrations.HttpLambdaIntegration(
