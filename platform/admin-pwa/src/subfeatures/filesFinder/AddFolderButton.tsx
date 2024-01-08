@@ -41,7 +41,7 @@ export function AddFolderButton(props: AddFolderButtonProps) {
             <DialogTrigger asChild>
                 <Button size="sm" variant="outline">
                     <div className="flex flex-row gap-2 items-center">
-                        <LucideFolderPlus className="w-3 h-3"/>
+                        <LucideFolderPlus className="w-4 h-4"/>
                         <span className="whitespace-nowrap">Add Folder</span>
                     </div>
                 </Button>

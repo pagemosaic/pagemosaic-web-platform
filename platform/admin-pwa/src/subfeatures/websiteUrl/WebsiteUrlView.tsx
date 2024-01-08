@@ -78,7 +78,7 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                                     href={publicUrl}
                                                     target="_blank"
                                                 >
-                                                    {publicUrl}<LucideExternalLink className="w-3 h-3"/>
+                                                    {publicUrl}<LucideExternalLink className="w-4 h-4"/>
                                                 </a>
                                             )
                                         }
@@ -111,14 +111,14 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                                         href={defaultUrl}
                                                         target="_blank"
                                                     >
-                                                        <span>{defaultUrl}</span><LucideExternalLink className="w-3 h-3" />
+                                                        <span>{defaultUrl}</span><LucideExternalLink className="w-4 h-4" />
                                                     </a>
                                                     <a
                                                         className="flex flex-row gap-2 items-center text-sm font-semibold text-muted-foreground hover:underline"
                                                         href={defaultPreviewUrl}
                                                         target="_blank"
                                                     >
-                                                        <span>{defaultPreviewUrl}</span><LucideExternalLink className="w-3 h-3" />
+                                                        <span>{defaultPreviewUrl}</span><LucideExternalLink className="w-4 h-4" />
                                                     </a>
                                                 </>
                                             )

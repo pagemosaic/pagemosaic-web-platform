@@ -22,7 +22,7 @@ export function MainAccountNavigation() {
             <React.Suspense
                 fallback={
                     <Button size="sm" variant="ghost" className="w-full justify-start" disabled>
-                        <LucideRotateCcw className="mr-2 h-3 w-3 animate-spin"/>
+                        <LucideRotateCcw className="mr-2 h-4 w-4 animate-spin"/>
                         Loading...
                     </Button>
                 }

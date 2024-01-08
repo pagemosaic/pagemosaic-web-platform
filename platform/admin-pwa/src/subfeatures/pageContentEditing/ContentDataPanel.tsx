@@ -81,10 +81,13 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
         contentDataError = 'Error parsing the content data values.';
     }
 
-    const handleContentDataChange = (newContentData: ContentData) => {
+    const handleContentDataChange = (newContentData: ContentData, doRefresh?: boolean) => {
         if (Content) {
             Content.ContentData.S = JSON.stringify(newContentData);
             setSessionState(sessionStateKey, pageData);
+            if (doRefresh) {
+                setUniqueValue(uniqueValue + 1);
+            }
         }
     };
 
@@ -243,7 +246,14 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                                     />
                                 )}
                                 {fieldClass.type === 'image' && (
-                                    <ControlImage key={`${fieldPath}.${fieldContentIndex}`} />
+                                    <ControlImage
+                                        key={`${fieldPath}.${fieldContentIndex}`}
+                                        controlKey={uniqueValue}
+                                        fieldPath={`${fieldPath}.${fieldContentIndex}`}
+                                        contentData={contentData}
+                                        disabled={isInAction}
+                                        onChange={handleContentDataChange}
+                                    />
                                 )}
                                 {fieldClass.type === 'rich_text' && (
                                     <ControlTipTap
@@ -283,7 +293,14 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                             />
                         )}
                         {fieldClass.type === 'image' && (
-                            <ControlImage key={fieldPath} />
+                            <ControlImage
+                                key={fieldPath}
+                                controlKey={uniqueValue}
+                                fieldPath={fieldPath}
+                                contentData={contentData}
+                                disabled={isInAction}
+                                onChange={handleContentDataChange}
+                            />
                         )}
                         {fieldClass.type === 'rich_text' && (
                             <ControlTipTap

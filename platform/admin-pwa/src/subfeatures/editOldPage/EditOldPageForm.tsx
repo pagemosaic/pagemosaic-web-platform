@@ -18,6 +18,8 @@ import {ContentStylesPanel} from '@/subfeatures/pageContentEditing/ContentStyles
 import {PreviewPanel} from '@/subfeatures/pageContentEditing/PreviewPanel';
 import {ContentHeaderPanel} from '@/subfeatures/pageContentEditing/ContentHeaderPanel';
 import {ContentDataPanel} from '@/subfeatures/pageContentEditing/ContentDataPanel';
+import {PageData} from '@/data/PageData';
+import {getSessionState} from '@/utils/localStorage';
 
 interface EditOldPageFormProps {
     sessionStateKey?: string;
@@ -39,6 +41,8 @@ export function EditOldPageForm(props: EditOldPageFormProps) {
             <p>Missing initial data</p>
         );
     }
+
+    const pageData: PageData | undefined = getSessionState<PageData>(sessionStateKey);
 
     const isInAction = fetcher.state === 'loading' || fetcher.state === 'submitting' || isLoadingData;
 
@@ -63,8 +67,10 @@ export function EditOldPageForm(props: EditOldPageFormProps) {
         <fetcher.Form method="post" onSubmit={(e) => e.preventDefault()} onReset={handleReset} className="w-full h-full p-4">
             <Tabs defaultValue="content" className="flex flex-col gap-2 w-full h-full">
                 <div className="flex flex-col gap-2 mb-4">
-                    <p className="text-xl">Edit Page</p>
-                    {/*<p className="text-sm text-muted-foreground">Set the home page content here</p>*/}
+                    <p className="text-xl">
+                        <span className="text-muted-foreground">Edit Page:</span>
+                        <span className="ml-2 font-normal">{pageData?.pageEntry.Meta?.MetaTitle.S}</span>
+                    </p>
                 </div>
                 <div className="flex flex-row justify-between w-full">
                     <div className="flex flex-row gap-2">

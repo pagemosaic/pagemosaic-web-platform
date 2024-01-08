@@ -86,13 +86,13 @@ export function SysUserProfileForm(props: SysUserProfileFormProps) {
                                 isLoading={isLoadingData}
                                 loadingElement={(
                                     <>
-                                        <LucideRotateCw className="mr-2 h-3 w-3 animate-spin"/>
+                                        <LucideRotateCw className="mr-2 h-4 w-4 animate-spin"/>
                                         Loading...
                                     </>
                                 )}
                                 element={(
                                     <>
-                                        <LucidePencil className="mr-2 h-3 w-3"/>
+                                        <LucidePencil className="mr-2 h-4 w-4"/>
                                         Edit
                                     </>
                                 )}

@@ -20,14 +20,14 @@ export function ButtonLink({to, label, Icon, isLoading, ...rest}: ButtonLinkProp
             {isLoading
                 ? (
                     <div className="flex flex-row gap-2 items-center">
-                        <LucideRefreshCw className="w-3 h-3 animate-spin"/>
+                        <LucideRefreshCw className="w-4 h-4 animate-spin"/>
                         <span className="whitespace-nowrap">{label}</span>
                     </div>
                 )
                 : (
                     <Link to={to}>
                         <div className="flex flex-row gap-2 items-center">
-                            <Icon className="w-3 h-3"/>
+                            <Icon className="w-4 h-4"/>
                             <span className="whitespace-nowrap">{label}</span>
                         </div>
                     </Link>

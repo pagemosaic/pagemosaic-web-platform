@@ -35,6 +35,7 @@ import {humanReadableBytes, getTimeDistance} from '@/utils/FormatUtils';
 import {Checkbox} from '@/components/ui/checkbox';
 import {ScrollArea} from '@/components/ui/scroll-area';
 import {DeleteFilesButton} from '@/subfeatures/filesFinder/DeleteFilesButton';
+import {useSessionState} from '@/utils/localStorage';
 
 interface FilesFinderProps {
     userBucketData: UserBucketData;
@@ -56,13 +57,16 @@ function FileIcon({fileName}: { fileName: string }) {
     let FoundIcon: LucideIcon = fileExt
         ? fileTypesMap[fileExt] || LucideFile
         : LucideFile;
-    return <FoundIcon className="w-3 h-3"/>
+    return <FoundIcon className="w-4 h-4"/>
 }
 
 export function FilesFinder(props: FilesFinderProps) {
     const {userBucketData} = props;
     const fetcher = useFetcher();
-    const [currentPath, setCurrentPath] = useState<string>('public/');
+    const {
+        value: currentPath = 'public/',
+        saveValue: setCurrentPath
+    } = useSessionState<string>('fileBrowserCurrentPath');
     const [selected, setSelected] = useState<Record<string, boolean>>({});
 
     const currentNode: TreeNode = useMemo(() => {
@@ -143,7 +147,7 @@ export function FilesFinder(props: FilesFinderProps) {
                                     }
                                 </div>
                                 <div>
-                                    <LucideChevronRight className="w-3 h-3"/>
+                                    <LucideChevronRight className="w-4 h-4"/>
                                 </div>
                             </React.Fragment>
                         );
@@ -189,7 +193,7 @@ export function FilesFinder(props: FilesFinderProps) {
                                     <TableHead className="w-[40px]"></TableHead>
                                     <TableHead className="flex flex-row items-center flex-nowrap gap-2">
                                         <div>File Name</div>
-                                        <div><LucideSortAsc className="w-3 h-3"/></div>
+                                        <div><LucideSortAsc className="w-4 h-4"/></div>
                                     </TableHead>
                                     <TableHead>Last Modified</TableHead>
                                     <TableHead className="text-right">Size</TableHead>
@@ -221,8 +225,8 @@ export function FilesFinder(props: FilesFinderProps) {
                                                     : (
                                                         <>
                                                             {treeNode.children.length > 0
-                                                                ? (<LucideFolder className="w-3 h-3"/>)
-                                                                : (<LucideFolderMinus className="w-3 h-3"/>)
+                                                                ? (<LucideFolder className="w-4 h-4"/>)
+                                                                : (<LucideFolderMinus className="w-4 h-4"/>)
                                                             }
                                                             <a
                                                                 href="#"

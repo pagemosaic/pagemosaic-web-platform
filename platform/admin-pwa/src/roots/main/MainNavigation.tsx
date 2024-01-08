@@ -84,7 +84,7 @@ export function MainNavigation() {
                                     end={false}
                                     label={navItem.label}
                                     className="w-full justify-start"
-                                    icon={<navItem.Icon className="h-3 w-3"/>}
+                                    icon={<navItem.Icon className="h-4 w-4"/>}
                                 />
                             </NavigationMenuItem>
                         );

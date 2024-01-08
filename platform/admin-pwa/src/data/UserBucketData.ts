@@ -7,35 +7,47 @@ export type UserBucketData = { publicFilesRoots: Array<TreeNode>; } | null;
 export type UserBucketDataRequest = Promise<UserBucketData>;
 
 class UserBucketDataSingleton {
+    private dataInstance: UserBucketData;
+    private dataPromise: UserBucketDataRequest | undefined;
     constructor() {
+        this.dataInstance = null;
+        this.dataPromise = undefined;
     }
 
     async getPublicFiles(): UserBucketDataRequest {
-        return accessTokenSingleton.getAccessToken()
-            .then((accessToken: AccessToken) => {
-                if (accessToken) {
-                    return get<{ publicFiles: Array<FileObject>; }>(
-                        '/api/admin/get-public-files',
-                        accessToken
-                    )
-                        .then((result) => {
-                            let publicFilesRoots: Array<TreeNode> = [];
-                            if (result) {
-                                const {publicFiles} = result;
-                                publicFilesRoots = listToTree(publicFiles);
-                                if (publicFilesRoots && publicFilesRoots.length > 0) {
-                                    for (const filesRoot of publicFilesRoots) {
-                                        setParentReferences(filesRoot);
+        if (this.dataInstance) {
+            return this.dataInstance;
+        }
+        if (!this.dataPromise) {
+            this.dataPromise = accessTokenSingleton.getAccessToken()
+                .then((accessToken: AccessToken) => {
+                    if (accessToken) {
+                        return get<{ publicFiles: Array<FileObject>; }>(
+                            '/api/admin/get-public-files',
+                            accessToken
+                        )
+                            .then((result) => {
+                                let publicFilesRoots: Array<TreeNode> = [];
+                                if (result) {
+                                    const {publicFiles} = result;
+                                    publicFilesRoots = listToTree(publicFiles);
+                                    if (publicFilesRoots && publicFilesRoots.length > 0) {
+                                        for (const filesRoot of publicFilesRoots) {
+                                            setParentReferences(filesRoot);
+                                        }
                                     }
                                 }
-                            }
-                            return {
-                                publicFilesRoots
-                            };
-                        })
-                }
-                throw Error('Missing access token');
-            });
+                                this.dataInstance = {
+                                    publicFilesRoots
+                                };
+                                this.dataPromise = undefined;
+                                return this.dataInstance;
+                            });
+                    }
+                    throw Error('Missing access token');
+                });
+        }
+        return this.dataPromise;
     }
 
     async uploadPublicFiles(
@@ -55,7 +67,7 @@ class UserBucketDataSingleton {
         let uploadedSize = 0;
         for (const fileItem of files) {
             const postResult = await post<{ url: string }>(`/api/admin/post-add-public-file`, {
-                filePath: rootPath ? `${rootPath}/${fileItem.name}` : fileItem.name
+                filePath: rootPath ? `${rootPath}${fileItem.name}` : fileItem.name
             }, accessToken);
             if (postResult) {
                 const {url} = postResult;
@@ -67,6 +79,7 @@ class UserBucketDataSingleton {
                 uploadedSize += fileItem.size;
             }
         }
+        this.dataInstance = null;
     };
 
     async addFolder(rootPath: string): Promise<void> {
@@ -80,6 +93,7 @@ class UserBucketDataSingleton {
         if (postResult) {
             const {url} = postResult;
             await fetch(url, {method: 'PUT'});
+            this.dataInstance = null;
         }
     }
 
@@ -91,6 +105,7 @@ class UserBucketDataSingleton {
         await post<{ url: string }>(`/api/admin/post-delete-public-files`, {
             filePaths
         }, accessToken);
+        this.dataInstance = null;
     }
 }
 

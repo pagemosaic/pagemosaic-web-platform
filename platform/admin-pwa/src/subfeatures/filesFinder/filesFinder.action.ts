@@ -26,7 +26,7 @@ export async function filesFinderAction({request}: LoaderFunctionArgs) {
                 }
                 const {currentPath, directoryName} = data;
                 try {
-                    await userBucketDataSingleton.addFolder(`${currentPath}/${directoryName}`);
+                    await userBucketDataSingleton.addFolder(`${currentPath}${directoryName}`);
                     return json({ok: true});
                 } catch (e: any) {
                     return json({error: e.message});

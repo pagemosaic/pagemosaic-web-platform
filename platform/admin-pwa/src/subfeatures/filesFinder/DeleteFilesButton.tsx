@@ -37,7 +37,7 @@ export function DeleteFilesButton(props: DeleteFilesButtonProps) {
             <DialogTrigger asChild>
                 <Button size="sm" variant="outline" disabled={filePaths.length === 0}>
                     <div className="flex flex-row gap-2 items-center">
-                        <LucideTrash2 className="w-3 h-3"/>
+                        <LucideTrash2 className="w-4 h-4"/>
                         <span className="whitespace-nowrap">Delete Selected</span>
                     </div>
                 </Button>

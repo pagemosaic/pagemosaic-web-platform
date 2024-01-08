@@ -17,13 +17,13 @@ export function ButtonAction({label, Icon, isLoading, disabled, ...rest}: Button
             {isLoading
                 ? (
                     <div className="flex flex-row gap-2 items-center">
-                        <LucideRefreshCw className="w-3 h-3 animate-spin"/>
+                        <LucideRefreshCw className="w-4 h-4 animate-spin"/>
                         {label && (<span className="whitespace-nowrap">{label}</span>)}
                     </div>
                 )
                 : (
                     <div className="flex flex-row gap-2 items-center">
-                        <Icon className="w-3 h-3"/>
+                        <Icon className="w-4 h-4"/>
                         {label && (<span className="whitespace-nowrap">{label}</span>)}
                     </div>
                 )

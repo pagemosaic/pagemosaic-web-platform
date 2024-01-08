@@ -95,6 +95,7 @@ export function useSessionState<T>(key: string) {
         };
     }, []);
     return {
-        value
+        value,
+        saveValue: (newValue: T) => setSessionState(key, newValue)
     };
 }
