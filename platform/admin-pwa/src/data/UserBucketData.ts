@@ -11,7 +11,6 @@ class UserBucketDataSingleton {
     }
 
     async getPublicFiles(): UserBucketDataRequest {
-        console.log('getPublicFiles started');
         return accessTokenSingleton.getAccessToken()
             .then((accessToken: AccessToken) => {
                 if (accessToken) {
@@ -30,7 +29,6 @@ class UserBucketDataSingleton {
                                     }
                                 }
                             }
-                            console.log('getPublicFiles finished');
                             return {
                                 publicFilesRoots
                             };
@@ -85,6 +83,15 @@ class UserBucketDataSingleton {
         }
     }
 
+    async deleteFiles(filePaths: Array<string>): Promise<void> {
+        const accessToken: AccessToken = await accessTokenSingleton.getAccessToken();
+        if (!accessToken) {
+            throw Error('Missing access token');
+        }
+        await post<{ url: string }>(`/api/admin/post-delete-public-files`, {
+            filePaths
+        }, accessToken);
+    }
 }
 
 export const userBucketDataSingleton = new UserBucketDataSingleton();

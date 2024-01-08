@@ -14,8 +14,8 @@ export async function filesFinderLoader() {
 export function filesFinderLoaderGuard(args: ShouldRevalidateFunctionArgs): boolean {
     const {formData, actionResult, defaultShouldRevalidate} = args;
     if (formData && actionResult) {
-        const action = formData.get('action');
-        return action === 'addFolder' && !!actionResult.ok;
+        const action = formData.get('action') as string;
+        return ['addFolder', 'deleteFiles'].includes(action) && !!actionResult.ok;
     }
     return defaultShouldRevalidate;
 }

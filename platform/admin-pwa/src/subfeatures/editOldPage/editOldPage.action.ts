@@ -31,7 +31,6 @@ const formSchema = z.object({
 export async function editOldPageAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
-            console.log('editPageAction');
             let formData = await request.formData();
             const action = formData.get('action');
             if (action === FORM_ACTION_SUBMIT) {

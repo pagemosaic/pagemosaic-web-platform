@@ -33,8 +33,6 @@ export function ControlTipTap(props: ControlTipTapProps) {
             undefined
         ) as string | undefined;
 
-        console.log('Field: ', fieldPath, defaultHtmlValue);
-
         return (
             <div className="w-full">
                 <TipTapEditor

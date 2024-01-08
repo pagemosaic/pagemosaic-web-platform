@@ -19,15 +19,26 @@ export async function filesFinderAction({request}: LoaderFunctionArgs) {
             const action = formData.get('action');
             if (action === 'addFolder') {
                 const data = Object.fromEntries(formData);
-                console.log('Data: ', data);
                 const formValidationResult = addFolderSchema.safeParse(data);
                 if (!formValidationResult.success) {
                     const formatted = formValidationResult.error.format();
                     return json(formatted);
                 }
                 const {currentPath, directoryName} = data;
-                await userBucketDataSingleton.addFolder(`${currentPath}/${directoryName}`);
-                return json({ok: true});
+                try {
+                    await userBucketDataSingleton.addFolder(`${currentPath}/${directoryName}`);
+                    return json({ok: true});
+                } catch (e: any) {
+                    return json({error: e.message});
+                }
+            } else if(action === 'deleteFiles') {
+                const filePaths = formData.getAll('filePaths') as Array<string>;
+                try {
+                    await userBucketDataSingleton.deleteFiles(filePaths);
+                    return json({ok: true});
+                } catch (e: any) {
+                    return json({error: e.message});
+                }
             } else if (action === FORM_ACTION_RESET) {
                 return redirect('/files');
             }

@@ -8,11 +8,11 @@ type ButtonActionProps = ButtonProps & {
     isLoading?: boolean;
 }
 
-export function ButtonAction({label, Icon, isLoading, ...rest}: ButtonActionProps) {
+export function ButtonAction({label, Icon, isLoading, disabled, ...rest}: ButtonActionProps) {
     return (
         <Button
             {...rest}
-            disabled={!!isLoading}
+            disabled={!!isLoading || disabled}
         >
             {isLoading
                 ? (

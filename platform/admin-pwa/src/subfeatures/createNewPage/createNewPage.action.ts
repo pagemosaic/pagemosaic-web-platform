@@ -31,7 +31,6 @@ const formSchema = z.object({
 export async function createNewPageAction({request}: LoaderFunctionArgs) {
     switch (request.method) {
         case "POST": {
-            console.log('createNewPageAction');
             let formData = await request.formData();
             const action = formData.get('action');
             if (action === FORM_ACTION_SUBMIT) {

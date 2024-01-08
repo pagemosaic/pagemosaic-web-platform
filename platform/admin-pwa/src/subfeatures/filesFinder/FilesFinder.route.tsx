@@ -8,7 +8,6 @@ import {AsyncStatusProvider} from '@/components/utils/AsyncStatusProvider';
 
 export function FilesFinderRoute() {
     const {userBucketDataRequest} = useLoaderData() as FilesFinderLoaderResponse;
-    console.log('Render FilesFinderRoute');
     return (
         <React.Suspense fallback={<span>Loading...</span>}>
             <Await
@@ -16,7 +15,6 @@ export function FilesFinderRoute() {
                 errorElement={<AwaitError/>}
             >
                 {(userBucketData: UserBucketData) => {
-                    console.log('Render FilesFinder');
                     return (
                         <AsyncStatusProvider>
                             <FilesFinder userBucketData={userBucketData} />

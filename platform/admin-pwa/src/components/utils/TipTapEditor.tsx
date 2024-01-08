@@ -97,7 +97,6 @@ export function TipTapEditor(props: TipTapEditorProps) {
         //     if (onFocus) onFocus();
         // },
         onUpdate: ({ editor }) => {
-            console.log('TipTap on update: ', editor.getHTML());
             onChange(editor.getHTML());
         },
         // onBlur({editor, event}) {

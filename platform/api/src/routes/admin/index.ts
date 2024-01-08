@@ -24,6 +24,7 @@ import getAllPageTemplates from './get-all-page-templates';
 import getPage from './get-page';
 import getPublicFiles from './get-public-files';
 import postAddPublicFile from './post-add-public-file';
+import postDeletePublicFiles from './post-delete-public-files';
 
 const router = Router();
 
@@ -52,5 +53,6 @@ router.use(getAllPageTemplates);
 router.use(getPage);
 router.use(getPublicFiles);
 router.use(postAddPublicFile);
+router.use(postDeletePublicFiles);
 
 export default router;

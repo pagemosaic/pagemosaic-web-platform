@@ -19,6 +19,10 @@ export function listToTree(fileList: Array<FileObject>): Array<TreeNode> {
                         children: [],
                         fileObject: isLastPart ? fileObject : undefined // this is file
                     };
+                    if (!isLastPart) {
+                        // folder path should ends with slash
+                        node.path += '/';
+                    }
                     currentLevel.push(node);
                 }
                 currentLevel = node.children;

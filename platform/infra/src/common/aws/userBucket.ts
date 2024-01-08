@@ -1,7 +1,8 @@
 import {
     S3Client,
     ListObjectsV2Command,
-    PutObjectCommand
+    PutObjectCommand,
+    DeleteObjectsCommand
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import {FileObject, UserBucketParams} from '../system/Bucket';
@@ -58,4 +59,19 @@ export async function getUploadUrlForFile(userBucketParams: UserBucketParams, fi
     });
 
     return getSignedUrl(client, command, { expiresIn: 3600 });
+}
+
+export async function deleteFiles(userBucketParams: UserBucketParams, fileNames: Array<string>): Promise<number> {
+    const Objects: Array<{Key: string}> = fileNames.map((fileName: string) => {
+        return {Key: fileName}
+    });
+    const client = getS3Client();
+    const command = new DeleteObjectsCommand({
+        Bucket: userBucketParams.bucketName,
+        Delete: {
+            Objects,
+        },
+    });
+    const { Deleted } = await client.send(command);
+    return Deleted ? Deleted.length : 0;
 }
