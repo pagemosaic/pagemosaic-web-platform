@@ -27,9 +27,9 @@ export function AllPageTemplatesView(props: AllPageTemplatesViewProps) {
                     Select a page template for your new stunning page.
                 </p>
             </div>
-            <div className="grow overflow-hidden">
-                <ScrollArea className="w-full h-full pr-4">
-                    <Card className="w-full pt-6">
+            <div className="relative grow overflow-hidden">
+                <Card className="absolute top-0 right-0 left-0 bottom-0 overflow-hidden pt-6">
+                    <ScrollArea className="w-full h-full">
                         <CardContent>
                             <div className="grid grid-cols-[repeat(auto-fill,_200px)] gap-8">
                                 {pageTemplatesData?.pageTemplateEntries.map((pageTemplateEntry) => {
@@ -47,8 +47,8 @@ export function AllPageTemplatesView(props: AllPageTemplatesViewProps) {
                                 })}
                             </div>
                         </CardContent>
-                    </Card>
-                </ScrollArea>
+                    </ScrollArea>
+                </Card>
             </div>
         </div>
     );

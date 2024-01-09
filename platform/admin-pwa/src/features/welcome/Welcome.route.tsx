@@ -11,8 +11,8 @@ export function WelcomeRoute() {
     return (
         <>
             <LeftSubSection>
-                <ScrollArea className="w-full h-full">
-                    <div className="w-full flex flex-col gap-2">
+                <ScrollArea className="w-full h-full p-2">
+                    <div className="w-full flex flex-col gap-2 p-4">
                         <div>
                             <NavigationLink
                                 to="/pages/main-page"

@@ -55,12 +55,13 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
             <div className="flex flex-col gap-2 mb-4">
                 <p className="text-xl">Website Address (URL) Settings</p>
                 <p className="text-sm text-muted-foreground">
-                    Here you can set your own domain instead of the <strong>{`${websiteUrlData?.entryPointDomain || 'default'}`}</strong> domain.
+                    Here you can set your own domain instead of
+                    the <strong>{`${websiteUrlData?.entryPointDomain || 'default'}`}</strong> domain.
                 </p>
             </div>
-            <div className="grow overflow-hidden">
-                <ScrollArea className="w-full h-full pr-4">
-                    <Card className="w-full pt-6">
+            <div className="relative grow overflow-hidden">
+                <Card className="absolute top-0 right-0 left-0 bottom-0 overflow-hidden pt-6">
+                    <ScrollArea className="w-full h-full">
                         <CardContent>
                             <div className="flex flex-col gap-8">
                                 <div className="grid grid-cols-2 gap-4 w-full">
@@ -111,14 +112,16 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                                         href={defaultUrl}
                                                         target="_blank"
                                                     >
-                                                        <span>{defaultUrl}</span><LucideExternalLink className="w-4 h-4" />
+                                                        <span>{defaultUrl}</span><LucideExternalLink
+                                                        className="w-4 h-4"/>
                                                     </a>
                                                     <a
                                                         className="flex flex-row gap-2 items-center text-sm font-semibold text-muted-foreground hover:underline"
                                                         href={defaultPreviewUrl}
                                                         target="_blank"
                                                     >
-                                                        <span>{defaultPreviewUrl}</span><LucideExternalLink className="w-4 h-4" />
+                                                        <span>{defaultPreviewUrl}</span><LucideExternalLink
+                                                        className="w-4 h-4"/>
                                                     </a>
                                                 </>
                                             )
@@ -213,10 +216,13 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                         </div>
                                         <div className="flex flex-col gap-2">
                                             <p className="text-sm max-w-[77ch]">
-                                                For successful domain validation, please add the specified records to your DNS configuration, accessible through your domain name's DNS service provider.
+                                                For successful domain validation, please add the specified records to
+                                                your DNS configuration, accessible through your domain name's DNS
+                                                service provider.
                                             </p>
                                             <p className="text-sm font-semibold max-w-[77ch]">
-                                                Domain ownership validation may require up to 48 hours, subject to the domain's DNS availability.
+                                                Domain ownership validation may require up to 48 hours, subject to the
+                                                domain's DNS availability.
                                             </p>
                                         </div>
                                         <div>
@@ -320,8 +326,8 @@ export function WebsiteUrlView(props: WebsiteUrlViewProps) {
                                 )}
                             </div>
                         </CardContent>
-                    </Card>
-                </ScrollArea>
+                    </ScrollArea>
+                </Card>
             </div>
         </div>
     );

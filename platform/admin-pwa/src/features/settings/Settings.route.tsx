@@ -9,8 +9,8 @@ export function SettingsRoute() {
     return (
         <>
             <LeftSubSection>
-                <ScrollArea className="w-full h-full">
-                    <div className="w-full flex flex-col gap-2">
+                <ScrollArea className="w-full h-full pr-2">
+                    <div className="w-full flex flex-col gap-2 p-4">
                         <div>
                             <NavigationLink
                                 to="/settings/website-url"

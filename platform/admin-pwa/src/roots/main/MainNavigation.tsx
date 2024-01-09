@@ -1,10 +1,20 @@
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
-import {LucideSettings, LucideBookOpen, LucideIcon, LucidePlus, LucideFilePlus2, LucideFiles} from 'lucide-react';
+import {
+    LucideSettings,
+    LucideBookOpen,
+    LucideIcon,
+    LucidePlus,
+    LucideFilePlus2,
+    LucideFiles,
+    LucideLayoutDashboard
+} from 'lucide-react';
 import {NavigationMenuList, NavigationMenuItem, NavigationMenu} from '@/components/ui/navigation-menu';
 import {MainAccountNavigation} from '@/roots/main/MainAccountNavigation';
 import {NavigationButtonLink} from '@/components/utils/NavigationButtonLink';
 import {getSessionState, setSessionState} from '@/utils/localStorage';
+import * as constants from 'constants';
+import {PLATFORM_STACK_NAME} from 'infra-common/constants';
 
 type RouteMeta = {
     key: string;
@@ -17,20 +27,6 @@ type RouteMeta = {
 
 const navigationRoutesMeta: Array<RouteMeta> = [
     {
-        key: '/pages',
-        defaultKey: '/pages',
-        stateKey: 'pagesPath',
-        label: 'Pages',
-        Icon: LucideBookOpen
-    },
-    {
-        key: '/settings',
-        defaultKey: '/settings/website-url',
-        stateKey: 'settingsPath',
-        label: 'Settings',
-        Icon: LucideSettings
-    },
-    {
         key: '/new-page',
         defaultKey: '/new-page',
         stateKey: 'newPagePath',
@@ -39,13 +35,27 @@ const navigationRoutesMeta: Array<RouteMeta> = [
         isCommand: true,
     },
     {
+        key: '/pages',
+        defaultKey: '/pages',
+        stateKey: 'pagesPath',
+        label: 'Pages',
+        Icon: LucideBookOpen
+    },
+    {
         key: '/files',
         defaultKey: '/files',
         stateKey: 'filesPath',
         label: 'Files',
         Icon: LucideFiles,
         isCommand: true,
-    }
+    },
+    {
+        key: '/settings',
+        defaultKey: '/settings/website-url',
+        stateKey: 'settingsPath',
+        label: 'Settings',
+        Icon: LucideSettings
+    },
 ];
 
 function findRouteMeta(pathname: string): RouteMeta | undefined {
@@ -69,7 +79,12 @@ export function MainNavigation() {
     const mainNavigationCurrentPaths: Record<string, string> = getSessionState('mainNavigationCurrentPaths') || {};
 
     return (
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between items-center px-4 py-2">
+            <div className="flex flex-row gap-2 items-center">
+                <LucideLayoutDashboard className="w-5 h-5" />
+                <p className="text-xl">{PLATFORM_STACK_NAME}</p>
+            </div>
+            <div className="flex flex-row items-center">
             <NavigationMenu>
                 <NavigationMenuList>
                     {navigationRoutesMeta.map(navItem => {
@@ -92,6 +107,7 @@ export function MainNavigation() {
                 </NavigationMenuList>
             </NavigationMenu>
             <MainAccountNavigation/>
+            </div>
         </div>
     );
 }

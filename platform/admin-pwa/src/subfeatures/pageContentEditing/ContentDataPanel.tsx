@@ -184,7 +184,8 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
             const fieldsContents: Array<ContentDataField> = get(contentData, fieldPath, []) as Array<ContentDataField>;
             if (fieldsContents.length === 0) {
                 return (
-                    <div key={`firstField_${fieldClass.code}`} className="flex flex-row gap-2 items-center justify-between">
+                    <div key={`firstField_${fieldClass.code}`}
+                         className="flex flex-row gap-2 items-center justify-between">
                         <Label className="text-muted-foreground">
                             {fieldClass.label}
                         </Label>
@@ -323,31 +324,31 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
     };
 
     return (
-        <Card className="relative w-full h-full pt-6">
-            <CardContent className="h-full flex flex-col gap-2 relative">
-                {isDataConfigMode
-                    ? (
-                        <CodeEditorJson
-                            readOnly={isInAction}
-                            code={Content?.ContentDataConfig.S || ''}
-                            onSubmit={handleSubmitConfig}
-                            onCancel={() => setDataConfigMode(false)}
-                        />
-                    )
-                    : (
-                        <>
-                            <div className="absolute -top-[23px] right-[2px] z-10">
-                                <div>
-                                    <ButtonAction
-                                        variant="ghost"
-                                        className="rounded-full"
-                                        size="xs"
-                                        Icon={LucideSettings}
-                                        onClick={() => setDataConfigMode(true)}
-                                    />
+        <Card className="absolute top-0 right-0 left-0 bottom-0 overflow-hidden pt-6">
+            <ScrollArea className="grow h-full w-full">
+                <CardContent className="h-full flex flex-col gap-2 relative">
+                    {isDataConfigMode
+                        ? (
+                            <CodeEditorJson
+                                readOnly={isInAction}
+                                code={Content?.ContentDataConfig.S || ''}
+                                onSubmit={handleSubmitConfig}
+                                onCancel={() => setDataConfigMode(false)}
+                            />
+                        )
+                        : (
+                            <>
+                                <div className="absolute -top-[23px] right-[2px] z-10">
+                                    <div>
+                                        <ButtonAction
+                                            variant="ghost"
+                                            className="rounded-full"
+                                            size="xs"
+                                            Icon={LucideSettings}
+                                            onClick={() => setDataConfigMode(true)}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <ScrollArea className="grow h-full w-full pr-6">
                                 <div className="h-full w-full flex flex-col gap-4">
                                     {contentDataError && (
                                         <div>
@@ -379,14 +380,16 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                                                 );
                                             } else {
                                                 return (
-                                                    <div key={`block_${idx}_${blockClass.code}`} className="flex flex-col gap-4">
+                                                    <div key={`block_${idx}_${blockClass.code}`}
+                                                         className="flex flex-col gap-4">
                                                         {(blockContent as Array<ContentDataBlock>).map((blockItem, blockItemIndex) => {
                                                             return (
                                                                 <React.Fragment
                                                                     key={`block_${idx}_${blockClass.code}_${blockItemIndex}`}>
                                                                     <div
                                                                         className="flex flex-row gap-2 items-center justify-between">
-                                                                        <div className="flex flex-row gap-2 items-center">
+                                                                        <div
+                                                                            className="flex flex-row gap-2 items-center">
                                                                             <p className="text-sm text-muted-foreground">{blockClass.label}</p>
                                                                             <IndexPositionBadge
                                                                                 index={blockItemIndex}
@@ -445,11 +448,11 @@ export function ContentDataPanel(props: ContentDataPanelProps) {
                                         );
                                     })}
                                 </div>
-                            </ScrollArea>
-                        </>
-                    )
-                }
-            </CardContent>
+                            </>
+                        )
+                    }
+                </CardContent>
+            </ScrollArea>
         </Card>
     );
 }

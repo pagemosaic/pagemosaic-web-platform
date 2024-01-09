@@ -42,9 +42,9 @@ export function MetaPanel(props: MetaPanelProps) {
     };
 
     return (
-        <Card className="w-full h-full pt-6">
-            <CardContent className="h-full">
-                <ScrollArea className="h-full w-full pr-2">
+        <Card className="absolute top-0 right-0 left-0 bottom-0 overflow-hidden pt-6">
+            <ScrollArea className="h-full w-full">
+                <CardContent className="h-full">
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-col gap-2">
                             <Label htmlFor="MetaTitle">Page Title</Label>
@@ -84,8 +84,8 @@ export function MetaPanel(props: MetaPanelProps) {
                                                   fieldName="MetaDescription"/>
                         </div>
                     </div>
-                </ScrollArea>
-            </CardContent>
+                </CardContent>
+            </ScrollArea>
         </Card>
     );
 }
